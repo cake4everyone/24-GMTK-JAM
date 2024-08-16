@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf55qg3v5kp2t"]
+
+[ext_resource type="Texture2D" uid="uid://b87n5mteoi31a" path="res://platform.png" id="1_qqpnk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6ddd"]
+size = Vector2(107, 68)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1045.0
+offset_bottom = -580.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_qqpnk")
+patch_margin_left = 10
+patch_margin_top = 20
+patch_margin_right = 10
+patch_margin_bottom = 10
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(53.5, 34)
+shape = SubResource("RectangleShape2D_u6ddd")
