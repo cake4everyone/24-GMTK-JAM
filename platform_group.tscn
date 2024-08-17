@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://rdenkto77bwn"]
+[gd_scene load_steps=2 format=3 uid="uid://rdenkto77bwn"]
+
+[ext_resource type="Script" path="res://platform_group.gd" id="1_uo6pk"]
 
 [node name="PlatformGroup" type="Node"]
+script = ExtResource("1_uo6pk")

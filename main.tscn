@@ -2,9 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cmnrovymckqxo" path="res://player.tscn" id="1_pgydn"]
 [ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://platform.tscn" id="3_3hk51"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lsjvg"]
-size = Vector2(671, 83)
+[ext_resource type="PackedScene" uid="uid://rdenkto77bwn" path="res://platform_group.tscn" id="3_irmio"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -16,26 +14,62 @@ position = Vector2(226, 106)
 position = Vector2(0, -107)
 
 [node name="Sprite2D" parent="." instance=ExtResource("3_3hk51")]
-offset_left = 434.0
-offset_top = -161.0
-offset_right = 541.0
-offset_bottom = 201.0
+offset_left = 435.0
+offset_top = -310.0
+offset_right = 542.0
+offset_bottom = 215.0
+locked = true
 
 [node name="Marker2D" type="Marker2D" parent="Sprite2D"]
-position = Vector2(103, 197)
+position = Vector2(58, 129)
+
+[node name="Sprite2D2" parent="." instance=ExtResource("3_3hk51")]
+offset_left = -165.0
+offset_top = 137.0
+offset_right = 438.0
+offset_bottom = 216.0
+locked = true
+
+[node name="Marker2D" type="Marker2D" parent="Sprite2D2"]
+position = Vector2(58, 129)
 
 [node name="RigidBody2D" parent="." instance=ExtResource("3_3hk51")]
-offset_left = -169.0
-offset_top = -136.0
-offset_right = -62.0
-offset_bottom = 231.0
+offset_left = -168.0
+offset_top = -31.0
+offset_right = -61.0
+offset_bottom = 156.0
 
 [node name="Marker2D" type="Marker2D" parent="RigidBody2D"]
-position = Vector2(55, 185)
+position = Vector2(3, 186)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(231.75, 284)
+[node name="PlatformGroup" parent="." instance=ExtResource("3_irmio")]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-72.25, -8)
-shape = SubResource("RectangleShape2D_lsjvg")
+[node name="Control" parent="PlatformGroup" instance=ExtResource("3_3hk51")]
+offset_left = -309.0
+offset_top = -466.0
+offset_right = -1165.0
+offset_bottom = -957.0
+inverted = true
+
+[node name="Marker2D" type="Marker2D" parent="PlatformGroup/Control"]
+position = Vector2(117, 155)
+
+[node name="Control2" parent="PlatformGroup" instance=ExtResource("3_3hk51")]
+offset_left = 72.0
+offset_top = -463.0
+offset_right = -799.0
+offset_bottom = -954.0
+
+[node name="Marker2D" type="Marker2D" parent="PlatformGroup/Control2"]
+position = Vector2(140, 156)
+
+[node name="Control3" parent="PlatformGroup" instance=ExtResource("3_3hk51")]
+offset_left = 419.0
+offset_top = -461.0
+offset_right = -440.0
+offset_bottom = -959.0
+inverted = true
+locked = true
+
+[node name="Marker2D" type="Marker2D" parent="PlatformGroup/Control3"]
+position = Vector2(157, 147)

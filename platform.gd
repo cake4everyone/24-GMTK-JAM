@@ -18,6 +18,8 @@ func _get_configuration_warnings():
 	return warnings
 
 
+@export var inverted: bool
+@export var locked: bool
 var anchorPoint: Vector2
 
 var colShape: CollisionShape2D
@@ -84,7 +86,7 @@ func mouse_motion(event: InputEventMouseMotion):
 	var localPlayerPos = %Player.position - get_global_position()
 	var safeMargin = %Player.get_child(0).shape.size.x / 2
 
-	if localPlayerPos.x > 0 - safeMargin && localPlayerPos.y > -100 && localPlayerPos.x < rect.size.x + safeMargin && localPlayerPos.y < 20:
+	if locked || localPlayerPos.x > 0 - safeMargin && localPlayerPos.y > -100 && localPlayerPos.x < rect.size.x + safeMargin && localPlayerPos.y < 20:
 		deactivated = true
 	elif (localPlayerPos.x < 0 - safeMargin || localPlayerPos.y < -100 || localPlayerPos.x > rect.size.x + safeMargin || localPlayerPos.y > 20) && %Player.is_on_floor():
 		deactivated = false
@@ -141,6 +143,9 @@ func change_size(change: Vector2):
 	if resizeTop:
 		change.y = -change.y
 
+	if inverted:
+		change = -change
+
 	if not get_parent() is PlatformGroup:
 		set_new_change(validate_change(change))
 		return
@@ -149,13 +154,22 @@ func change_size(change: Vector2):
 	group.change_size(change)
 
 func validate_change(change: Vector2) -> Vector2:
+	if inverted:
+		change = -change
+
 	var newSize: Vector2 = get_size() + change
 	newSize.x = max(newSize.x, 3 * BORDER_SIZE)
 	newSize.y = max(newSize.y, 3 * BORDER_SIZE)
 
-	return newSize - get_size()
+	var newChange: Vector2 = newSize - get_size()
+	if inverted:
+		newChange = -newChange
+
+	return newChange
 
 func set_new_change(change: Vector2):
+	if inverted:
+		change = -change
 	set_size(get_size() + change)
 	set_position(get_position() - anchorPoint * change)
 
