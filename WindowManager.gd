@@ -46,7 +46,7 @@ func _ready():
 			continue
 		anchorPoint = child.position / get_size()
 
-func _process(_delta):
+func _physics_process(_delta):
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
 		change_size(%Player/Camera2D.get_screen_center_position() - camPreviousPos)
 		camPreviousPos = %Player/Camera2D.get_screen_center_position()
