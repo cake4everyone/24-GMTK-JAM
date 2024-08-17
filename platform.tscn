@@ -1,10 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cf55qg3v5kp2t"]
+[gd_scene load_steps=3 format=3 uid="uid://cf55qg3v5kp2t"]
 
 [ext_resource type="Texture2D" uid="uid://b87n5mteoi31a" path="res://platform.png" id="1_qqpnk"]
 [ext_resource type="Script" path="res://WindowManager.gd" id="1_xjdv1"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u6ddd"]
-size = Vector2(107, 68)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -36,7 +33,6 @@ axis_stretch_vertical = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(53.5, 34)
-shape = SubResource("RectangleShape2D_u6ddd")
 
 [node name="Mouse" type="Control" parent="."]
 layout_mode = 1

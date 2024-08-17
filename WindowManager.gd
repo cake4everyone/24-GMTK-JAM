@@ -15,6 +15,7 @@ const BORDER_SIZE := 10
 func _ready():
 	colShape = get_node("StaticBody2D/CollisionShape2D")
 	print("1: " + str(colShape))
+	colShape.shape = RectangleShape2D.new()
 	colShape.shape.size = Vector2(get_size().x, get_size().y)
 	colShape.global_position = Vector2(get_position().x + (get_size().x / 2), get_position().y + (get_size().y / 2))
 	print("2: " + str(colShape))
