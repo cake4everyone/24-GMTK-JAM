@@ -23,8 +23,6 @@ func _ready():
 	$Mouse.size = get_size() + Vector2(2 * BORDER_SIZE, 2 * BORDER_SIZE)
 
 func _process(_delta):
-	print("%s left: %s, right: %s, top: %s, bottom: %s" % [str(colShape), is_on_left_border(), is_on_right_border(), is_on_top_border(), is_on_bottom_border()])
-
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
 		var newSize: Vector2 = get_size()
 		var newPos: Vector2 = get_position()
@@ -58,25 +56,14 @@ func _input(event: InputEvent):
 	if event is InputEventMouseMotion:
 		mouse_motion(event)
 
-func mouse_button(event: InputEventMouse):
-	var rect: Rect2 = get_global_rect()
-	var localPlayerPos = %Player.position - get_global_position()
-
-	if localPlayerPos.x > 0 && localPlayerPos.y > -100 && localPlayerPos.x < rect.size.x && localPlayerPos.y < 20:
-		deactivated = true
-	elif (localPlayerPos.x < 0 || localPlayerPos.y < -100 || localPlayerPos.x > rect.size.x || localPlayerPos.y > 20) && %Player.is_on_floor():
-		deactivated = false
-
+func mouse_button(_event: InputEventMouse):
 	if Input.is_action_just_released("LeftMouseDown"):
 		resizeLeft = false
 		resizeRight = false
 		resizeTop = false
 		resizeBottom = false
-		
-	if deactivated:
-		return
-	
-	if Input.is_action_just_pressed("LeftMouseDown"):
+
+	if !deactivated && Input.is_action_just_pressed("LeftMouseDown"):
 		if is_on_right_border():
 			resizeRight = true
 			print(colShape, "right")
@@ -97,6 +84,15 @@ func mouse_button(event: InputEventMouse):
 			camPreviousPos = %Player/Camera2D.get_screen_center_position()
 
 func mouse_motion(event: InputEventMouseMotion):
+	var rect: Rect2 = get_global_rect()
+	var localPlayerPos = %Player.position - get_global_position()
+	var safeMargin = %Player.get_child(0).shape.size.x / 2
+
+	if localPlayerPos.x > 0 - safeMargin && localPlayerPos.y > -100 && localPlayerPos.x < rect.size.x + safeMargin && localPlayerPos.y < 20:
+		deactivated = true
+	elif (localPlayerPos.x < 0 - safeMargin || localPlayerPos.y < -100 || localPlayerPos.x > rect.size.x + safeMargin || localPlayerPos.y > 20) && %Player.is_on_floor():
+		deactivated = false
+
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
 		var newSize: Vector2 = get_size()
 		var newPos: Vector2 = get_position()
