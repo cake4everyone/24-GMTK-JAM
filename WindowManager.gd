@@ -1,4 +1,23 @@
+@tool
 extends Control
+
+func _get_configuration_warnings():
+	var warnings = []
+	var found_marker = false
+	for child in get_children():
+		if !(child is Marker2D):
+			continue
+		if found_marker:
+			warnings.append("There is already a child node of type 'Marker2D' as anchor.")
+		else:
+			found_marker = true
+		 
+	if !found_marker:
+		warnings.append("Node of type 'Marker2D' as anchor is missing.")
+	return warnings
+
+
+var anchorPoint: Vector2
 
 var colShape: CollisionShape2D
 
@@ -13,6 +32,7 @@ var deactivated := false
 const BORDER_SIZE := 10
 
 func _ready():
+	update_configuration_warnings()
 	colShape = get_node("StaticBody2D/CollisionShape2D")
 	colShape.global_position = get_position() + get_size() / 2
 	colShape.shape = RectangleShape2D.new()
@@ -20,6 +40,11 @@ func _ready():
 
 	$Mouse.position = Vector2(-BORDER_SIZE, -BORDER_SIZE)
 	$Mouse.size = get_size() + Vector2(2 * BORDER_SIZE, 2 * BORDER_SIZE)
+
+	for child in get_children():
+		if !(child is Marker2D):
+			continue
+		anchorPoint = child.position / get_size()
 
 func _process(_delta):
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
@@ -99,23 +124,24 @@ func is_on_bottom_border() -> bool:
 
 func change_size(change: Vector2):
 	var newSize: Vector2 = get_size()
-	var newPos: Vector2 = get_position()
-
-	if resizeRight:
-		newSize.x += change.x
-	if resizeBottom:
-		newSize.y += change.y
 
 	if resizeLeft:
 		newSize.x -= change.x
-		newPos.x += change.x
-		set_position(newPos)
-
+	if resizeRight:
+		newSize.x += change.x
 	if resizeTop:
 		newSize.y -= change.y
-		newPos.y += change.y
-		set_position(newPos)
+	if resizeBottom:
+		newSize.y += change.y
 
+	newSize.x = max(newSize.x, 2 * BORDER_SIZE)
+	newSize.y = max(newSize.y, 2 * BORDER_SIZE)
+
+	set_new_size(newSize)
+
+func set_new_size(newSize: Vector2):
+	set_position(get_position() + anchorPoint * (get_size() - newSize))
 	set_size(newSize)
+
 	colShape.shape.size = newSize
 	colShape.global_position = Vector2(get_position().x + (newSize.x / 2), get_position().y + (newSize.y / 2))
