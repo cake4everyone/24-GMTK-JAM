@@ -14,39 +14,16 @@ const BORDER_SIZE := 10
 
 func _ready():
 	colShape = get_node("StaticBody2D/CollisionShape2D")
-	print("1: " + str(colShape))
+	colShape.global_position = get_position() + get_size() / 2
 	colShape.shape = RectangleShape2D.new()
-	colShape.shape.size = Vector2(get_size().x, get_size().y)
-	colShape.global_position = Vector2(get_position().x + (get_size().x / 2), get_position().y + (get_size().y / 2))
-	print("2: " + str(colShape))
+	colShape.shape.size = get_size()
+
 	$Mouse.position = Vector2(-BORDER_SIZE, -BORDER_SIZE)
 	$Mouse.size = get_size() + Vector2(2 * BORDER_SIZE, 2 * BORDER_SIZE)
 
 func _process(_delta):
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
-		var newSize: Vector2 = get_size()
-		var newPos: Vector2 = get_position()
-
-		var camRelative: Vector2 = camPreviousPos - %Player/Camera2D.get_screen_center_position()
-
-		if resizeRight:
-			newSize.x -= camRelative.x
-		if resizeBottom:
-			newSize.y -= camRelative.y
-			
-		if resizeLeft:
-			newSize.x += camRelative.x
-			newPos.x -= camRelative.x
-			set_position(newPos)
-			
-		if resizeTop:
-			newSize.y += camRelative.y
-			newPos.y -= camRelative.y
-			set_position(newPos)
-
-		set_size(newSize)
-		colShape.shape.size = newSize
-		colShape.global_position = Vector2(get_position().x + (newSize.x / 2), get_position().y + (newSize.y / 2))
+		change_size(%Player/Camera2D.get_screen_center_position() - camPreviousPos)
 		camPreviousPos = %Player/Camera2D.get_screen_center_position()
 
 func _input(event: InputEvent):
@@ -57,31 +34,18 @@ func _input(event: InputEvent):
 		mouse_motion(event)
 
 func mouse_button(_event: InputEventMouse):
+	if !deactivated && Input.is_action_just_pressed("LeftMouseDown"):
+		resizeLeft = is_on_left_border()
+		resizeRight = is_on_right_border()
+		resizeTop = is_on_top_border()
+		resizeBottom = is_on_bottom_border()
+		camPreviousPos = %Player/Camera2D.get_screen_center_position()
+
 	if Input.is_action_just_released("LeftMouseDown"):
 		resizeLeft = false
 		resizeRight = false
 		resizeTop = false
 		resizeBottom = false
-
-	if !deactivated && Input.is_action_just_pressed("LeftMouseDown"):
-		if is_on_right_border():
-			resizeRight = true
-			print(colShape, "right")
-
-		if is_on_bottom_border():
-			resizeBottom = true
-			print(colShape, "bottom")
-
-		if is_on_left_border():
-			resizeLeft = true
-			print(colShape, "left")
-
-		if is_on_top_border():
-			resizeTop = true
-			print(colShape, "top")
-
-		if resizeRight || resizeLeft || resizeBottom || resizeTop:
-			camPreviousPos = %Player/Camera2D.get_screen_center_position()
 
 func mouse_motion(event: InputEventMouseMotion):
 	var rect: Rect2 = get_global_rect()
@@ -94,28 +58,7 @@ func mouse_motion(event: InputEventMouseMotion):
 		deactivated = false
 
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
-		var newSize: Vector2 = get_size()
-		var newPos: Vector2 = get_position()
-
-		if resizeRight:
-			newSize.x += event.relative.x
-		if resizeBottom:
-			newSize.y += event.relative.y
-
-		if resizeLeft:
-			newSize.x -= event.relative.x
-			newPos.x += event.relative.x
-			set_position(newPos)
-
-		if resizeTop:
-			newSize.y -= event.relative.y
-			newPos.y += event.relative.y
-			set_position(newPos)
-
-		set_size(newSize)
-		colShape.shape.size = newSize
-		colShape.global_position = Vector2(get_position().x + (newSize.x / 2), get_position().y + (newSize.y / 2))
-		#print(colShape)
+		change_size(event.relative)
 
 	if deactivated:
 		$Mouse.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN # X
@@ -153,3 +96,26 @@ func is_on_bottom_border() -> bool:
 	var pos: Vector2 = get_local_mouse_position()
 
 	return pos.x >= -BORDER_SIZE && pos.x <= rect.size.x + BORDER_SIZE && pos.y >= rect.size.y - BORDER_SIZE && pos.y <= rect.size.y + BORDER_SIZE
+
+func change_size(change: Vector2):
+	var newSize: Vector2 = get_size()
+	var newPos: Vector2 = get_position()
+
+	if resizeRight:
+		newSize.x += change.x
+	if resizeBottom:
+		newSize.y += change.y
+
+	if resizeLeft:
+		newSize.x -= change.x
+		newPos.x += change.x
+		set_position(newPos)
+
+	if resizeTop:
+		newSize.y -= change.y
+		newPos.y += change.y
+		set_position(newPos)
+
+	set_size(newSize)
+	colShape.shape.size = newSize
+	colShape.global_position = Vector2(get_position().x + (newSize.x / 2), get_position().y + (newSize.y / 2))
