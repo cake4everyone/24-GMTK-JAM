@@ -1,5 +1,6 @@
 @tool
 extends Control
+class_name Platform
 
 func _get_configuration_warnings():
 	var warnings = []
@@ -28,7 +29,7 @@ var resizeTop: bool
 var resizeBottom: bool
 
 var deactivated := false
-var mouse_inside : bool
+var mouse_inside: bool
 
 const BORDER_SIZE := 10
 
@@ -90,7 +91,7 @@ func mouse_motion(event: InputEventMouseMotion):
 
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
 		change_size(event.relative)
-		if(!$Lock.is_visible()):
+		if !$Lock.is_visible():
 			$Lock.show()
 
 	if deactivated:
@@ -131,30 +132,35 @@ func is_on_bottom_border() -> bool:
 	return pos.x >= -BORDER_SIZE && pos.x <= rect.size.x + BORDER_SIZE && pos.y >= rect.size.y - BORDER_SIZE && pos.y <= rect.size.y + BORDER_SIZE
 
 func change_size(change: Vector2):
-	var newSize: Vector2 = get_size()
-
+	if !(resizeLeft || resizeRight):
+		change.x = 0
+	if !(resizeTop || resizeBottom):
+		change.y = 0
 	if resizeLeft:
-		newSize.x -= change.x
-	if resizeRight:
-		newSize.x += change.x
+		change.x = -change.x
 	if resizeTop:
-		newSize.y -= change.y
-	if resizeBottom:
-		newSize.y += change.y
+		change.y = -change.y
 
-	newSize.x = max(newSize.x, 2 * BORDER_SIZE)
-	newSize.y = max(newSize.y, 2 * BORDER_SIZE)
+	if not get_parent() is PlatformGroup:
+		set_new_change(validate_change(change))
+		return
 
-	set_new_size(newSize)
+	var group: PlatformGroup = get_parent()
+	group.change_size(change)
 
-func set_new_size(newSize: Vector2):
-	set_position(get_position() + anchorPoint * (get_size() - newSize))
-	set_size(newSize)
+func validate_change(change: Vector2) -> Vector2:
+	var newSize: Vector2 = get_size() + change
+	newSize.x = max(newSize.x, 3 * BORDER_SIZE)
+	newSize.y = max(newSize.y, 3 * BORDER_SIZE)
 
-	colShape.shape.size = newSize
-	colShape.global_position = Vector2(get_position().x + (newSize.x / 2), get_position().y + (newSize.y / 2))
+	return newSize - get_size()
 
+func set_new_change(change: Vector2):
+	set_size(get_size() + change)
+	set_position(get_position() - anchorPoint * change)
 
+	colShape.shape.size = get_size()
+	colShape.global_position = get_position() + get_size() / 2
 
 func _on_mouse_mouse_entered():
 	mouse_inside = true
