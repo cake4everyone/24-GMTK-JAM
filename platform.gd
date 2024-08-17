@@ -32,16 +32,15 @@ var resizeBottom: bool
 
 var deactivated := false
 var enabled := true
-var mouse_inside : bool
+var mouse_inside: bool
 
 const BORDER_SIZE := 10
 
 func _ready():
 	update_configuration_warnings()
 	colShape = get_node("StaticBody2D/CollisionShape2D")
-	colShape.global_position = get_position() + get_size() / 2
 	colShape.shape = RectangleShape2D.new()
-	colShape.shape.size = get_size()
+	update_collider_size()
 
 	$Mouse.position = Vector2(-BORDER_SIZE, -BORDER_SIZE)
 	$Mouse.size = get_size() + Vector2(2 * BORDER_SIZE, 2 * BORDER_SIZE)
@@ -50,6 +49,10 @@ func _ready():
 		if !(child is Marker2D):
 			continue
 		anchorPoint = child.position / get_size()
+
+func update_collider_size():
+	colShape.position = get_size() / 2
+	colShape.shape.size = get_size()
 
 func _physics_process(_delta):
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
@@ -62,7 +65,7 @@ func _physics_process(_delta):
 	
 	if locked || !enabled || localPlayerPos.x > 0 - safeMargin && localPlayerPos.y > -100 && localPlayerPos.x < rect.size.x + safeMargin && localPlayerPos.y < 20:
 		deactivated = true
-	elif (localPlayerPos.x < 0 - safeMargin || localPlayerPos.y < -100 || localPlayerPos.x > rect.size.x + safeMargin || localPlayerPos.y > 20 ) && enabled && %Player.is_on_floor():
+	elif (localPlayerPos.x < 0 - safeMargin || localPlayerPos.y < -100 || localPlayerPos.x > rect.size.x + safeMargin || localPlayerPos.y > 20) && enabled && %Player.is_on_floor():
 		deactivated = false
 		
 func _process(_delta):
@@ -99,11 +102,6 @@ func mouse_button(_event: InputEventMouse):
 		resizeBottom = false
 
 func mouse_motion(event: InputEventMouseMotion):
-	var rect: Rect2 = get_global_rect()
-	var localPlayerPos = %Player.position - get_global_position()
-	var safeMargin = %Player.get_child(0).shape.size.x / 2
-
-
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
 		change_size(event.relative)
 		if !$Lock.is_visible():
@@ -188,8 +186,7 @@ func set_new_change(change: Vector2):
 	set_size(get_size() + change)
 	set_position(get_position() - anchorPoint * change)
 
-	colShape.shape.size = get_size()
-	colShape.global_position = get_position() + get_size() / 2
+	update_collider_size()
 
 func _on_mouse_mouse_entered():
 	mouse_inside = true
