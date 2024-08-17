@@ -1,5 +1,4 @@
 extends CharacterBody2D
-@onready var rangeHitbox = $Range
 
 const SPEED = 300.0
 const ACCELERATION = 30
