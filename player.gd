@@ -7,7 +7,8 @@ const ACCELERATION = 50
 const WALL_JUMP_PUSHBACK = 500
 const WALL_SLIDE_FRICTION = 100
 
-var sliding = false
+var slidingr = false
+var slidingl = false
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -40,32 +41,48 @@ func input():
 func jump():
 	if is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	elif doubleJump && !sliding:
+	elif doubleJump && !slidingr || doubleJump && !slidingl:
 		velocity.y = JUMP_VELOCITY * 0.8
 		doubleJump = false
 
-	if sliding && Input.is_action_pressed("ui_left"):
+	if slidingl:
 		velocity.y = JUMP_VELOCITY * 0.7
 		velocity.x = WALL_JUMP_PUSHBACK
 		
-	if sliding && Input.is_action_pressed("ui_right"):
+	if slidingr:
 		velocity.y = JUMP_VELOCITY * 0.7
 		velocity.x = -WALL_JUMP_PUSHBACK
 		
 func slide(delta):
+
 	if is_on_wall() && !is_on_floor():
-		if Input.is_action_pressed("ui_right") || Input.is_action_pressed("ui_left"):
-			sliding = true
+		if check_for_wall("l"):
+			slidingl = true
+		elif check_for_wall("r"):
+			slidingr = true
 		else:
 			slide_cooldown()
 	else: 
 		slide_cooldown()
 		
-	if sliding:
+	if slidingl || slidingr:
 		velocity.y += WALL_SLIDE_FRICTION * delta
 		velocity.y = min(velocity.y, WALL_SLIDE_FRICTION)
 		
 func slide_cooldown():
 	await get_tree().create_timer(0.05).timeout
-	sliding = false
+	slidingl = false
+	slidingr = false
 	
+func check_for_wall(d):
+	if d == "l":
+		for body in $Left.get_overlapping_bodies():
+			if body is StaticBody2D:
+				return true
+		return false
+	elif d == "r":
+		for body in $Right.get_overlapping_bodies():
+			if body is StaticBody2D:
+				return true
+		return false
+	return
