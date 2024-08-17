@@ -41,7 +41,7 @@ func input():
 func jump():
 	if is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	elif doubleJump && !slidingr || doubleJump && !slidingl:
+	elif doubleJump && !slidingr && !slidingl:
 		velocity.y = JUMP_VELOCITY * 0.8
 		doubleJump = false
 
