@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -1500.0
-const ACCELERATION = 50
+const ACCELERATION = 30
 
 const WALL_JUMP_PUSHBACK = 500
 const WALL_SLIDE_FRICTION = 100
@@ -17,7 +17,7 @@ var doubleJump := true
 func _physics_process(delta):
 	var input_dir: Vector2 = input()
 	
-	if(input_dir != Vector2.ZERO):
+	if input_dir != Vector2.ZERO:
 		velocity = velocity.move_toward(SPEED * input_dir, ACCELERATION)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, ACCELERATION)
@@ -34,7 +34,7 @@ func _physics_process(delta):
 func input():
 	var input_dir = Vector2.ZERO
 	
-	input_dir.x = Input.get_axis("ui_left","ui_right")
+	input_dir.x = Input.get_axis("ui_left", "ui_right")
 	input_dir = input_dir.normalized()
 	return input_dir
 	
@@ -62,7 +62,7 @@ func slide(delta):
 			slidingr = true
 		else:
 			slide_cooldown()
-	else: 
+	else:
 		slide_cooldown()
 		
 	if slidingl || slidingr:
