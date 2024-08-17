@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cmnrovymckqxo" path="res://player.tscn" id="1_pgydn"]
 [ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://platform.tscn" id="3_3hk51"]
-[ext_resource type="PackedScene" uid="uid://rdenkto77bwn" path="res://platform_group.tscn" id="3_irmio"]
+[ext_resource type="PackedScene" path="res://platform_group.tscn" id="3_irmio"]
 
 [node name="Node2D" type="Node2D"]
 

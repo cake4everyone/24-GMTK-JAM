@@ -31,7 +31,8 @@ var resizeTop: bool
 var resizeBottom: bool
 
 var deactivated := false
-var mouse_inside: bool
+var enabled := true
+var mouse_inside : bool
 
 const BORDER_SIZE := 10
 
@@ -55,8 +56,24 @@ func _physics_process(_delta):
 		change_size(%Player/Camera2D.get_screen_center_position() - camPreviousPos)
 		camPreviousPos = %Player/Camera2D.get_screen_center_position()
 		
+	var rect: Rect2 = get_global_rect()
+	var safeMargin = %Player.get_child(0).shape.size.x / 2 + 10
+	var localPlayerPos = %Player.position - get_global_position()
+	
+	if locked || !enabled || localPlayerPos.x > 0 - safeMargin && localPlayerPos.y > -100 && localPlayerPos.x < rect.size.x + safeMargin && localPlayerPos.y < 20:
+		deactivated = true
+	elif (localPlayerPos.x < 0 - safeMargin || localPlayerPos.y < -100 || localPlayerPos.x > rect.size.x + safeMargin || localPlayerPos.y > 20 ) && enabled && %Player.is_on_floor():
+		deactivated = false
+		
 func _process(_delta):
 	$Lock.position = get_size() * anchorPoint
+	
+	if deactivated || !enabled:
+		$"Deactive-Sprite".show()
+		$"Active-Sprite".hide()
+	else:
+		$"Deactive-Sprite".hide()
+		$"Active-Sprite".show()
 
 func _input(event: InputEvent):
 	if event is InputEventMouseButton:
@@ -86,10 +103,6 @@ func mouse_motion(event: InputEventMouseMotion):
 	var localPlayerPos = %Player.position - get_global_position()
 	var safeMargin = %Player.get_child(0).shape.size.x / 2
 
-	if locked || localPlayerPos.x > 0 - safeMargin && localPlayerPos.y > -100 && localPlayerPos.x < rect.size.x + safeMargin && localPlayerPos.y < 20:
-		deactivated = true
-	elif (localPlayerPos.x < 0 - safeMargin || localPlayerPos.y < -100 || localPlayerPos.x > rect.size.x + safeMargin || localPlayerPos.y > 20) && %Player.is_on_floor():
-		deactivated = false
 
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
 		change_size(event.relative)
@@ -134,6 +147,8 @@ func is_on_bottom_border() -> bool:
 	return pos.x >= -BORDER_SIZE && pos.x <= rect.size.x + BORDER_SIZE && pos.y >= rect.size.y - BORDER_SIZE && pos.y <= rect.size.y + BORDER_SIZE
 
 func change_size(change: Vector2):
+	if deactivated:
+		return
 	if !(resizeLeft || resizeRight):
 		change.x = 0
 	if !(resizeTop || resizeBottom):
@@ -182,3 +197,6 @@ func _on_mouse_mouse_entered():
 func _on_mouse_mouse_exited():
 	mouse_inside = false
 	$Lock.hide()
+
+func _enable(en):
+	enabled = en

@@ -1,8 +1,9 @@
 extends CharacterBody2D
+@onready var rangeHitbox = $Range
 
 const SPEED = 300.0
-const JUMP_VELOCITY = -1500.0
 const ACCELERATION = 30
+const JUMP_VELOCITY = -1200.0
 
 const WALL_JUMP_PUSHBACK = 500
 const WALL_SLIDE_FRICTION = 100
@@ -27,9 +28,22 @@ func _physics_process(delta):
 		jump()
 	if is_on_floor():
 		doubleJump = true
+		
+	for body in $Range.get_overlapping_bodies():
+		if body is StaticBody2D && body.has_method("enable"):
+			body.enable(true)
+		
+		if check_for_wall("l") is StaticBody2D && slidingl:
+			if body == check_for_wall("l"):
+				body.enable(false)
+				
+		if check_for_wall("r") is StaticBody2D && slidingr:
+			if body == check_for_wall("r"):
+				body.enable(false)
 	
 	slide(delta)
 	move_and_slide()
+	
 	
 func input():
 	var input_dir = Vector2.ZERO
@@ -54,16 +68,17 @@ func jump():
 		velocity.x = -WALL_JUMP_PUSHBACK
 		
 func slide(delta):
-
 	if is_on_wall() && !is_on_floor():
-		if check_for_wall("l"):
+		if check_for_wall("l") is StaticBody2D:
 			slidingl = true
-		elif check_for_wall("r"):
+		elif check_for_wall("r") is StaticBody2D:
 			slidingr = true
 		else:
 			slide_cooldown()
 	else:
 		slide_cooldown()
+		
+		
 		
 	if slidingl || slidingr:
 		velocity.y += WALL_SLIDE_FRICTION * delta
@@ -78,11 +93,12 @@ func check_for_wall(d):
 	if d == "l":
 		for body in $Left.get_overlapping_bodies():
 			if body is StaticBody2D:
-				return true
+				return body
 		return false
 	elif d == "r":
 		for body in $Right.get_overlapping_bodies():
 			if body is StaticBody2D:
-				return true
+				return body
 		return false
 	return
+
