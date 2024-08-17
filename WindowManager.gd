@@ -28,6 +28,7 @@ var resizeTop: bool
 var resizeBottom: bool
 
 var deactivated := false
+var mouse_inside : bool
 
 const BORDER_SIZE := 10
 
@@ -50,6 +51,9 @@ func _physics_process(_delta):
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
 		change_size(%Player/Camera2D.get_screen_center_position() - camPreviousPos)
 		camPreviousPos = %Player/Camera2D.get_screen_center_position()
+		
+func _process(delta):
+	$Lock.position = get_size() * anchorPoint
 
 func _input(event: InputEvent):
 	if event is InputEventMouseButton:
@@ -67,6 +71,8 @@ func mouse_button(_event: InputEventMouse):
 		camPreviousPos = %Player/Camera2D.get_screen_center_position()
 
 	if Input.is_action_just_released("LeftMouseDown"):
+		if mouse_inside == false:
+			$Lock.hide()
 		resizeLeft = false
 		resizeRight = false
 		resizeTop = false
@@ -84,6 +90,8 @@ func mouse_motion(event: InputEventMouseMotion):
 
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
 		change_size(event.relative)
+		if(!$Lock.is_visible()):
+			$Lock.show()
 
 	if deactivated:
 		$Mouse.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN # X
@@ -145,3 +153,12 @@ func set_new_size(newSize: Vector2):
 
 	colShape.shape.size = newSize
 	colShape.global_position = Vector2(get_position().x + (newSize.x / 2), get_position().y + (newSize.y / 2))
+
+
+
+func _on_mouse_mouse_entered():
+	mouse_inside = true
+	$Lock.show()
+func _on_mouse_mouse_exited():
+	mouse_inside = false
+	$Lock.hide()

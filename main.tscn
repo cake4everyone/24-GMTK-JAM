@@ -13,12 +13,13 @@ unique_name_in_owner = true
 position = Vector2(226, 106)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, -107)
 
 [node name="Sprite2D" parent="." instance=ExtResource("3_3hk51")]
-offset_left = 284.0
-offset_top = -124.0
-offset_right = 391.0
-offset_bottom = 238.0
+offset_left = 434.0
+offset_top = -161.0
+offset_right = 541.0
+offset_bottom = 201.0
 
 [node name="Marker2D" type="Marker2D" parent="Sprite2D"]
 position = Vector2(103, 197)
@@ -30,7 +31,7 @@ offset_right = -62.0
 offset_bottom = 231.0
 
 [node name="Marker2D" type="Marker2D" parent="RigidBody2D"]
-position = Vector2(0, 189)
+position = Vector2(55, 185)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(231.75, 284)
