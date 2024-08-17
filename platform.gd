@@ -53,7 +53,7 @@ func _physics_process(_delta):
 		change_size(%Player/Camera2D.get_screen_center_position() - camPreviousPos)
 		camPreviousPos = %Player/Camera2D.get_screen_center_position()
 		
-func _process(delta):
+func _process(_delta):
 	$Lock.position = get_size() * anchorPoint
 
 func _input(event: InputEvent):
