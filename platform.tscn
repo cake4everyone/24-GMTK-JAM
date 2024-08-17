@@ -3,6 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://b87n5mteoi31a" path="res://platform.png" id="1_qqpnk"]
 [ext_resource type="Script" path="res://WindowManager.gd" id="1_xjdv1"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t02qf"]
+size = Vector2(107, 68)
+
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -34,13 +37,16 @@ axis_stretch_vertical = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 visible = false
 position = Vector2(53.5, 34)
+shape = SubResource("RectangleShape2D_t02qf")
 
 [node name="Mouse" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -107.0
-offset_bottom = -68.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2

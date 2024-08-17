@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://platform.tscn" id="3_3hk51"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lsjvg"]
-size = Vector2(671, 83)
+size = Vector2(142.5, 83)
 
 [node name="Node2D" type="Node2D"]
 
@@ -21,20 +21,20 @@ offset_right = 391.0
 offset_bottom = 238.0
 
 [node name="Marker2D" type="Marker2D" parent="Sprite2D"]
-position = Vector2(103, 197)
+position = Vector2(54, 34)
 
 [node name="RigidBody2D" parent="." instance=ExtResource("3_3hk51")]
-offset_left = -169.0
-offset_top = -136.0
-offset_right = -62.0
-offset_bottom = 231.0
+offset_left = 57.0
+offset_top = -129.0
+offset_right = 164.0
+offset_bottom = 238.0
 
 [node name="Marker2D" type="Marker2D" parent="RigidBody2D"]
-position = Vector2(0, 189)
+position = Vector2(107, 67)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(231.75, 284)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(-72.25, -8)
+position = Vector2(-15.75, -8)
 shape = SubResource("RectangleShape2D_lsjvg")
