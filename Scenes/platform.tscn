@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dkawu7361s7iy" path="res://Assets/tiles.png" id="4_pjthb"]
 [ext_resource type="Texture2D" uid="uid://cgckwdrjfycei" path="res://Assets/Lock.png" id="5_yon38"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mc28w"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uo5nn"]
 size = Vector2(107, 68)
 
 [sub_resource type="AudioStreamWAV" id="AudioStreamWAV_bskgt"]
@@ -46,7 +46,7 @@ axis_stretch_vertical = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(53.5, 34)
-shape = SubResource("RectangleShape2D_mc28w")
+shape = SubResource("RectangleShape2D_uo5nn")
 
 [node name="Mouse" type="Control" parent="."]
 layout_mode = 1

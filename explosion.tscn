@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpddux4arrydm"]
+
+[sub_resource type="Curve" id="Curve_hvep5"]
+_data = [Vector2(0, 0.857143), 0.0, 0.0, 0, 0, Vector2(1, 0.153846), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_jgol3"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Explosion" type="Node2D"]
+
+[node name="Explosion" type="CPUParticles2D" parent="."]
+amount = 100
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_max = 3.0
+scale_amount_curve = SubResource("Curve_hvep5")
+color = Color(0.380392, 0.152941, 0, 1)
+hue_variation_curve = SubResource("Curve_jgol3")

@@ -77,10 +77,9 @@ unique_name_in_owner = true
 position = Vector2(226, 106)
 
 [node name="Vignette" type="Sprite2D" parent="Camera2D"]
-visible = false
 z_index = 1
 material = SubResource("ShaderMaterial_nbdyj")
-scale = Vector2(1.15, 1.15)
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("6_yvlyi")
 
 [node name="TestPlatform" parent="." instance=ExtResource("2_yan4d")]

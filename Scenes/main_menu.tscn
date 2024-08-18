@@ -129,7 +129,6 @@ text = "QUIT"
 visible = false
 
 [node name="CreditsLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Panel2" type="Panel" parent="CreditsLayer"]
 anchors_preset = 15
@@ -177,6 +176,7 @@ offset_bottom = 121.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rhuhu")
+horizontal_scroll_mode = 0
 
 [node name="Label" type="Label" parent="CreditsLayer/ScrollContainer"]
 layout_mode = 2
@@ -191,6 +191,9 @@ Nicolix
 Free used Assets:
 
 Font: \"PublicPixel\" -  Mikiz
+
+Player Character: \"Tiny 
+Hero Sprites\" - craftpix.net
 
 
 This Game was made during the 

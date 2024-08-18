@@ -9,6 +9,7 @@ const WALL_SLIDE_FRICTION = 100
 
 var slidingr = false
 var slidingl = false
+var facingR = true
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -31,12 +32,14 @@ func _physics_process(delta):
 		velocity = velocity.move_toward(SPEED * input_dir, ACCELERATION)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, ACCELERATION)
+		
 
 	velocity.y += gravity
 	if Input.is_action_just_pressed("ui_accept"):
 		jump()
 	if is_on_floor():
 		doubleJump = true
+
 
 	for body in $Range.get_overlapping_bodies():
 		if body.get_parent() is Platform && is_on_floor():
@@ -47,6 +50,8 @@ func _physics_process(delta):
 
 	slide(delta)
 	move_and_slide()
+	animate(input_dir)
+	
 
 func input():
 	var input_dir = Vector2.ZERO
@@ -97,6 +102,25 @@ func check_for_wall() -> Node2D:
 			slidingr = true
 			return body
 	return null
+
+func animate(input_dir):
+	if !is_on_floor():
+		if slidingl || slidingr:
+			$Animations.play("slide")
+		elif velocity.y < 0:
+			$Animations.play("jump_up")
+		else:
+			$Animations.play("fall")
+
+	if velocity.x != 0 && is_on_floor():
+		$Animations.play("walk")
+		
+	if input_dir.x == 1 || slidingr:
+		$Sprite2D.scale.x = 2
+	elif input_dir.x == -1 || slidingl:
+		$Sprite2D.scale.x = -2
+	elif is_on_floor():
+		$Animations.play("idle")
 
 func _on_range_body_exited(body):
 	if body is StaticBody2D && body.get_parent() is Platform:
