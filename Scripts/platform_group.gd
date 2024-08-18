@@ -13,6 +13,8 @@ func _get_configuration_warnings() -> PackedStringArray:
 		warnings.append("The node '%s' is of type '%s'. PlatformGroup only accepts type 'Platform'." % [child.name, child.get_class()])
 	return warnings
 
+@export var color: Color
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass

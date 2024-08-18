@@ -22,6 +22,7 @@ func _get_configuration_warnings():
 @onready var Player = %Player
 @onready var Player_Camera = %Player/Camera2D
 var anchorPoint: Vector2
+var color: Color = Color.WHITE
 
 var colShape: CollisionShape2D
 
@@ -51,6 +52,9 @@ func _ready():
 		if !(child is Marker2D):
 			continue
 		anchorPoint = child.position / get_size()
+	
+	if get_parent() is PlatformGroup:
+		color = get_parent().color
 
 func update_collider_size():
 	colShape.position = get_size() / 2
@@ -72,12 +76,10 @@ func _physics_process(_delta):
 func _process(_delta):
 	$Lock.position = get_size() * anchorPoint
 
-	if deactivated || !enabled:
-		$"Deactive-Sprite".show()
-		$"Active-Sprite".hide()
+	if deactivated:
+		$Sprite.self_modulate = color.darkened(0.75)
 	else:
-		$"Deactive-Sprite".hide()
-		$"Active-Sprite".show()
+		$Sprite.self_modulate = color
 
 func _input(event: InputEvent):
 	if event is InputEventMouseButton:

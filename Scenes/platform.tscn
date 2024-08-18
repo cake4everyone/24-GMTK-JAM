@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cf55qg3v5kp2t"]
+[gd_scene load_steps=7 format=3 uid="uid://cf55qg3v5kp2t"]
 
 [ext_resource type="Script" path="res://Scripts/platform.gd" id="1_xjdv1"]
-[ext_resource type="Texture2D" uid="uid://b87n5mteoi31a" path="res://Assets/platform.png" id="2_c7v1m"]
-[ext_resource type="Texture2D" uid="uid://bmidh81shekve" path="res://Assets/platform-off.png" id="3_aa84i"]
+[ext_resource type="Texture2D" uid="uid://dkawu7361s7iy" path="res://Assets/tiles.png" id="4_pjthb"]
 [ext_resource type="Texture2D" uid="uid://cgckwdrjfycei" path="res://Assets/Lock.png" id="5_yon38"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yl0na"]
@@ -26,34 +25,20 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xjdv1")
 
-[node name="Active-Sprite" type="NinePatchRect" parent="."]
-visible = false
+[node name="Sprite" type="NinePatchRect" parent="."]
+self_modulate = Color(0, 0, 0, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_c7v1m")
-patch_margin_left = 10
-patch_margin_top = 20
-patch_margin_right = 10
-patch_margin_bottom = 10
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-
-[node name="Deactive-Sprite" type="NinePatchRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("3_aa84i")
-patch_margin_left = 10
-patch_margin_top = 20
-patch_margin_right = 10
-patch_margin_bottom = 10
+texture = ExtResource("4_pjthb")
+region_rect = Rect2(0, 48, 48, 48)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
