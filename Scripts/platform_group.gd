@@ -24,9 +24,9 @@ func _process(_delta):
 	pass
 
 func change_size(change: Vector2):
-	for child in get_children():
+	for child: Platform in get_children():
 		change = child.validate_change(change)
-		if change == Vector2.ZERO: return
+		if change.is_zero_approx(): return
 
-	for child in get_children():
+	for child: Platform in get_children():
 		child.set_new_change(change)

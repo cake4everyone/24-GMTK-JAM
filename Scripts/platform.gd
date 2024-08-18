@@ -22,6 +22,7 @@ func _get_configuration_warnings():
 @onready var Player = %Player
 @onready var Camera = %Camera2D
 var anchorPoint: Vector2
+var group
 var color: Color = Color.WHITE
 
 var colShape: CollisionShape2D
@@ -55,7 +56,10 @@ func _ready():
 		anchorPoint = child.position / get_size()
 
 	if get_parent() is PlatformGroup:
-		color = get_parent().color
+		group = get_parent()
+		color = group.color
+	else:
+		group = self
 
 func update_collider_size():
 	colShape.position = get_size() / 2
@@ -66,7 +70,7 @@ func _physics_process(_delta):
 	if Player == null: return
 
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
-		change_size(Camera.get_screen_center_position() - camPreviousPos)
+		add_change(Camera.get_screen_center_position() - camPreviousPos)
 		camPreviousPos = Camera.get_screen_center_position()
 
 	if locked || !enabled:
@@ -75,7 +79,8 @@ func _physics_process(_delta):
 		deactivated = false
 
 	if !pending_change.is_zero_approx():
-		change_pending_size()
+		print("child parent: %s pending change: %s" % [get_parent(), pending_change])
+		group.change_size(pending_change)
 		pending_change = Vector2.ZERO
 
 func _process(_delta):
@@ -111,7 +116,7 @@ func mouse_button(_event: InputEventMouse):
 
 func mouse_motion(event: InputEventMouseMotion):
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
-		change_size(event.relative)
+		add_change(event.relative)
 		if !$Lock.is_visible():
 			$Lock.show()
 
@@ -152,7 +157,7 @@ func is_on_bottom_border() -> bool:
 
 	return pos.x >= -BORDER_SIZE && pos.x <= rect.size.x + BORDER_SIZE && pos.y >= rect.size.y - BORDER_SIZE && pos.y <= rect.size.y + BORDER_SIZE
 
-func change_size(change: Vector2):
+func add_change(change: Vector2):
 	if deactivated || change == Vector2.ZERO:
 		return
 	if !(resizeLeft || resizeRight):
@@ -169,13 +174,13 @@ func change_size(change: Vector2):
 
 	pending_change += change
 
-func change_pending_size():
-	if not get_parent() is PlatformGroup:
-		set_new_change(validate_change(pending_change))
-		return
-
-	var group: PlatformGroup = get_parent()
-	group.change_size(pending_change)
+## Request to change size. Only called when this platform is in no group. If this platform has a
+## group the group's [change_size] method is called instead. Which does basically the same, but for
+## each child instead.
+func change_size(change: Vector2):
+	change = validate_change(change)
+	if change.is_zero_approx(): return
+	set_new_change(change)
 
 func validate_change(change: Vector2) -> Vector2:
 	if inverted:
