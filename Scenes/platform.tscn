@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://cf55qg3v5kp2t"]
 
-[ext_resource type="Texture2D" uid="uid://b87n5mteoi31a" path="res://platform.png" id="1_qqpnk"]
-[ext_resource type="Script" path="res://platform.gd" id="1_xjdv1"]
-[ext_resource type="Texture2D" uid="uid://cgckwdrjfycei" path="res://Lock.png" id="3_o3qrc"]
-[ext_resource type="Texture2D" uid="uid://bmidh81shekve" path="res://platform-off.png" id="3_xnk3w"]
-[ext_resource type="Script" path="res://Enable.gd" id="4_pdikt"]
+[ext_resource type="Script" path="res://Scripts/platform.gd" id="1_xjdv1"]
+[ext_resource type="Texture2D" uid="uid://b87n5mteoi31a" path="res://Assets/platform.png" id="2_c7v1m"]
+[ext_resource type="Texture2D" uid="uid://bmidh81shekve" path="res://Assets/platform-off.png" id="3_aa84i"]
+[ext_resource type="Script" path="res://Scripts/Enable.gd" id="4_crm01"]
+[ext_resource type="Texture2D" uid="uid://cgckwdrjfycei" path="res://Assets/Lock.png" id="5_yon38"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_djdlx"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y3y5d"]
 size = Vector2(107, 68)
 
 [node name="Control" type="Control"]
@@ -27,7 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_qqpnk")
+texture = ExtResource("2_c7v1m")
 patch_margin_left = 10
 patch_margin_top = 20
 patch_margin_right = 10
@@ -43,7 +43,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_xnk3w")
+texture = ExtResource("3_aa84i")
 patch_margin_left = 10
 patch_margin_top = 20
 patch_margin_right = 10
@@ -52,11 +52,11 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-script = ExtResource("4_pdikt")
+script = ExtResource("4_crm01")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(53.5, 34)
-shape = SubResource("RectangleShape2D_djdlx")
+shape = SubResource("RectangleShape2D_y3y5d")
 
 [node name="Mouse" type="Control" parent="."]
 layout_mode = 1
@@ -72,7 +72,7 @@ grow_vertical = 2
 
 [node name="Lock" type="Sprite2D" parent="."]
 visible = false
-texture = ExtResource("3_o3qrc")
+texture = ExtResource("5_yon38")
 
 [connection signal="Disable" from="StaticBody2D" to="." method="_disable"]
 [connection signal="Enable" from="StaticBody2D" to="." method="_enable"]
