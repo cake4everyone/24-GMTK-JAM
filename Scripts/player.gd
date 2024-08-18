@@ -65,19 +65,12 @@ func jump():
 		velocity.x = -WALL_JUMP_PUSHBACK
 
 func slide(delta):
-	if !is_on_floor():
-		if check_for_wall("l") is StaticBody2D:
-			var body = check_for_wall("l")
-			slidingl = true
-			body.get_parent().enabled = false
-		elif check_for_wall("r") is StaticBody2D:
-			var body = check_for_wall("r")
-			slidingr = true
-			body.get_parent().enabled = false
-		else:
-			slide_cooldown()
-	else:
+	var wall: Node2D = check_for_wall()
+	if is_on_floor() || !wall:
 		slide_cooldown()
+		return
+	if wall.get_parent() is Platform:
+		wall.get_parent().enabled = false
 
 	if slidingl || slidingr:
 		velocity.y += WALL_SLIDE_FRICTION * delta
@@ -88,18 +81,16 @@ func slide_cooldown():
 	slidingl = false
 	slidingr = false
 
-func check_for_wall(d):
-	if d == "l":
-		for body in $Left.get_overlapping_bodies():
-			if body is StaticBody2D:
-				return body
-		return false
-	elif d == "r":
-		for body in $Right.get_overlapping_bodies():
-			if body is StaticBody2D:
-				return body
-		return false
-	return
+func check_for_wall() -> Node2D:
+	for body: Node2D in $Left.get_overlapping_bodies():
+		if body != self:
+			slidingl = true
+			return body
+	for body: Node2D in $Right.get_overlapping_bodies():
+		if body != self:
+			slidingr = true
+			return body
+	return null
 
 func _on_range_body_exited(body):
 	if body is StaticBody2D && body.get_parent() is Platform:
