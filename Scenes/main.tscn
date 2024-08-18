@@ -77,6 +77,8 @@ locked = true
 position = Vector2(157, 150)
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_y248t")]
+visible = false
 
 [node name="Options_Layer" parent="." instance=ExtResource("5_gn5kd")]
 process_mode = 3
+visible = false
