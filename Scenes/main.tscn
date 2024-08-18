@@ -75,3 +75,7 @@ locked = true
 
 [node name="Marker2D" type="Marker2D" parent="PlatformGroup/GroupPlatform3"]
 position = Vector2(157, 150)
+
+[node name="PauseLayer" parent="." instance=ExtResource("4_y248t")]
+
+[node name="Options_Layer" parent="." instance=ExtResource("5_gn5kd")]
