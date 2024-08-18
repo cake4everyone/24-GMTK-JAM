@@ -20,6 +20,8 @@ func _get_configuration_warnings():
 
 @export var inverted: bool
 @export var locked: bool
+@onready var Player = %Player
+@onready var Player_Camera = %Player/Camera2D
 var anchorPoint: Vector2
 
 var colShape: CollisionShape2D
@@ -55,17 +57,20 @@ func update_collider_size():
 	colShape.shape.size = get_size()
 
 func _physics_process(_delta):
+	# dont process physics if no player exist
+	if Player == null: return
+
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
-		change_size(%Player/Camera2D.get_screen_center_position() - camPreviousPos)
-		camPreviousPos = %Player/Camera2D.get_screen_center_position()
+		change_size(Player_Camera.get_screen_center_position() - camPreviousPos)
+		camPreviousPos = Player_Camera.get_screen_center_position()
 		
 	var rect: Rect2 = get_global_rect()
-	var safeMargin = %Player.get_child(0).shape.size.x / 2 + 10
-	var localPlayerPos = %Player.position - get_global_position()
+	var safeMargin = Player.get_child(0).shape.size.x / 2 + 10
+	var localPlayerPos = Player.position - get_global_position()
 	
 	if locked || !enabled || localPlayerPos.x > 0 - safeMargin && localPlayerPos.y > -100 && localPlayerPos.x < rect.size.x + safeMargin && localPlayerPos.y < 20:
 		deactivated = true
-	elif (localPlayerPos.x < 0 - safeMargin || localPlayerPos.y < -100 || localPlayerPos.x > rect.size.x + safeMargin || localPlayerPos.y > 20) && enabled && %Player.is_on_floor():
+	elif (localPlayerPos.x < 0 - safeMargin || localPlayerPos.y < -100 || localPlayerPos.x > rect.size.x + safeMargin || localPlayerPos.y > 20) && enabled && Player.is_on_floor():
 		deactivated = false
 		
 func _process(_delta):
@@ -91,7 +96,7 @@ func mouse_button(_event: InputEventMouse):
 		resizeRight = is_on_right_border()
 		resizeTop = is_on_top_border()
 		resizeBottom = is_on_bottom_border()
-		camPreviousPos = %Player/Camera2D.get_screen_center_position()
+		camPreviousPos = Player_Camera.get_screen_center_position()
 
 	if Input.is_action_just_released("LeftMouseDown"):
 		if mouse_inside == false:
