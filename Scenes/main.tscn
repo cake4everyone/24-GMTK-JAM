@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwubbl46jtw3"]
+[gd_scene load_steps=7 format=3 uid="uid://bwubbl46jtw3"]
 
 [ext_resource type="PackedScene" uid="uid://cmnrovymckqxo" path="res://Scenes/player.tscn" id="1_wojf4"]
 [ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://Scenes/platform.tscn" id="2_yan4d"]
 [ext_resource type="PackedScene" uid="uid://rdenkto77bwn" path="res://Scenes/platform_group.tscn" id="3_ojoi3"]
 [ext_resource type="PackedScene" uid="uid://de4k07oqpcyya" path="res://Scenes/pause_layer.tscn" id="4_y248t"]
 [ext_resource type="PackedScene" uid="uid://d28p4at7l5fhk" path="res://Scenes/options_layer.tscn" id="5_gn5kd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4jskd"]
+size = Vector2(1186, 678)
 
 [node name="Node2D" type="Node2D"]
 
@@ -14,6 +17,15 @@ position = Vector2(226, 106)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -107)
+
+[node name="Screen" type="Area2D" parent="Player"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Screen"]
+visible = false
+position = Vector2(-1, -105)
+shape = SubResource("RectangleShape2D_4jskd")
+debug_color = Color(0.635294, 0.341176, 1, 0.419608)
 
 [node name="Map2" parent="." instance=ExtResource("2_yan4d")]
 offset_left = 435.0

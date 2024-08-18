@@ -202,3 +202,4 @@ func _on_mouse_mouse_exited():
 
 func _enable(en):
 	enabled = en
+	print(en)

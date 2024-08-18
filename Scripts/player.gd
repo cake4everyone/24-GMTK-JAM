@@ -29,16 +29,8 @@ func _physics_process(delta):
 		doubleJump = true
 
 	for body in $Range.get_overlapping_bodies():
-		if body is StaticBody2D && body.has_method("enable"):
-			body.enable(true)
-
-		if check_for_wall("l") is StaticBody2D && slidingl:
-			if body == check_for_wall("l"):
-				body.enable(false)
-
-		if check_for_wall("r") is StaticBody2D && slidingr:
-			if body == check_for_wall("r"):
-				body.enable(false)
+		if body.get_parent() is Platform && is_on_floor():
+			body.get_parent().enabled = true
 
 	slide(delta)
 	move_and_slide()
@@ -66,11 +58,15 @@ func jump():
 		velocity.x = -WALL_JUMP_PUSHBACK
 
 func slide(delta):
-	if is_on_wall() && !is_on_floor():
+	if !is_on_floor():
 		if check_for_wall("l") is StaticBody2D:
+			var body = check_for_wall("l")
 			slidingl = true
+			body.get_parent().enabled = false
 		elif check_for_wall("r") is StaticBody2D:
+			var body = check_for_wall("r")
 			slidingr = true
+			body.get_parent().enabled = false
 		else:
 			slide_cooldown()
 	else:
@@ -99,5 +95,6 @@ func check_for_wall(d):
 	return
 
 func _on_range_body_exited(body):
-	if body is StaticBody2D && body.has_method("enable"):
-		body.enable(false)
+	if body is StaticBody2D && body.get_parent() is Platform:
+		body.get_parent().enabled = true
+

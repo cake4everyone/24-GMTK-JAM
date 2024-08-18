@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dpd1omct3u4lu" path="res://Assets/Checkbox_off.png" id="4_klr63"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0uvfa"]
-bg_color = Color(0.129558, 0.129559, 0.129558, 1)
+bg_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_vk7dv"]
 font_size = 30

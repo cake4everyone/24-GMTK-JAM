@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://fpqgj51h4a7i"]
+[gd_scene load_steps=12 format=3 uid="uid://fpqgj51h4a7i"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_46m3b"]
 [ext_resource type="StyleBox" uid="uid://c2opjcgcmy3pf" path="res://Assets/main_menu.tres" id="1_ewvit"]
@@ -17,6 +17,15 @@ bg_color = Color(0.152941, 0.152941, 0.152941, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_356yp"]
 bg_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_3dnnb"]
+font_size = 26
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhuhu"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_tcogk"]
+font_size = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_157nm"]
 bg_color = Color(0.211765, 0.211765, 0.211765, 1)
@@ -122,6 +131,13 @@ visible = false
 [node name="CreditsLayer" type="CanvasLayer" parent="."]
 visible = false
 
+[node name="Panel2" type="Panel" parent="CreditsLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="Panel" type="Panel" parent="CreditsLayer"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -136,6 +152,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_356yp")
 
+[node name="Credits" type="Label" parent="CreditsLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -92.0
+offset_top = 187.0
+offset_right = 90.0
+offset_bottom = 213.0
+grow_horizontal = 2
+text = "CREDITS"
+label_settings = SubResource("LabelSettings_3dnnb")
+
 [node name="ScrollContainer" type="ScrollContainer" parent="CreditsLayer"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -143,18 +171,31 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -228.0
-offset_top = -124.0
+offset_top = -97.0
 offset_right = 229.0
 offset_bottom = 121.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rhuhu")
 
 [node name="Label" type="Label" parent="CreditsLayer/ScrollContainer"]
 layout_mode = 2
+text = "Developer Team:
 
-[node name="Panel2" type="Panel" parent="CreditsLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+Kesuaheli
+Schoggilolli
+Nicolix
+
+
+
+Free used Assets:
+
+Font: \"PublicPixel\" -  Mikiz
+
+
+This Game was made during the 
+GMTK Game Jam 2024"
+label_settings = SubResource("LabelSettings_tcogk")
 
 [node name="Done" type="Button" parent="CreditsLayer"]
 anchors_preset = -1
