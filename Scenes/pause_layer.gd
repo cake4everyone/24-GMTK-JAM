@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-@onready var OptionsLayer = get_node("../Options_Layer") 
+@onready var OptionsLayer = get_node("../Options_Layer")
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel") && !visible:
@@ -12,15 +12,12 @@ func _process(delta):
 	elif Input.is_action_just_pressed("ui_cancel") && visible && OptionsLayer.visible:
 		OptionsLayer.hide()
 
-
 func _on_resume_pressed():
 	hide()
 	get_node("..").set_process_mode(Node.PROCESS_MODE_ALWAYS)
 
-
 func _on_options_pressed():
 	OptionsLayer.show()
-
 
 func _on_quit_pressed():
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")

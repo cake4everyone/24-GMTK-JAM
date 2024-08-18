@@ -20,7 +20,6 @@ func _on_SFX_value_changed(value):
 	$Panel/SFXL/Count.text = str(value)
 	SceneManager.volumeMusic = value
 
-
 func _on_fullscreen_check_toggled(toggled_on):
 	SceneManager.fullscreen = toggled_on
 	if toggled_on == true:

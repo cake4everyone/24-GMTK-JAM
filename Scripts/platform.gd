@@ -12,11 +12,10 @@ func _get_configuration_warnings():
 			warnings.append("There is already a child node of type 'Marker2D' as anchor.")
 		else:
 			found_marker = true
-		 
+
 	if !found_marker:
 		warnings.append("Node of type 'Marker2D' as anchor is missing.")
 	return warnings
-
 
 @export var inverted: bool
 @export var locked: bool
@@ -64,19 +63,19 @@ func _physics_process(_delta):
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
 		change_size(Player_Camera.get_screen_center_position() - camPreviousPos)
 		camPreviousPos = Player_Camera.get_screen_center_position()
-		
+
 	var rect: Rect2 = get_global_rect()
 	var safeMargin = Player.get_child(0).shape.size.x / 2 + 10
 	var localPlayerPos = Player.position - get_global_position()
-	
+
 	if locked || !enabled || localPlayerPos.x > 0 - safeMargin && localPlayerPos.y > -100 && localPlayerPos.x < rect.size.x + safeMargin && localPlayerPos.y < 20:
 		deactivated = true
 	elif (localPlayerPos.x < 0 - safeMargin || localPlayerPos.y < -100 || localPlayerPos.x > rect.size.x + safeMargin || localPlayerPos.y > 20) && enabled && Player.is_on_floor():
 		deactivated = false
-		
+
 func _process(_delta):
 	$Lock.position = get_size() * anchorPoint
-	
+
 	if deactivated || !enabled:
 		$"Deactive-Sprite".show()
 		$"Active-Sprite".hide()
