@@ -13,57 +13,57 @@ position = Vector2(226, 106)
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(0, -107)
 
-[node name="Sprite2D" parent="." instance=ExtResource("2_yan4d")]
+[node name="Map2" parent="." instance=ExtResource("2_yan4d")]
 offset_left = 435.0
 offset_top = -310.0
 offset_right = 542.0
 offset_bottom = 215.0
 locked = true
 
-[node name="Marker2D" type="Marker2D" parent="Sprite2D"]
+[node name="Marker2D" type="Marker2D" parent="Map2"]
 position = Vector2(58, 129)
 
-[node name="Sprite2D2" parent="." instance=ExtResource("2_yan4d")]
+[node name="Map1" parent="." instance=ExtResource("2_yan4d")]
 offset_left = -165.0
 offset_top = 137.0
 offset_right = 438.0
 offset_bottom = 216.0
 locked = true
 
-[node name="Marker2D" type="Marker2D" parent="Sprite2D2"]
+[node name="Marker2D" type="Marker2D" parent="Map1"]
 position = Vector2(58, 129)
 
-[node name="RigidBody2D" parent="." instance=ExtResource("2_yan4d")]
-offset_left = -168.0
-offset_top = -31.0
+[node name="TestPlatform" parent="." instance=ExtResource("2_yan4d")]
+offset_left = -165.0
+offset_top = -50.0
 offset_right = -61.0
-offset_bottom = 156.0
+offset_bottom = 118.0
 
-[node name="Marker2D" type="Marker2D" parent="RigidBody2D"]
-position = Vector2(3, 186)
+[node name="Marker2D" type="Marker2D" parent="TestPlatform"]
+position = Vector2(0, 168)
 
 [node name="PlatformGroup" parent="." instance=ExtResource("3_ojoi3")]
 
-[node name="Control" parent="PlatformGroup" instance=ExtResource("2_yan4d")]
+[node name="GroupPlatform1" parent="PlatformGroup" instance=ExtResource("2_yan4d")]
 offset_left = -309.0
 offset_top = -466.0
 offset_right = -1165.0
 offset_bottom = -957.0
 inverted = true
 
-[node name="Marker2D" type="Marker2D" parent="PlatformGroup/Control"]
+[node name="Marker2D" type="Marker2D" parent="PlatformGroup/GroupPlatform1"]
 position = Vector2(117, 155)
 
-[node name="Control2" parent="PlatformGroup" instance=ExtResource("2_yan4d")]
+[node name="GroupPlatform2" parent="PlatformGroup" instance=ExtResource("2_yan4d")]
 offset_left = 72.0
 offset_top = -463.0
 offset_right = -799.0
 offset_bottom = -954.0
 
-[node name="Marker2D" type="Marker2D" parent="PlatformGroup/Control2"]
+[node name="Marker2D" type="Marker2D" parent="PlatformGroup/GroupPlatform2"]
 position = Vector2(140, 156)
 
-[node name="Control3" parent="PlatformGroup" instance=ExtResource("2_yan4d")]
+[node name="GroupPlatform3" parent="PlatformGroup" instance=ExtResource("2_yan4d")]
 offset_left = 419.0
 offset_top = -461.0
 offset_right = -440.0
@@ -71,5 +71,5 @@ offset_bottom = -959.0
 inverted = true
 locked = true
 
-[node name="Marker2D" type="Marker2D" parent="PlatformGroup/Control3"]
-position = Vector2(157, 147)
+[node name="Marker2D" type="Marker2D" parent="PlatformGroup/GroupPlatform3"]
+position = Vector2(157, 150)

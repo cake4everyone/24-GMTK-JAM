@@ -46,6 +46,7 @@ debug_color = Color(0, 0.643137, 0.321569, 0.419608)
 
 [node name="Range" type="Area2D" parent="."]
 position = Vector2(0, -19)
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 shape = SubResource("CircleShape2D_k2uao")
