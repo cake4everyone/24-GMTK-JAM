@@ -9,47 +9,49 @@ size = Vector2(36, 38)
 size = Vector2(2, 38)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k2uao"]
-radius = 266.047
+radius = 180.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_4plat")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -19)
 shape = SubResource("RectangleShape2D_q14mn")
 
 [node name="Panel" type="Panel" parent="."]
-anchors_preset = 7
+anchors_preset = 8
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 offset_left = -20.0
-offset_top = -40.0
+offset_top = -20.0
 offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 
 [node name="Left" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
-position = Vector2(-19, -19)
+position = Vector2(-19, 0)
 shape = SubResource("RectangleShape2D_lmu3l")
 debug_color = Color(0, 0.643137, 0.321569, 0.419608)
 
 [node name="Right" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
-position = Vector2(19, -19)
+position = Vector2(19, 0)
 shape = SubResource("RectangleShape2D_lmu3l")
 debug_color = Color(0, 0.643137, 0.321569, 0.419608)
 
 [node name="Range" type="Area2D" parent="."]
-position = Vector2(0, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 shape = SubResource("CircleShape2D_k2uao")
 debug_color = Color(0.698039, 0.494118, 0, 0.419608)
+
+[node name="ShapeCast2D" type="ShapeCast2D" parent="."]
+max_results = 1
 
 [connection signal="body_exited" from="Left" to="." method="_on_left_body_exited"]
 [connection signal="body_exited" from="Range" to="." method="_on_range_body_exited"]

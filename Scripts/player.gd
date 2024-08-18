@@ -14,6 +14,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var doubleJump := true
 
+func _ready():
+	$ShapeCast2D.shape = $CollisionShape2D.shape
+	$ShapeCast2D.target_position = Vector2(0, $Range/CollisionShape2D.shape.radius)
+
 func _physics_process(delta):
 	var input_dir: Vector2 = input()
 
@@ -31,6 +35,9 @@ func _physics_process(delta):
 	for body in $Range.get_overlapping_bodies():
 		if body.get_parent() is Platform && is_on_floor():
 			body.get_parent().enabled = true
+
+	var p: Platform = get_standing_platform()
+	if p != null: p.enabled = false
 
 	slide(delta)
 	move_and_slide()
@@ -98,3 +105,9 @@ func _on_range_body_exited(body):
 	if body is StaticBody2D && body.get_parent() is Platform:
 		body.get_parent().enabled = true
 
+
+func get_standing_platform() -> Platform:
+	var collider: Object = $ShapeCast2D.get_collider(0)
+	if collider != null && collider.get_parent() is Platform:
+		return collider.get_parent()
+	return null

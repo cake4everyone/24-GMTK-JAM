@@ -64,13 +64,9 @@ func _physics_process(_delta):
 		change_size(Player_Camera.get_screen_center_position() - camPreviousPos)
 		camPreviousPos = Player_Camera.get_screen_center_position()
 
-	var rect: Rect2 = get_global_rect()
-	var safeMargin = Player.get_child(0).shape.size.x / 2 + 10
-	var localPlayerPos = Player.position - get_global_position()
-
-	if locked || !enabled || localPlayerPos.x > 0 - safeMargin && localPlayerPos.y > -100 && localPlayerPos.x < rect.size.x + safeMargin && localPlayerPos.y < 20:
+	if locked || !enabled:
 		deactivated = true
-	elif (localPlayerPos.x < 0 - safeMargin || localPlayerPos.y < -100 || localPlayerPos.x > rect.size.x + safeMargin || localPlayerPos.y > 20) && enabled && Player.is_on_floor():
+	elif enabled && Player.is_on_floor():
 		deactivated = false
 
 func _process(_delta):

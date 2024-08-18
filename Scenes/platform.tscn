@@ -27,6 +27,7 @@ grow_vertical = 2
 script = ExtResource("1_xjdv1")
 
 [node name="Active-Sprite" type="NinePatchRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,7 +43,6 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="Deactive-Sprite" type="NinePatchRect" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
