@@ -1,16 +1,22 @@
-[gd_scene load_steps=12 format=3 uid="uid://d28p4at7l5fhk"]
+[gd_scene load_steps=17 format=3 uid="uid://d28p4at7l5fhk"]
 
 [ext_resource type="Script" path="res://Scripts/OptionsManager.gd" id="1_vf31n"]
 [ext_resource type="StyleBox" uid="uid://c2opjcgcmy3pf" path="res://Assets/main_menu.tres" id="2_atd35"]
+[ext_resource type="Texture2D" uid="uid://hhk3dn0fibok" path="res://Assets/Checkbox_on.png" id="3_ib0ct"]
+[ext_resource type="Texture2D" uid="uid://dpd1omct3u4lu" path="res://Assets/Checkbox_off.png" id="4_klr63"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0uvfa"]
 bg_color = Color(0.129558, 0.129559, 0.129558, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_vk7dv"]
 font_size = 30
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_644rh"]
 font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2jom"]
 bg_color = Color(1, 0.243137, 0.196078, 1)
@@ -26,6 +32,19 @@ bg_color = Color(0, 0.72549, 0.180392, 1)
 border_color = Color(0, 0.72549, 0.180392, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_rm745"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_5rfpf"]
+font_size = 20
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ybjnm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jwx2p"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v5hj"]
 bg_color = Color(0.211765, 0.211765, 0.211765, 1)
@@ -136,6 +155,7 @@ text = "SFX"
 label_settings = SubResource("LabelSettings_644rh")
 
 [node name="HSlider" type="HSlider" parent="Panel/SFXL"]
+layout_mode = 0
 offset_left = 122.0
 offset_top = 5.0
 offset_right = 398.0
@@ -160,6 +180,36 @@ offset_bottom = 10.0
 text = "50"
 label_settings = SubResource("LabelSettings_rm745")
 
+[node name="FullscreenL" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 236.0
+offset_right = 220.0
+offset_bottom = 256.0
+text = "Fullscreen"
+label_settings = SubResource("LabelSettings_5rfpf")
+
+[node name="FullscreenCheck" type="CheckBox" parent="Panel/FullscreenL"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 17.0
+offset_top = -14.0
+offset_right = 33.0
+offset_bottom = 2.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(2.005, 2.005)
+theme_override_icons/checked = ExtResource("3_ib0ct")
+theme_override_icons/checked_disabled = ExtResource("3_ib0ct")
+theme_override_icons/unchecked = ExtResource("4_klr63")
+theme_override_icons/unchecked_disabled = ExtResource("4_klr63")
+theme_override_styles/normal = SubResource("StyleBoxFlat_ybjnm")
+theme_override_styles/focus = SubResource("StyleBoxFlat_jwx2p")
+
 [node name="Done" type="Button" parent="Panel"]
 layout_mode = 1
 anchors_preset = 7
@@ -180,4 +230,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_2v5hj")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_73r1k")
 text = "DONE"
 
+[connection signal="value_changed" from="Panel/MusicL/HSlider" to="." method="_on_music_value_changed"]
+[connection signal="value_changed" from="Panel/SFXL/HSlider" to="." method="_on_SFX_value_changed"]
+[connection signal="toggled" from="Panel/FullscreenL/FullscreenCheck" to="." method="_on_fullscreen_check_toggled"]
 [connection signal="pressed" from="Panel/Done" to="." method="_on_done_pressed"]

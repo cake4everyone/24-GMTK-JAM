@@ -1,0 +1,108 @@
+[gd_scene load_steps=7 format=3 uid="uid://de4k07oqpcyya"]
+
+[ext_resource type="Script" path="res://Scenes/pause_layer.gd" id="1_0ejoe"]
+[ext_resource type="StyleBox" uid="uid://c2opjcgcmy3pf" path="res://Assets/main_menu.tres" id="3_t510q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avy57"]
+bg_color = Color(0.14902, 0.14902, 0.14902, 0.780392)
+
+[sub_resource type="LabelSettings" id="LabelSettings_e1q4e"]
+font_size = 60
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_da3xd"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m87bc"]
+bg_color = Color(0.152941, 0.152941, 0.152941, 1)
+
+[node name="PauseLayer" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_0ejoe")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_avy57")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.498
+anchor_right = 0.498
+offset_left = -149.696
+offset_top = 35.0
+offset_right = 150.304
+offset_bottom = 95.0
+text = "PAUSE"
+label_settings = SubResource("LabelSettings_e1q4e")
+
+[node name="Resume" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -133.0
+offset_right = 136.0
+offset_bottom = -41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t510q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_da3xd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m87bc")
+text = "RESUME"
+
+[node name="Options" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -23.0
+offset_right = 136.0
+offset_bottom = 69.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t510q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_da3xd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m87bc")
+text = "OPTIONS"
+
+[node name="Quit" type="Button" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = 87.0
+offset_right = 136.0
+offset_bottom = 179.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("3_t510q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_da3xd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m87bc")
+text = "QUIT"
+
+[connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

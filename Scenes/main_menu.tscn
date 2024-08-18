@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://fpqgj51h4a7i"]
+[gd_scene load_steps=9 format=3 uid="uid://fpqgj51h4a7i"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_46m3b"]
 [ext_resource type="StyleBox" uid="uid://c2opjcgcmy3pf" path="res://Assets/main_menu.tres" id="1_ewvit"]
@@ -13,6 +13,20 @@ border_width_bottom = 4
 border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56uwm"]
+bg_color = Color(0.152941, 0.152941, 0.152941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_356yp"]
+bg_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_157nm"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_if5i4"]
 bg_color = Color(0.152941, 0.152941, 0.152941, 1)
 
 [node name="Main_Menu" type="CanvasLayer"]
@@ -102,10 +116,66 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_368aq")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_56uwm")
 text = "QUIT"
 
-[node name="Options_Layer" parent="." instance=ExtResource("2_k5x4v")]
+[node name="OptionsLayer" parent="." instance=ExtResource("2_k5x4v")]
 visible = false
+
+[node name="CreditsLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CreditsLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -279.5
+offset_top = -144.5
+offset_right = 279.5
+offset_bottom = 144.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_356yp")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CreditsLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -228.0
+offset_top = -124.0
+offset_right = 229.0
+offset_bottom = 121.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CreditsLayer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="CreditsLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Done" type="Button" parent="CreditsLayer"]
+anchors_preset = -1
+anchor_left = 0.501
+anchor_top = 0.737
+anchor_right = 0.501
+anchor_bottom = 0.737
+offset_left = -75.152
+offset_top = -28.576
+offset_right = 74.848
+offset_bottom = 28.424
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("1_ewvit")
+theme_override_styles/hover = SubResource("StyleBoxFlat_157nm")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_if5i4")
+text = "DONE"
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CreditsLayer/Done" to="." method="_on_done_credits_pressed"]

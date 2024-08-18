@@ -101,3 +101,8 @@ func check_for_wall(d):
 		return false
 	return
 
+
+
+func _on_range_body_exited(body):
+	if body is StaticBody2D && body.has_method("enable"):
+		body.enable(false)

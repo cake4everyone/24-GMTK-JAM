@@ -14,6 +14,15 @@ config/name="GMTK - 24"
 run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 
+[autoload]
+
+SceneManager="*res://Scripts/SceneManager.gd"
+
+[display]
+
+window/size/resizable=false
+window/stretch/mode="canvas_items"
+
 [gui]
 
 theme/custom_font="res://Assets/PublicPixel.ttf"

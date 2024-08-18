@@ -32,13 +32,14 @@ var resizeRight: bool
 var resizeTop: bool
 var resizeBottom: bool
 
-var deactivated := false
+var deactivated := true
 var enabled := true
 var mouse_inside: bool
 
 const BORDER_SIZE := 10
 
 func _ready():
+	deactivated = true
 	update_configuration_warnings()
 	colShape = get_node("StaticBody2D/CollisionShape2D")
 	colShape.shape = RectangleShape2D.new()

@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwubbl46jtw3"]
+[gd_scene load_steps=6 format=3 uid="uid://bwubbl46jtw3"]
 
 [ext_resource type="PackedScene" uid="uid://cmnrovymckqxo" path="res://Scenes/player.tscn" id="1_wojf4"]
 [ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://Scenes/platform.tscn" id="2_yan4d"]
 [ext_resource type="PackedScene" uid="uid://rdenkto77bwn" path="res://Scenes/platform_group.tscn" id="3_ojoi3"]
+[ext_resource type="PackedScene" uid="uid://de4k07oqpcyya" path="res://Scenes/pause_layer.tscn" id="4_y248t"]
+[ext_resource type="PackedScene" uid="uid://d28p4at7l5fhk" path="res://Scenes/options_layer.tscn" id="5_gn5kd"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -45,20 +47,20 @@ position = Vector2(3, 186)
 [node name="PlatformGroup" parent="." instance=ExtResource("3_ojoi3")]
 
 [node name="Control" parent="PlatformGroup" instance=ExtResource("2_yan4d")]
-offset_left = -309.0
-offset_top = -466.0
-offset_right = -1165.0
-offset_bottom = -957.0
+offset_left = -236.0
+offset_top = -375.0
+offset_right = -1092.0
+offset_bottom = -866.0
 inverted = true
 
 [node name="Marker2D" type="Marker2D" parent="PlatformGroup/Control"]
 position = Vector2(117, 155)
 
 [node name="Control2" parent="PlatformGroup" instance=ExtResource("2_yan4d")]
-offset_left = 72.0
-offset_top = -463.0
-offset_right = -799.0
-offset_bottom = -954.0
+offset_left = 86.0
+offset_top = -373.0
+offset_right = -785.0
+offset_bottom = -864.0
 
 [node name="Marker2D" type="Marker2D" parent="PlatformGroup/Control2"]
 position = Vector2(140, 156)
@@ -73,3 +75,10 @@ locked = true
 
 [node name="Marker2D" type="Marker2D" parent="PlatformGroup/Control3"]
 position = Vector2(157, 147)
+
+[node name="PauseLayer" parent="." instance=ExtResource("4_y248t")]
+visible = false
+
+[node name="Options_Layer" parent="." instance=ExtResource("5_gn5kd")]
+process_mode = 3
+visible = false
