@@ -120,6 +120,7 @@ text = "QUIT"
 visible = false
 
 [node name="CreditsLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Panel" type="Panel" parent="CreditsLayer"]
 anchors_preset = 8
