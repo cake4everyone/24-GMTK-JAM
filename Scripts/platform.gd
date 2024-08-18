@@ -36,6 +36,8 @@ var deactivated := true
 var enabled := false
 var mouse_inside: bool
 
+var pending_change: Vector2 = Vector2.ZERO
+
 const BORDER_SIZE := 10
 
 func _ready():
@@ -51,7 +53,7 @@ func _ready():
 		if !(child is Marker2D):
 			continue
 		anchorPoint = child.position / get_size()
-	
+
 	if get_parent() is PlatformGroup:
 		color = get_parent().color
 
@@ -71,6 +73,10 @@ func _physics_process(_delta):
 		deactivated = true
 	elif enabled && Player.is_on_floor():
 		deactivated = false
+
+	if !pending_change.is_zero_approx():
+		change_pending_size()
+		pending_change = Vector2.ZERO
 
 func _process(_delta):
 	$Lock.position = get_size() * anchorPoint
@@ -161,12 +167,15 @@ func change_size(change: Vector2):
 	if inverted:
 		change = -change
 
+	pending_change += change
+
+func change_pending_size():
 	if not get_parent() is PlatformGroup:
-		set_new_change(validate_change(change))
+		set_new_change(validate_change(pending_change))
 		return
 
 	var group: PlatformGroup = get_parent()
-	group.change_size(change)
+	group.change_size(pending_change)
 
 func validate_change(change: Vector2) -> Vector2:
 	if inverted:
