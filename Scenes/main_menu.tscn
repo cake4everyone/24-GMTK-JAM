@@ -1,0 +1,111 @@
+[gd_scene load_steps=6 format=3 uid="uid://fpqgj51h4a7i"]
+
+[ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_46m3b"]
+[ext_resource type="StyleBox" uid="uid://c2opjcgcmy3pf" path="res://Assets/main_menu.tres" id="1_ewvit"]
+[ext_resource type="PackedScene" uid="uid://d28p4at7l5fhk" path="res://Scenes/options_layer.tscn" id="2_k5x4v"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_368aq"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56uwm"]
+bg_color = Color(0.152941, 0.152941, 0.152941, 1)
+
+[node name="Main_Menu" type="CanvasLayer"]
+script = ExtResource("1_46m3b")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0823529, 0.0823529, 0.0823529, 1)
+
+[node name="Play" type="Button" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -444.0
+offset_top = -196.0
+offset_right = -172.0
+offset_bottom = -104.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("1_ewvit")
+theme_override_styles/hover = SubResource("StyleBoxFlat_368aq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_56uwm")
+text = "PLAY"
+
+[node name="Options" type="Button" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -444.0
+offset_top = -86.0
+offset_right = -172.0
+offset_bottom = 6.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("1_ewvit")
+theme_override_styles/hover = SubResource("StyleBoxFlat_368aq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_56uwm")
+text = "OPTIONS"
+
+[node name="Credits" type="Button" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -444.0
+offset_top = 24.0
+offset_right = -172.0
+offset_bottom = 116.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("1_ewvit")
+theme_override_styles/hover = SubResource("StyleBoxFlat_368aq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_56uwm")
+text = "CREDITS"
+
+[node name="Quit" type="Button" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -444.0
+offset_top = 134.0
+offset_right = -172.0
+offset_bottom = 226.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = ExtResource("1_ewvit")
+theme_override_styles/hover = SubResource("StyleBoxFlat_368aq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_56uwm")
+text = "QUIT"
+
+[node name="Options_Layer" parent="." instance=ExtResource("2_k5x4v")]
+visible = false
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

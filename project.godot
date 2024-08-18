@@ -11,8 +11,12 @@ config_version=5
 [application]
 
 config/name="GMTK - 24"
-run/main_scene="res://Scenes/main.tscn"
+run/main_scene="res://Scenes/main_menu.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
+
+[gui]
+
+theme/custom_font="res://Assets/PublicPixel.ttf"
 
 [input]
 
