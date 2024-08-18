@@ -1,14 +1,24 @@
-[gd_scene load_steps=10 format=3 uid="uid://bwubbl46jtw3"]
+[gd_scene load_steps=14 format=3 uid="uid://bwubbl46jtw3"]
 
 [ext_resource type="PackedScene" uid="uid://cmnrovymckqxo" path="res://Scenes/player.tscn" id="1_wojf4"]
 [ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://Scenes/platform.tscn" id="2_yan4d"]
 [ext_resource type="PackedScene" uid="uid://rdenkto77bwn" path="res://Scenes/platform_group.tscn" id="3_ojoi3"]
-[ext_resource type="PackedScene" path="res://Scenes/pause_layer.tscn" id="4_y248t"]
+[ext_resource type="PackedScene" uid="uid://de4k07oqpcyya" path="res://Scenes/pause_layer.tscn" id="4_y248t"]
 [ext_resource type="PackedScene" uid="uid://d28p4at7l5fhk" path="res://Scenes/options_layer.tscn" id="5_gn5kd"]
+[ext_resource type="Shader" uid="uid://j2yoof5fi55g" path="res://dissolve.tres" id="6_dyru3"]
 [ext_resource type="Texture2D" uid="uid://dkawu7361s7iy" path="res://Assets/tiles.png" id="6_jsufh"]
+[ext_resource type="Texture2D" uid="uid://bpgx3nr0q0xo4" path="res://Vignette.png" id="6_yvlyi"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4jskd"]
-size = Vector2(1186, 678)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_23via"]
+frequency = 0.0053
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_othlj"]
+noise = SubResource("FastNoiseLite_23via")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nbdyj"]
+shader = ExtResource("6_dyru3")
+shader_parameter/DissolveValue = 1.0
+shader_parameter/Noise = SubResource("NoiseTexture2D_othlj")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hkvs7"]
 texture = ExtResource("6_jsufh")
@@ -59,17 +69,19 @@ sources/0 = SubResource("TileSetAtlasSource_hkvs7")
 unique_name_in_owner = true
 position = Vector2(226, 106)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(0, -107)
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
+remote_path = NodePath("../../Camera2D")
 
-[node name="Screen" type="Area2D" parent="Player"]
-collision_layer = 0
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(226, 106)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Screen"]
+[node name="Vignette" type="Sprite2D" parent="Camera2D"]
 visible = false
-position = Vector2(-1, -105)
-shape = SubResource("RectangleShape2D_4jskd")
-debug_color = Color(0.635294, 0.341176, 1, 0.419608)
+z_index = 1
+material = SubResource("ShaderMaterial_nbdyj")
+scale = Vector2(1.15, 1.15)
+texture = ExtResource("6_yvlyi")
 
 [node name="TestPlatform" parent="." instance=ExtResource("2_yan4d")]
 offset_left = -165.0

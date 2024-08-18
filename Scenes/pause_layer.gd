@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var OptionsLayer = get_node("../Options_Layer")
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel") && !visible:
 		show()
 		get_node("..").set_process_mode(Node.PROCESS_MODE_DISABLED)

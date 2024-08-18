@@ -18,6 +18,12 @@ func _ready():
 	$ShapeCast2D.shape = $CollisionShape2D.shape
 	$ShapeCast2D.target_position = Vector2(0, $Range/CollisionShape2D.shape.radius)
 
+func _process(_delta):
+	if Input.is_action_pressed("RightMouseDown"):
+		%Camera2D/Vignette.show()
+	else:
+		%Camera2D/Vignette.hide()
+
 func _physics_process(delta):
 	var input_dir: Vector2 = input()
 
@@ -94,8 +100,7 @@ func check_for_wall() -> Node2D:
 
 func _on_range_body_exited(body):
 	if body is StaticBody2D && body.get_parent() is Platform:
-		body.get_parent().enabled = true
-
+		body.get_parent().enabled = false
 
 func get_standing_platform() -> Platform:
 	var collider: Object = $ShapeCast2D.get_collider(0)

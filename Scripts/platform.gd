@@ -20,7 +20,7 @@ func _get_configuration_warnings():
 @export var inverted: bool
 @export var locked: bool
 @onready var Player = %Player
-@onready var Player_Camera = %Player/Camera2D
+@onready var Camera = %Camera2D
 var anchorPoint: Vector2
 var color: Color = Color.WHITE
 
@@ -33,13 +33,12 @@ var resizeTop: bool
 var resizeBottom: bool
 
 var deactivated := true
-var enabled := true
+var enabled := false
 var mouse_inside: bool
 
 const BORDER_SIZE := 10
 
 func _ready():
-	deactivated = true
 	update_configuration_warnings()
 	colShape = get_node("StaticBody2D/CollisionShape2D")
 	colShape.shape = RectangleShape2D.new()
@@ -65,8 +64,8 @@ func _physics_process(_delta):
 	if Player == null: return
 
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
-		change_size(Player_Camera.get_screen_center_position() - camPreviousPos)
-		camPreviousPos = Player_Camera.get_screen_center_position()
+		change_size(Camera.get_screen_center_position() - camPreviousPos)
+		camPreviousPos = Camera.get_screen_center_position()
 
 	if locked || !enabled:
 		deactivated = true
@@ -94,7 +93,7 @@ func mouse_button(_event: InputEventMouse):
 		resizeRight = is_on_right_border()
 		resizeTop = is_on_top_border()
 		resizeBottom = is_on_bottom_border()
-		camPreviousPos = Player_Camera.get_screen_center_position()
+		camPreviousPos = Camera.get_screen_center_position()
 
 	if Input.is_action_just_released("LeftMouseDown"):
 		if mouse_inside == false:

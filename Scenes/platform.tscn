@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dkawu7361s7iy" path="res://Assets/tiles.png" id="4_pjthb"]
 [ext_resource type="Texture2D" uid="uid://cgckwdrjfycei" path="res://Assets/Lock.png" id="5_yon38"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yl0na"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mc28w"]
 size = Vector2(107, 68)
 
 [sub_resource type="AudioStreamWAV" id="AudioStreamWAV_bskgt"]
@@ -26,7 +26,7 @@ grow_vertical = 2
 script = ExtResource("1_xjdv1")
 
 [node name="Sprite" type="NinePatchRect" parent="."]
-self_modulate = Color(0, 0, 0, 0)
+self_modulate = Color(0.25, 0.25, 0.25, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,7 +46,7 @@ axis_stretch_vertical = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(53.5, 34)
-shape = SubResource("RectangleShape2D_yl0na")
+shape = SubResource("RectangleShape2D_mc28w")
 
 [node name="Mouse" type="Control" parent="."]
 layout_mode = 1
