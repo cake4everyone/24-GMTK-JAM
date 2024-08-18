@@ -23,13 +23,9 @@ func _process(_delta):
 	pass
 
 func change_size(change: Vector2):
-	print("getting change: %s" % [change])
-
 	for child in get_children():
 		change = child.validate_change(change)
-		print("updated change: %s" % [change])
-	
-	print("got change: %s" % [change])
+		if change == Vector2.ZERO: return
 
 	for child in get_children():
 		child.set_new_change(change)

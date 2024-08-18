@@ -151,7 +151,7 @@ func is_on_bottom_border() -> bool:
 	return pos.x >= -BORDER_SIZE && pos.x <= rect.size.x + BORDER_SIZE && pos.y >= rect.size.y - BORDER_SIZE && pos.y <= rect.size.y + BORDER_SIZE
 
 func change_size(change: Vector2):
-	if deactivated:
+	if deactivated || change == Vector2.ZERO:
 		return
 	if !(resizeLeft || resizeRight):
 		change.x = 0
