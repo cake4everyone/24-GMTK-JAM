@@ -108,11 +108,14 @@ func animate(input_dir):
 		if slidingl || slidingr:
 			$Animations.play("slide")
 		elif velocity.y < 0:
-			$Animations.play("jump_up")
+			$Animations.play("jump")
 		else:
 			$Animations.play("fall")
+	
+	if is_on_floor() && is_on_wall():
+		$Animations.play("idle")
 
-	if velocity.x != 0 && is_on_floor():
+	if velocity.x != 0 && is_on_floor() && !is_on_wall():
 		$Animations.play("walk")
 		
 	if input_dir.x == 1 || slidingr:
