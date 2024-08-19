@@ -25,8 +25,6 @@ var anchorPoint: Vector2
 var group
 var color: Color = Color.WHITE
 
-var colShape: CollisionShape2D
-
 var camPreviousPos: Vector2
 var resizeLeft: bool
 var resizeRight: bool
@@ -43,9 +41,16 @@ const BORDER_SIZE := 10
 
 func _ready():
 	update_configuration_warnings()
-	colShape = get_node("StaticBody2D/CollisionShape2D")
-	colShape.shape = RectangleShape2D.new()
-	update_collider_size()
+	$StaticBody2D/CollisionShape2D.shape = RectangleShape2D.new()
+	$Area2D/CollisionShape2D.shape = RectangleShape2D.new()
+	$Area2D/ShapeCastLeft.shape = SegmentShape2D.new()
+	$Area2D/ShapeCastLeft.add_exception($StaticBody2D)
+	$Area2D/ShapeCastRight.shape = SegmentShape2D.new()
+	$Area2D/ShapeCastRight.add_exception($StaticBody2D)
+	$Area2D/ShapeCastTop.shape = SegmentShape2D.new()
+	$Area2D/ShapeCastTop.add_exception($StaticBody2D)
+	$Area2D/ShapeCastBottom.shape = SegmentShape2D.new()
+	$Area2D/ShapeCastBottom.add_exception($StaticBody2D)
 
 	$Mouse.position = Vector2(-BORDER_SIZE, -BORDER_SIZE)
 	$Mouse.size = get_size() + Vector2(2 * BORDER_SIZE, 2 * BORDER_SIZE)
@@ -61,16 +66,51 @@ func _ready():
 	else:
 		group = self
 
+	update_collider_size()
+	update_area_size()
+
 func update_collider_size():
-	colShape.position = get_size() / 2
-	colShape.shape.size = get_size()
+	$StaticBody2D/CollisionShape2D.position = get_size() / 2
+	$StaticBody2D/CollisionShape2D.shape.size = get_size()
+	print("col pos: %s" % [$StaticBody2D/CollisionShape2D.get_global_position()])
+
+func update_area_size():
+	var change: Vector2 = group.pending_change
+	#if inverted:
+	#	change = -change
+
+	var newSize: Vector2 = get_size() + change
+	newSize.x = max(newSize.x, 3 * BORDER_SIZE)
+	newSize.y = max(newSize.y, 3 * BORDER_SIZE)
+	change = newSize - get_size()
+	var posChange = anchorPoint * -change
+
+	$Area2D.position = posChange + newSize / 2
+	$Area2D/CollisionShape2D.shape.size = newSize
+
+	$Area2D/ShapeCastLeft.target_position = Vector2(newSize.x / -2, 0)
+	$Area2D/ShapeCastLeft.shape.a = Vector2(0, newSize.y / -2)
+	$Area2D/ShapeCastLeft.shape.b = Vector2(0, newSize.y / 2)
+	$Area2D/ShapeCastRight.target_position = Vector2(newSize.x / 2, 0)
+	$Area2D/ShapeCastRight.shape.a = Vector2(0, newSize.y / -2)
+	$Area2D/ShapeCastRight.shape.b = Vector2(0, newSize.y / 2)
+	$Area2D/ShapeCastTop.target_position = Vector2(0, newSize.y / -2)
+	$Area2D/ShapeCastTop.shape.a = Vector2(newSize.x / -2, 0)
+	$Area2D/ShapeCastTop.shape.b = Vector2(newSize.x / 2, 0)
+	$Area2D/ShapeCastBottom.target_position = Vector2(0, newSize.y / 2)
+	$Area2D/ShapeCastBottom.shape.a = Vector2(newSize.x / -2, 0)
+	$Area2D/ShapeCastBottom.shape.b = Vector2(newSize.x / 2, 0)
+
+	var p: Vector2 = $Area2D/CollisionShape2D.get_global_position()
+
+	print("%s change %s  \tarea size: %s->%s  \tarea: %s  \tpos: %s  \tlrtb: (%f, %f, %f, %f)" % [self.name, change, self.size, newSize, $Area2D/CollisionShape2D.get_global_position(), self.position + posChange, (p - newSize / 2).x, (p + newSize / 2).x, (p - newSize / 2).y, (p + newSize / 2).y])
 
 func _physics_process(_delta):
 	# dont process physics if no player exist
 	if Player == null: return
 
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
-		add_change(Camera.get_screen_center_position() - camPreviousPos)
+		compute_change(Camera.get_screen_center_position() - camPreviousPos)
 		camPreviousPos = Camera.get_screen_center_position()
 
 	if locked || !enabled:
@@ -79,9 +119,9 @@ func _physics_process(_delta):
 		deactivated = false
 
 	if !pending_change.is_zero_approx():
-		print("child parent: %s pending change: %s" % [get_parent(), pending_change])
 		group.change_size(pending_change)
 		pending_change = Vector2.ZERO
+		update_collider_size()
 
 func _process(_delta):
 	$Lock.position = get_size() * anchorPoint
@@ -116,7 +156,7 @@ func mouse_button(_event: InputEventMouse):
 
 func mouse_motion(event: InputEventMouseMotion):
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
-		add_change(event.relative)
+		compute_change(event.relative)
 		if !$Lock.is_visible():
 			$Lock.show()
 
@@ -157,7 +197,7 @@ func is_on_bottom_border() -> bool:
 
 	return pos.x >= -BORDER_SIZE && pos.x <= rect.size.x + BORDER_SIZE && pos.y >= rect.size.y - BORDER_SIZE && pos.y <= rect.size.y + BORDER_SIZE
 
-func add_change(change: Vector2):
+func compute_change(change: Vector2):
 	if deactivated || change == Vector2.ZERO:
 		return
 	if !(resizeLeft || resizeRight):
@@ -168,11 +208,15 @@ func add_change(change: Vector2):
 		change.x = -change.x
 	if resizeTop:
 		change.y = -change.y
+	
+	group.add_change(change)
 
-	if inverted:
-		change = -change
+func add_change(change: Vector2):
+	#if inverted:
+	#	change = -change
 
 	pending_change += change
+	update_area_size()
 
 ## Request to change size. Only called when this platform is in no group. If this platform has a
 ## group the group's [change_size] method is called instead. Which does basically the same, but for
@@ -183,26 +227,71 @@ func change_size(change: Vector2):
 	set_new_change(change)
 
 func validate_change(change: Vector2) -> Vector2:
-	if inverted:
-		change = -change
+	#if inverted:
+	#	change = -change
+	#ShapeCast2D
+
+	var collider = $Area2D/ShapeCastLeft.get_collider(0)
+	var fraction: float
+	var direction: Vector2 = Vector2.ZERO
+	if collider:
+		var fractionLeft: float = $Area2D/ShapeCastLeft.get_closest_collision_safe_fraction()
+		if fractionLeft > fraction && fractionLeft < 1:
+			fraction = fractionLeft
+			direction = Vector2.RIGHT
+		print("Left found (%s): %s (%s) at %f/%f" % [$Area2D/ShapeCastLeft.is_colliding(), collider.get_parent().get_name(), collider.get_name(), $Area2D/ShapeCastLeft.get_closest_collision_safe_fraction(), $Area2D/ShapeCastLeft.get_closest_collision_unsafe_fraction()])
+	collider = $Area2D/ShapeCastRight.get_collider(0)
+	if collider:
+		var fractionRight: float = $Area2D/ShapeCastRight.get_closest_collision_safe_fraction()
+		if fractionRight > fraction && fractionRight < 1:
+			fraction = fractionRight
+			direction = Vector2.LEFT
+		print("Right found (%s): %s (%s) at %f/%f" % [$Area2D/ShapeCastRight.is_colliding(), collider.get_parent().get_name(), collider.get_name(), $Area2D/ShapeCastRight.get_closest_collision_safe_fraction(), $Area2D/ShapeCastRight.get_closest_collision_unsafe_fraction()])
+	collider = $Area2D/ShapeCastTop.get_collider(0)
+	if collider:
+		var fractionTop: float = $Area2D/ShapeCastTop.get_closest_collision_safe_fraction()
+		if fractionTop > fraction && fractionTop < 1:
+			fraction = fractionTop
+			direction = Vector2.DOWN
+		print("Top found (%s): %s (%s) at %f/%f" % [$Area2D/ShapeCastTop.is_colliding(), collider.get_parent().get_name(), collider.get_name(), $Area2D/ShapeCastTop.get_closest_collision_safe_fraction(), $Area2D/ShapeCastTop.get_closest_collision_unsafe_fraction()])
+	collider = $Area2D/ShapeCastBottom.get_collider(0)
+	if collider:
+		var fractionBottom: float = $Area2D/ShapeCastBottom.get_closest_collision_safe_fraction()
+		if fractionBottom > fraction && fractionBottom < 1:
+			fraction = fractionBottom
+			direction = Vector2.UP
+		print("Bottom found (%s): %s (%s) at %f/%f" % [$Area2D/ShapeCastBottom.is_colliding(), collider.get_parent().get_name(), collider.get_name(), $Area2D/ShapeCastBottom.get_closest_collision_safe_fraction(), $Area2D/ShapeCastBottom.get_closest_collision_unsafe_fraction()])
+	if fraction != 0:
+		var change_needed: Vector2 = direction * (1 - fraction) * self.size
+		print("needs change in direction %s with biggest fraction %f = %s" % [direction, fraction, change_needed])
+		change = change_needed
 
 	var newSize: Vector2 = get_size() + change
 	newSize.x = max(newSize.x, 3 * BORDER_SIZE)
 	newSize.y = max(newSize.y, 3 * BORDER_SIZE)
 
+	#for collider: Node2D in $Area2D.get_overlapping_bodies():
+	#	if collider.get_parent() == self: continue
+	#	print("%s overlaps with body %s (%s)" % [get_name(), collider.get_name(), collider.get_parent().get_name()])
+	#	return Vector2.ZERO
+	#for collider: Node2D in $Area2D.get_overlapping_areas():
+	#	if collider.get_parent() == self: continue
+	#	print("%s overlaps with area %s (%s)" % [get_name(), collider.get_name(), collider.get_parent().get_name()])
+	#	return Vector2.ZERO
+
 	var newChange: Vector2 = newSize - get_size()
-	if inverted:
-		newChange = -newChange
+	#if inverted:
+	#	newChange = -newChange
 
 	return newChange
 
 func set_new_change(change: Vector2):
-	if inverted:
-		change = -change
+	#if inverted:
+	#	change = -change
 	set_size(get_size() + change)
-	set_position(get_position() - anchorPoint * change)
+	set_position(get_position() + -change * anchorPoint)
 
-	update_collider_size()
+	print("%s change %s  \tset: size %s \tpos %s \t" % [self.name, change, self.size, self.position])
 
 func _on_mouse_mouse_entered():
 	mouse_inside = true
