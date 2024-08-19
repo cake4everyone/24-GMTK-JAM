@@ -77,29 +77,34 @@ func update_collider_size():
 	$Lock.position = self.size * anchorPoint
 func update_area_size(change: Vector2 = Vector2.ZERO):
 	## a vector giving half the size of the new platform
-	var newRadius: Vector2 = (self.size + change) / 2
+	var newSize: Vector2 = (self.size + change)
 	var posChange = anchorPoint * -change
-	$Area2D.position = posChange + newRadius
-	$Area2D/CollisionShape2D.shape.size = newRadius * 2
+	$Area2D.position = posChange + newSize / 2
+	$Area2D/CollisionShape2D.shape.size = newSize
 
-	$Area2D/ShapeCastLeft.target_position = Vector2.LEFT * newRadius
-	$Area2D/ShapeCastLeft.shape.a = Vector2.UP * newRadius
-	$Area2D/ShapeCastLeft.shape.b = Vector2.DOWN * newRadius
+	var invertedAnchor: Vector2 = Vector2(1 - anchorPoint.x, 1 - anchorPoint.y)
+	$Area2D/ShapeCastLeft.position = -newSize / 2 + anchorPoint * newSize
+	$Area2D/ShapeCastLeft.target_position = Vector2.LEFT * newSize * anchorPoint
+	$Area2D/ShapeCastLeft.shape.a = Vector2.UP * newSize * anchorPoint
+	$Area2D/ShapeCastLeft.shape.b = Vector2.DOWN * newSize * invertedAnchor
 	$Area2D/ShapeCastLeft.force_shapecast_update()
 
-	$Area2D/ShapeCastRight.target_position = Vector2.RIGHT * newRadius
-	$Area2D/ShapeCastRight.shape.a = Vector2.UP * newRadius
-	$Area2D/ShapeCastRight.shape.b = Vector2.DOWN * newRadius
+	$Area2D/ShapeCastRight.position = -newSize / 2 + anchorPoint * newSize
+	$Area2D/ShapeCastRight.target_position = Vector2.RIGHT * newSize * invertedAnchor
+	$Area2D/ShapeCastRight.shape.a = Vector2.UP * newSize * anchorPoint
+	$Area2D/ShapeCastRight.shape.b = Vector2.DOWN * newSize * invertedAnchor
 	$Area2D/ShapeCastRight.force_shapecast_update()
 
-	$Area2D/ShapeCastTop.target_position = Vector2.UP * newRadius
-	$Area2D/ShapeCastTop.shape.a = Vector2.LEFT * newRadius
-	$Area2D/ShapeCastTop.shape.b = Vector2.RIGHT * newRadius
+	$Area2D/ShapeCastTop.position = -newSize / 2 + anchorPoint * newSize
+	$Area2D/ShapeCastTop.target_position = Vector2.UP * newSize * anchorPoint
+	$Area2D/ShapeCastTop.shape.a = Vector2.LEFT * newSize * anchorPoint
+	$Area2D/ShapeCastTop.shape.b = Vector2.RIGHT * newSize * invertedAnchor
 	$Area2D/ShapeCastTop.force_shapecast_update()
 
-	$Area2D/ShapeCastBottom.target_position = Vector2.DOWN * newRadius
-	$Area2D/ShapeCastBottom.shape.a = Vector2.LEFT * newRadius
-	$Area2D/ShapeCastBottom.shape.b = Vector2.RIGHT * newRadius
+	$Area2D/ShapeCastBottom.position = -newSize / 2 + anchorPoint * newSize
+	$Area2D/ShapeCastBottom.target_position = Vector2.DOWN * newSize * invertedAnchor
+	$Area2D/ShapeCastBottom.shape.a = Vector2.LEFT * newSize * anchorPoint
+	$Area2D/ShapeCastBottom.shape.b = Vector2.RIGHT * newSize * invertedAnchor
 	$Area2D/ShapeCastBottom.force_shapecast_update()
 
 func _physics_process(_delta):
@@ -227,18 +232,22 @@ func validate_change() -> bool:
 	var direction: Vector2 = Vector2.ZERO
 	var fractionLeft: float = $Area2D/ShapeCastLeft.get_closest_collision_safe_fraction()
 	if fractionLeft > fraction && fractionLeft < 1:
+		print("Left %f (%f)" % [fractionLeft, fraction])
 		fraction = fractionLeft
 		direction = Vector2.RIGHT * (1 - fraction) * $Area2D/ShapeCastLeft.target_position
 	var fractionRight: float = $Area2D/ShapeCastRight.get_closest_collision_safe_fraction()
 	if fractionRight > fraction && fractionRight < 1:
+		print("Left %f (%f)" % [fractionRight, fraction])
 		fraction = fractionRight
 		direction = Vector2.LEFT * (1 - fraction) * $Area2D/ShapeCastRight.target_position
 	var fractionTop: float = $Area2D/ShapeCastTop.get_closest_collision_safe_fraction()
 	if fractionTop > fraction && fractionTop < 1:
+		print("Left %f (%f)" % [fractionTop, fraction])
 		fraction = fractionTop
 		direction = Vector2.DOWN * (1 - fraction) * $Area2D/ShapeCastTop.target_position
 	var fractionBottom: float = $Area2D/ShapeCastBottom.get_closest_collision_safe_fraction()
 	if fractionBottom > fraction && fractionBottom < 1:
+		print("Left %f (%f)" % [fractionBottom, fraction])
 		fraction = fractionBottom
 		direction = Vector2.UP * (1 - fraction) * $Area2D/ShapeCastBottom.target_position
 	change += direction
