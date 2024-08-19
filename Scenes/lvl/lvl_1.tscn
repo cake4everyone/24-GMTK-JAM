@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://by8wmxonytqde"]
+[gd_scene load_steps=13 format=3 uid="uid://by8wmxonytqde"]
 
 [ext_resource type="PackedScene" uid="uid://cmnrovymckqxo" path="res://Scenes/player.tscn" id="1_6pp0c"]
 [ext_resource type="Shader" uid="uid://j2yoof5fi55g" path="res://dissolve.tres" id="2_31cr7"]
@@ -8,6 +8,7 @@
 [ext_resource type="TileSet" uid="uid://degcid11w0g5" path="res://Assets/tileset lvl.tres" id="6_uqdqm"]
 [ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://Scenes/platform.tscn" id="7_yqgxk"]
 [ext_resource type="PackedScene" uid="uid://b2xhhj8w4t2sk" path="res://Scenes/goal.tscn" id="8_po0t0"]
+[ext_resource type="PackedScene" uid="uid://h0toid0bu7et" path="res://Assets/Backgrounds/Plains/BG_Plains.tscn" id="9_ple7w"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_lheq7"]
 frequency = 0.0053
@@ -24,7 +25,7 @@ shader_parameter/Noise = SubResource("NoiseTexture2D_qo21l")
 
 [node name="Player" parent="." instance=ExtResource("1_6pp0c")]
 unique_name_in_owner = true
-position = Vector2(-21, 76)
+position = Vector2(161, -188)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 position = Vector2(0, -110.425)
@@ -40,7 +41,7 @@ texture = ExtResource("3_m5a12")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-21, -34.425)
+position = Vector2(161, -298.425)
 limit_left = -605
 limit_right = 1168
 
@@ -86,3 +87,5 @@ position = Vector2(32, 31)
 [node name="Goal" parent="." instance=ExtResource("8_po0t0")]
 position = Vector2(964, -319)
 scale = Vector2(2.43, 2.43)
+
+[node name="BgPlains" parent="." instance=ExtResource("9_ple7w")]

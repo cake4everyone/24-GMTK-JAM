@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b0o58h7hcu7i8"]
+[gd_scene load_steps=13 format=3 uid="uid://b0o58h7hcu7i8"]
 
 [ext_resource type="PackedScene" uid="uid://cmnrovymckqxo" path="res://Scenes/player.tscn" id="1_h8gqm"]
 [ext_resource type="Shader" uid="uid://j2yoof5fi55g" path="res://dissolve.tres" id="2_hxm6m"]
@@ -8,6 +8,7 @@
 [ext_resource type="TileSet" uid="uid://degcid11w0g5" path="res://Assets/tileset lvl.tres" id="6_g5tmi"]
 [ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://Scenes/platform.tscn" id="7_hdrym"]
 [ext_resource type="PackedScene" uid="uid://b2xhhj8w4t2sk" path="res://Scenes/goal.tscn" id="8_7qg3k"]
+[ext_resource type="PackedScene" uid="uid://h0toid0bu7et" path="res://Assets/Backgrounds/Plains/BG_Plains.tscn" id="9_hke81"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_o8ll0"]
 frequency = 0.0053
@@ -68,3 +69,5 @@ position = Vector2(16, 31)
 [node name="Goal" parent="." instance=ExtResource("8_7qg3k")]
 position = Vector2(1073, -287)
 scale = Vector2(2.43, 2.43)
+
+[node name="BgPlains" parent="." instance=ExtResource("9_hke81")]
