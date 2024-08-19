@@ -21,9 +21,9 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_pressed("RightMouseDown"):
-		%Camera2D/Vignette.show()
+		$Vignette.show()
 	else:
-		%Camera2D/Vignette.hide()
+		$Vignette.hide()
 
 func _physics_process(delta):
 	var input_dir: Vector2 = input()
@@ -112,7 +112,7 @@ func animate(input_dir):
 		else:
 			$Animations.play("fall")
 	
-	if is_on_floor() && is_on_wall():
+	if is_on_floor() && velocity.x == 0:
 		$Animations.play("idle")
 
 	if velocity.x != 0 && is_on_floor() && !is_on_wall():
@@ -122,8 +122,6 @@ func animate(input_dir):
 		$Sprite2D.scale.x = 2
 	elif input_dir.x == -1 || slidingl:
 		$Sprite2D.scale.x = -2
-	elif is_on_floor():
-		$Animations.play("idle")
 
 func _on_range_body_exited(body):
 	if body is StaticBody2D && body.get_parent() is Platform:
