@@ -9,6 +9,7 @@ func _ready():
 	if input:
 		enabled = false
 		input.activate.connect(on_input_activate)
+		input.deactivate.connect(on_input_deactivate)
 
 func _process(_delta):
 	if enabled:
@@ -22,3 +23,5 @@ func _physics_process(_delta):
 
 func on_input_activate():
 	enabled = true
+func on_input_deactivate():
+	enabled = false
