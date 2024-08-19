@@ -1,7 +1,7 @@
 extends Node2D
 class_name Goal
 
-@export var input: PushButton
+@export var input: LogicInput
 
 var enabled: bool = true
 

@@ -1,7 +1,5 @@
-extends Node2D
+extends LogicInput
 class_name PushButton
-
-signal activate
 
 var is_pressed := false
 
