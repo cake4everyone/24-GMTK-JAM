@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bpgx3nr0q0xo4" path="res://Vignette.png" id="3_et7wh"]
 [ext_resource type="PackedScene" uid="uid://de4k07oqpcyya" path="res://Scenes/pause_layer.tscn" id="4_0yjif"]
 [ext_resource type="PackedScene" uid="uid://d28p4at7l5fhk" path="res://Scenes/options_layer.tscn" id="5_w66mk"]
-[ext_resource type="AudioStream" uid="uid://bsgpv1in1gccj" path="res://Audio/cave_theme.wav" id="6_rh6qa"]
+[ext_resource type="AudioStream" uid="uid://bsgpv1in1gccj" path="res://Audio/Music/cave_theme.wav" id="6_rh6qa"]
 [ext_resource type="TileSet" uid="uid://degcid11w0g5" path="res://Assets/tileset lvl.tres" id="6_wac7o"]
 [ext_resource type="PackedScene" uid="uid://b2xhhj8w4t2sk" path="res://Scenes/goal.tscn" id="8_1axjd"]
 [ext_resource type="PackedScene" uid="uid://cb42b3ue4426o" path="res://Assets/Backgrounds/Cave/BG_Cave.tscn" id="8_ac0ln"]

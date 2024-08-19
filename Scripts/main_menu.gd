@@ -23,6 +23,7 @@ func _process(_delta):
 		$CreditsLayer.hide()
 		$OptionsLayer.hide()
 		$LvlSelect.hide()
+	$BgPlains.scroll_offset.x -= 1
 
 func _on_play_pressed():
 	get_tree().change_scene_to_file("res://Scenes/lvl/lvl_1.tscn")

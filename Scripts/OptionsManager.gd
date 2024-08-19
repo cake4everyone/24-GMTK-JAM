@@ -28,11 +28,12 @@ func _on_music_value_changed(value):
 
 func _on_SFX_value_changed(value):
 	$Panel/SFXL/Count.text = str(value)
-	SceneManager.volumeMusic = value
-	if(value == 0):
+	if value == 0:
 		SceneManager.volumeSFX = -80
-	else:
-		SceneManager.volumeSFX = value/5 - 10
+	elif value < 50:
+		SceneManager.volumeSFX = -(50 - value) / 2 
+	elif value > 50:
+		SceneManager.volumeSFX = abs((50 - value) / 2)
 	SceneManager.lastSoundValues[1] = value
 
 func _on_fullscreen_check_toggled(toggled_on):

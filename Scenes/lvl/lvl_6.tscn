@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://de4k07oqpcyya" path="res://Scenes/pause_layer.tscn" id="4_0fjsi"]
 [ext_resource type="PackedScene" uid="uid://d28p4at7l5fhk" path="res://Scenes/options_layer.tscn" id="5_fq0kl"]
 [ext_resource type="TileSet" uid="uid://degcid11w0g5" path="res://Assets/tileset lvl.tres" id="6_3f5dn"]
-[ext_resource type="AudioStream" uid="uid://crwclnn2n81f5" path="res://Audio/Plains_theme.wav" id="6_26rdc"]
+[ext_resource type="AudioStream" uid="uid://crwclnn2n81f5" path="res://Audio/Music/Plains_theme.wav" id="6_26rdc"]
 [ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://Scenes/platform.tscn" id="7_t8a4i"]
 [ext_resource type="PackedScene" uid="uid://b2xhhj8w4t2sk" path="res://Scenes/goal.tscn" id="8_cyxrm"]
 [ext_resource type="PackedScene" uid="uid://h0toid0bu7et" path="res://Assets/Backgrounds/Plains/BG_Plains.tscn" id="9_go7d2"]

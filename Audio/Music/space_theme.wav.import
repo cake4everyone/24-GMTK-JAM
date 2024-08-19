@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cl2xjkogmjy4h"
-path="res://.godot/imported/space_theme.wav-74e7417a930e10b1c9452b2e43231da8.sample"
+path="res://.godot/imported/space_theme.wav-fa0f6b7f84f7a596bcd11dc4050ed988.sample"
 
 [deps]
 
-source_file="res://Audio/space_theme.wav"
-dest_files=["res://.godot/imported/space_theme.wav-74e7417a930e10b1c9452b2e43231da8.sample"]
+source_file="res://Audio/Music/space_theme.wav"
+dest_files=["res://.godot/imported/space_theme.wav-fa0f6b7f84f7a596bcd11dc4050ed988.sample"]
 
 [params]
 
