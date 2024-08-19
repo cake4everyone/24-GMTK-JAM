@@ -67,18 +67,44 @@ func _ready():
 		group = self
 
 	update_collider_size()
-	#update_area_size()
+	update_area_size()
 
 func update_collider_size():
 	$StaticBody2D/CollisionShape2D.position = get_size() / 2
 	$StaticBody2D/CollisionShape2D.shape.size = get_size()
+func update_area_size(change: Vector2 = Vector2.ZERO):
+	## a vector giving half the size of the new platform
+	var newRadius: Vector2 = (self.size + change) / 2
+	var posChange = anchorPoint * -change
+	$Area2D.position = posChange + newRadius
+	$Area2D/CollisionShape2D.shape.size = newRadius * 2
+
+	$Area2D/ShapeCastLeft.target_position = Vector2.LEFT * newRadius
+	$Area2D/ShapeCastLeft.shape.a = Vector2.UP * newRadius
+	$Area2D/ShapeCastLeft.shape.b = Vector2.DOWN * newRadius
+	$Area2D/ShapeCastLeft.force_shapecast_update()
+
+	$Area2D/ShapeCastRight.target_position = Vector2.RIGHT * newRadius
+	$Area2D/ShapeCastRight.shape.a = Vector2.UP * newRadius
+	$Area2D/ShapeCastRight.shape.b = Vector2.DOWN * newRadius
+	$Area2D/ShapeCastRight.force_shapecast_update()
+
+	$Area2D/ShapeCastTop.target_position = Vector2.UP * newRadius
+	$Area2D/ShapeCastTop.shape.a = Vector2.LEFT * newRadius
+	$Area2D/ShapeCastTop.shape.b = Vector2.RIGHT * newRadius
+	$Area2D/ShapeCastTop.force_shapecast_update()
+
+	$Area2D/ShapeCastBottom.target_position = Vector2.DOWN * newRadius
+	$Area2D/ShapeCastBottom.shape.a = Vector2.LEFT * newRadius
+	$Area2D/ShapeCastBottom.shape.b = Vector2.RIGHT * newRadius
+	$Area2D/ShapeCastBottom.force_shapecast_update()
 
 func _physics_process(_delta):
 	# dont process physics if no player exist
 	if Player == null: return
 
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
-		compute_change(Camera.get_screen_center_position() - camPreviousPos)
+		add_change(Camera.get_screen_center_position() - camPreviousPos)
 		camPreviousPos = Camera.get_screen_center_position()
 
 	if locked || !enabled:
@@ -122,7 +148,7 @@ func mouse_button(_event: InputEventMouse):
 
 func mouse_motion(event: InputEventMouseMotion):
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
-		compute_change(event.relative)
+		add_change(event.relative)
 		if !$Lock.is_visible():
 			$Lock.show()
 
@@ -163,7 +189,7 @@ func is_on_bottom_border() -> bool:
 
 	return pos.x >= -BORDER_SIZE && pos.x <= rect.size.x + BORDER_SIZE && pos.y >= rect.size.y - BORDER_SIZE && pos.y <= rect.size.y + BORDER_SIZE
 
-func compute_change(change: Vector2):
+func add_change(change: Vector2):
 	if deactivated || change == Vector2.ZERO:
 		return
 	if !(resizeLeft || resizeRight):
@@ -195,49 +221,29 @@ func validate_change() -> bool:
 	if inverted:
 		change = -change
 
-	var newSize: Vector2 = get_size() + change
-	var posChange = anchorPoint * -change
-	$Area2D.position = posChange + newSize / 2
-	$Area2D/CollisionShape2D.shape.size = newSize
-
-	$Area2D/ShapeCastLeft.target_position = Vector2(newSize.x / -2, 0)
-	$Area2D/ShapeCastLeft.shape.a = Vector2(0, newSize.y / -2)
-	$Area2D/ShapeCastLeft.shape.b = Vector2(0, newSize.y / 2)
-	$Area2D/ShapeCastRight.target_position = Vector2(newSize.x / 2, 0)
-	$Area2D/ShapeCastRight.shape.a = Vector2(0, newSize.y / -2)
-	$Area2D/ShapeCastRight.shape.b = Vector2(0, newSize.y / 2)
-	$Area2D/ShapeCastTop.target_position = Vector2(0, newSize.y / -2)
-	$Area2D/ShapeCastTop.shape.a = Vector2(newSize.x / -2, 0)
-	$Area2D/ShapeCastTop.shape.b = Vector2(newSize.x / 2, 0)
-	$Area2D/ShapeCastBottom.target_position = Vector2(0, newSize.y / 2)
-	$Area2D/ShapeCastBottom.shape.a = Vector2(newSize.x / -2, 0)
-	$Area2D/ShapeCastBottom.shape.b = Vector2(newSize.x / 2, 0)
+	update_area_size(change)
 
 	var fraction: float
 	var direction: Vector2 = Vector2.ZERO
-	$Area2D/ShapeCastLeft.force_shapecast_update()
 	var fractionLeft: float = $Area2D/ShapeCastLeft.get_closest_collision_safe_fraction()
 	if fractionLeft > fraction && fractionLeft < 1:
 		fraction = fractionLeft
 		direction = Vector2.RIGHT * (1 - fraction) * $Area2D/ShapeCastLeft.target_position
-	$Area2D/ShapeCastRight.force_shapecast_update()
 	var fractionRight: float = $Area2D/ShapeCastRight.get_closest_collision_safe_fraction()
 	if fractionRight > fraction && fractionRight < 1:
 		fraction = fractionRight
 		direction = Vector2.LEFT * (1 - fraction) * $Area2D/ShapeCastRight.target_position
-	$Area2D/ShapeCastTop.force_shapecast_update()
 	var fractionTop: float = $Area2D/ShapeCastTop.get_closest_collision_safe_fraction()
 	if fractionTop > fraction && fractionTop < 1:
 		fraction = fractionTop
 		direction = Vector2.DOWN * (1 - fraction) * $Area2D/ShapeCastTop.target_position
-	$Area2D/ShapeCastBottom.force_shapecast_update()
 	var fractionBottom: float = $Area2D/ShapeCastBottom.get_closest_collision_safe_fraction()
 	if fractionBottom > fraction && fractionBottom < 1:
 		fraction = fractionBottom
 		direction = Vector2.UP * (1 - fraction) * $Area2D/ShapeCastBottom.target_position
 	change += direction
 
-	newSize = get_size() + change
+	var newSize: Vector2 = get_size() + change
 	newSize.x = max(newSize.x, 3 * BORDER_SIZE)
 	newSize.y = max(newSize.y, 3 * BORDER_SIZE)
 	change = newSize - get_size()
