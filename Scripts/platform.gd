@@ -25,8 +25,6 @@ var anchorPoint: Vector2
 var group
 var color: Color = Color.WHITE
 
-var colShape: CollisionShape2D
-
 var camPreviousPos: Vector2
 var resizeLeft: bool
 var resizeRight: bool
@@ -43,9 +41,16 @@ const BORDER_SIZE := 10
 
 func _ready():
 	update_configuration_warnings()
-	colShape = get_node("StaticBody2D/CollisionShape2D")
-	colShape.shape = RectangleShape2D.new()
-	update_collider_size()
+	$StaticBody2D/CollisionShape2D.shape = RectangleShape2D.new()
+	$Area2D/CollisionShape2D.shape = RectangleShape2D.new()
+	$Area2D/ShapeCastLeft.shape = SegmentShape2D.new()
+	$Area2D/ShapeCastLeft.add_exception($StaticBody2D)
+	$Area2D/ShapeCastRight.shape = SegmentShape2D.new()
+	$Area2D/ShapeCastRight.add_exception($StaticBody2D)
+	$Area2D/ShapeCastTop.shape = SegmentShape2D.new()
+	$Area2D/ShapeCastTop.add_exception($StaticBody2D)
+	$Area2D/ShapeCastBottom.shape = SegmentShape2D.new()
+	$Area2D/ShapeCastBottom.add_exception($StaticBody2D)
 
 	$Mouse.position = Vector2(-BORDER_SIZE, -BORDER_SIZE)
 	$Mouse.size = get_size() + Vector2(2 * BORDER_SIZE, 2 * BORDER_SIZE)
@@ -61,9 +66,38 @@ func _ready():
 	else:
 		group = self
 
+	update_collider_size()
+	update_area_size()
+
 func update_collider_size():
-	colShape.position = get_size() / 2
-	colShape.shape.size = get_size()
+	$StaticBody2D/CollisionShape2D.position = get_size() / 2
+	$StaticBody2D/CollisionShape2D.shape.size = get_size()
+func update_area_size(change: Vector2 = Vector2.ZERO):
+	## a vector giving half the size of the new platform
+	var newRadius: Vector2 = (self.size + change) / 2
+	var posChange = anchorPoint * -change
+	$Area2D.position = posChange + newRadius
+	$Area2D/CollisionShape2D.shape.size = newRadius * 2
+
+	$Area2D/ShapeCastLeft.target_position = Vector2.LEFT * newRadius
+	$Area2D/ShapeCastLeft.shape.a = Vector2.UP * newRadius
+	$Area2D/ShapeCastLeft.shape.b = Vector2.DOWN * newRadius
+	$Area2D/ShapeCastLeft.force_shapecast_update()
+
+	$Area2D/ShapeCastRight.target_position = Vector2.RIGHT * newRadius
+	$Area2D/ShapeCastRight.shape.a = Vector2.UP * newRadius
+	$Area2D/ShapeCastRight.shape.b = Vector2.DOWN * newRadius
+	$Area2D/ShapeCastRight.force_shapecast_update()
+
+	$Area2D/ShapeCastTop.target_position = Vector2.UP * newRadius
+	$Area2D/ShapeCastTop.shape.a = Vector2.LEFT * newRadius
+	$Area2D/ShapeCastTop.shape.b = Vector2.RIGHT * newRadius
+	$Area2D/ShapeCastTop.force_shapecast_update()
+
+	$Area2D/ShapeCastBottom.target_position = Vector2.DOWN * newRadius
+	$Area2D/ShapeCastBottom.shape.a = Vector2.LEFT * newRadius
+	$Area2D/ShapeCastBottom.shape.b = Vector2.RIGHT * newRadius
+	$Area2D/ShapeCastBottom.force_shapecast_update()
 
 func _physics_process(_delta):
 	# dont process physics if no player exist
@@ -79,9 +113,7 @@ func _physics_process(_delta):
 		deactivated = false
 
 	if !pending_change.is_zero_approx():
-		print("child parent: %s pending change: %s" % [get_parent(), pending_change])
-		group.change_size(pending_change)
-		pending_change = Vector2.ZERO
+		change_size()
 
 func _process(_delta):
 	$Lock.position = get_size() * anchorPoint
@@ -168,41 +200,69 @@ func add_change(change: Vector2):
 		change.x = -change.x
 	if resizeTop:
 		change.y = -change.y
-
+	
 	if inverted:
-		change = -change
-
-	pending_change += change
+		group.pending_change -= change
+	else:
+		group.pending_change += change
 
 ## Request to change size. Only called when this platform is in no group. If this platform has a
 ## group the group's [change_size] method is called instead. Which does basically the same, but for
 ## each child instead.
-func change_size(change: Vector2):
-	change = validate_change(change)
-	if change.is_zero_approx(): return
-	set_new_change(change)
+func change_size():
+	validate_change()
+	if pending_change.is_zero_approx(): return
+	set_new_change()
+	pending_change = Vector2.ZERO
+	update_collider_size()
 
-func validate_change(change: Vector2) -> Vector2:
+func validate_change() -> bool:
+	var change: Vector2 = group.pending_change
 	if inverted:
 		change = -change
+
+	update_area_size(change)
+
+	var fraction: float
+	var direction: Vector2 = Vector2.ZERO
+	var fractionLeft: float = $Area2D/ShapeCastLeft.get_closest_collision_safe_fraction()
+	if fractionLeft > fraction && fractionLeft < 1:
+		fraction = fractionLeft
+		direction = Vector2.RIGHT * (1 - fraction) * $Area2D/ShapeCastLeft.target_position
+	var fractionRight: float = $Area2D/ShapeCastRight.get_closest_collision_safe_fraction()
+	if fractionRight > fraction && fractionRight < 1:
+		fraction = fractionRight
+		direction = Vector2.LEFT * (1 - fraction) * $Area2D/ShapeCastRight.target_position
+	var fractionTop: float = $Area2D/ShapeCastTop.get_closest_collision_safe_fraction()
+	if fractionTop > fraction && fractionTop < 1:
+		fraction = fractionTop
+		direction = Vector2.DOWN * (1 - fraction) * $Area2D/ShapeCastTop.target_position
+	var fractionBottom: float = $Area2D/ShapeCastBottom.get_closest_collision_safe_fraction()
+	if fractionBottom > fraction && fractionBottom < 1:
+		fraction = fractionBottom
+		direction = Vector2.UP * (1 - fraction) * $Area2D/ShapeCastBottom.target_position
+	change += direction
 
 	var newSize: Vector2 = get_size() + change
 	newSize.x = max(newSize.x, 3 * BORDER_SIZE)
 	newSize.y = max(newSize.y, 3 * BORDER_SIZE)
+	change = newSize - get_size()
 
-	var newChange: Vector2 = newSize - get_size()
-	if inverted:
-		newChange = -newChange
-
-	return newChange
-
-func set_new_change(change: Vector2):
 	if inverted:
 		change = -change
-	set_size(get_size() + change)
-	set_position(get_position() - anchorPoint * change)
 
-	update_collider_size()
+	var previous_pending_change: Vector2 = group.pending_change
+	group.pending_change = change
+	return previous_pending_change != change
+
+
+func set_new_change():
+	var change: Vector2 = group.pending_change
+	if inverted:
+		change = -change
+
+	self.size += change
+	self.position += -change * anchorPoint
 
 func _on_mouse_mouse_entered():
 	mouse_inside = true

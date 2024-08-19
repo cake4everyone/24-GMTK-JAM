@@ -15,6 +15,8 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 @export var color: Color
 
+var pending_change: Vector2 = Vector2.ZERO
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -23,10 +25,21 @@ func _ready():
 func _process(_delta):
 	pass
 
-func change_size(change: Vector2):
+func _physics_process(_delta):
+	if !pending_change.is_zero_approx():
+		change_size()
+
+func change_size():
 	for child: Platform in get_children():
-		change = child.validate_change(change)
-		if change.is_zero_approx(): return
+		if !child.validate_change(): continue
+		if pending_change.is_zero_approx(): return
 
 	for child: Platform in get_children():
-		child.set_new_change(change)
+		child.set_new_change()
+
+	pending_change = Vector2.ZERO
+	update_collider_size()
+
+func update_collider_size():
+	for child: Platform in get_children():
+		child.update_collider_size()
