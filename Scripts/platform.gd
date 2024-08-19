@@ -140,8 +140,7 @@ func mouse_button(_event: InputEventMouse):
 		camPreviousPos = Camera.get_screen_center_position()
 
 	if Input.is_action_just_released("LeftMouseDown"):
-		if mouse_inside == false:
-			$Lock.hide()
+		group.icon_lock(mouse_inside)
 		resizeLeft = false
 		resizeRight = false
 		resizeTop = false
@@ -267,11 +266,13 @@ func set_new_change():
 
 func _on_mouse_mouse_entered():
 	mouse_inside = true
-	$Lock.show()
+	group.icon_lock()
 func _on_mouse_mouse_exited():
 	mouse_inside = false
-	$Lock.hide()
+	group.icon_lock(false)
 
-func _enable(en):
-	enabled = en
-	print(en)
+func icon_lock(s: bool = true):
+	if s:
+		$Lock.show()
+	else:
+		$Lock.hide()

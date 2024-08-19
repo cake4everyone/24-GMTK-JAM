@@ -45,3 +45,7 @@ func change_size():
 func update_collider_size():
 	for child: Platform in get_children():
 		child.update_collider_size()
+
+func icon_lock(s: bool = true):
+	for child: Platform in get_children():
+		child.icon_lock(s)
