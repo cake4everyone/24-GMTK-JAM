@@ -232,22 +232,18 @@ func validate_change() -> bool:
 	var direction: Vector2 = Vector2.ZERO
 	var fractionLeft: float = $Area2D/ShapeCastLeft.get_closest_collision_safe_fraction()
 	if fractionLeft > fraction && fractionLeft < 1:
-		print("Left %f (%f)" % [fractionLeft, fraction])
 		fraction = fractionLeft
 		direction = Vector2.RIGHT * (1 - fraction) * $Area2D/ShapeCastLeft.target_position
 	var fractionRight: float = $Area2D/ShapeCastRight.get_closest_collision_safe_fraction()
 	if fractionRight > fraction && fractionRight < 1:
-		print("Left %f (%f)" % [fractionRight, fraction])
 		fraction = fractionRight
 		direction = Vector2.LEFT * (1 - fraction) * $Area2D/ShapeCastRight.target_position
 	var fractionTop: float = $Area2D/ShapeCastTop.get_closest_collision_safe_fraction()
 	if fractionTop > fraction && fractionTop < 1:
-		print("Left %f (%f)" % [fractionTop, fraction])
 		fraction = fractionTop
 		direction = Vector2.DOWN * (1 - fraction) * $Area2D/ShapeCastTop.target_position
 	var fractionBottom: float = $Area2D/ShapeCastBottom.get_closest_collision_safe_fraction()
 	if fractionBottom > fraction && fractionBottom < 1:
-		print("Left %f (%f)" % [fractionBottom, fraction])
 		fraction = fractionBottom
 		direction = Vector2.UP * (1 - fraction) * $Area2D/ShapeCastBottom.target_position
 	change += direction
