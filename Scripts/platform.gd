@@ -213,39 +213,29 @@ func validate_change() -> bool:
 	$Area2D/ShapeCastBottom.shape.a = Vector2(newSize.x / -2, 0)
 	$Area2D/ShapeCastBottom.shape.b = Vector2(newSize.x / 2, 0)
 
-	$Area2D/ShapeCastLeft.force_shapecast_update()
-	$Area2D/ShapeCastRight.force_shapecast_update()
-	$Area2D/ShapeCastTop.force_shapecast_update()
-	$Area2D/ShapeCastBottom.force_shapecast_update()
-
-	var collider = $Area2D/ShapeCastLeft.get_collider(0)
 	var fraction: float
 	var direction: Vector2 = Vector2.ZERO
-	if collider:
-		var fractionLeft: float = $Area2D/ShapeCastLeft.get_closest_collision_safe_fraction()
-		if fractionLeft > fraction && fractionLeft < 1:
-			fraction = fractionLeft
-			direction = Vector2.RIGHT * (1 - fraction) * $Area2D/ShapeCastLeft.target_position
-	collider = $Area2D/ShapeCastRight.get_collider(0)
-	if collider:
-		var fractionRight: float = $Area2D/ShapeCastRight.get_closest_collision_safe_fraction()
-		if fractionRight > fraction && fractionRight < 1:
-			fraction = fractionRight
-			direction = Vector2.LEFT * (1 - fraction) * $Area2D/ShapeCastRight.target_position
-	collider = $Area2D/ShapeCastTop.get_collider(0)
-	if collider:
-		var fractionTop: float = $Area2D/ShapeCastTop.get_closest_collision_safe_fraction()
-		if fractionTop > fraction && fractionTop < 1:
-			fraction = fractionTop
-			direction = Vector2.DOWN * (1 - fraction) * $Area2D/ShapeCastTop.target_position
-	collider = $Area2D/ShapeCastBottom.get_collider(0)
-	if collider:
-		var fractionBottom: float = $Area2D/ShapeCastBottom.get_closest_collision_safe_fraction()
-		if fractionBottom > fraction && fractionBottom < 1:
-			fraction = fractionBottom
-			direction = Vector2.UP * (1 - fraction) * $Area2D/ShapeCastBottom.target_position
-	if fraction != 0:
-		change += direction
+	$Area2D/ShapeCastLeft.force_shapecast_update()
+	var fractionLeft: float = $Area2D/ShapeCastLeft.get_closest_collision_safe_fraction()
+	if fractionLeft > fraction && fractionLeft < 1:
+		fraction = fractionLeft
+		direction = Vector2.RIGHT * (1 - fraction) * $Area2D/ShapeCastLeft.target_position
+	$Area2D/ShapeCastRight.force_shapecast_update()
+	var fractionRight: float = $Area2D/ShapeCastRight.get_closest_collision_safe_fraction()
+	if fractionRight > fraction && fractionRight < 1:
+		fraction = fractionRight
+		direction = Vector2.LEFT * (1 - fraction) * $Area2D/ShapeCastRight.target_position
+	$Area2D/ShapeCastTop.force_shapecast_update()
+	var fractionTop: float = $Area2D/ShapeCastTop.get_closest_collision_safe_fraction()
+	if fractionTop > fraction && fractionTop < 1:
+		fraction = fractionTop
+		direction = Vector2.DOWN * (1 - fraction) * $Area2D/ShapeCastTop.target_position
+	$Area2D/ShapeCastBottom.force_shapecast_update()
+	var fractionBottom: float = $Area2D/ShapeCastBottom.get_closest_collision_safe_fraction()
+	if fractionBottom > fraction && fractionBottom < 1:
+		fraction = fractionBottom
+		direction = Vector2.UP * (1 - fraction) * $Area2D/ShapeCastBottom.target_position
+	change += direction
 
 	newSize = get_size() + change
 	newSize.x = max(newSize.x, 3 * BORDER_SIZE)
