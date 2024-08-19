@@ -13,6 +13,8 @@ script = ExtResource("1_couu6")
 [node name="Flag" type="Sprite2D" parent="."]
 position = Vector2(0, -2)
 texture = ExtResource("2_bqidy")
+hframes = 2
+frame = 1
 
 [node name="Area2D" type="Area2D" parent="."]
 
