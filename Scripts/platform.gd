@@ -19,8 +19,6 @@ func _get_configuration_warnings():
 
 @export var inverted: bool
 @export var locked: bool
-@onready var Player = %Player
-@onready var Camera = %Camera2D
 var anchorPoint: Vector2
 var group
 var color: Color = Color.WHITE
@@ -110,15 +108,15 @@ func update_area_size(change: Vector2 = Vector2.ZERO):
 func _physics_process(_delta):
 	if locked || !enabled:
 		deactivated = true
-	elif enabled && Player && Player.is_on_floor():
+	elif enabled && %Player && %Player.is_on_floor():
 		deactivated = false
 
 	# dont process physics in editor
 	if Engine.is_editor_hint(): return
 
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
-		add_change(Camera.get_screen_center_position() - camPreviousPos)
-		camPreviousPos = Camera.get_screen_center_position()
+		add_change(%Camera2D.get_screen_center_position() - camPreviousPos)
+		camPreviousPos = %Camera2D.get_screen_center_position()
 
 	if !pending_change.is_zero_approx():
 		change_size()
@@ -142,7 +140,7 @@ func mouse_button(_event: InputEventMouse):
 		resizeRight = is_on_right_border()
 		resizeTop = is_on_top_border()
 		resizeBottom = is_on_bottom_border()
-		camPreviousPos = Camera.get_screen_center_position()
+		camPreviousPos = %Camera2D.get_screen_center_position()
 
 	if Input.is_action_just_released("LeftMouseDown"):
 		group.icon_lock(mouse_inside)
