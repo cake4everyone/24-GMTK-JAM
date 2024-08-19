@@ -119,9 +119,7 @@ func _physics_process(_delta):
 		deactivated = false
 
 	if !pending_change.is_zero_approx():
-		group.change_size(pending_change)
-		pending_change = Vector2.ZERO
-		update_collider_size()
+		change_size()
 
 func _process(_delta):
 	$Lock.position = get_size() * anchorPoint
@@ -221,15 +219,22 @@ func add_change(change: Vector2):
 ## Request to change size. Only called when this platform is in no group. If this platform has a
 ## group the group's [change_size] method is called instead. Which does basically the same, but for
 ## each child instead.
-func change_size(change: Vector2):
-	change = validate_change(change)
-	if change.is_zero_approx(): return
-	set_new_change(change)
+func change_size():
+	pending_change = validate_change(pending_change)
+	if pending_change.is_zero_approx(): return
+	set_new_change(pending_change)
+	pending_change = Vector2.ZERO
+	update_collider_size()
 
 func validate_change(change: Vector2) -> Vector2:
 	#if inverted:
 	#	change = -change
 	#ShapeCast2D
+
+	$Area2D/ShapeCastLeft.force_shapecast_update()
+	$Area2D/ShapeCastRight.force_shapecast_update()
+	$Area2D/ShapeCastTop.force_shapecast_update()
+	$Area2D/ShapeCastBottom.force_shapecast_update()
 
 	var collider = $Area2D/ShapeCastLeft.get_collider(0)
 	var fraction: float
@@ -238,33 +243,32 @@ func validate_change(change: Vector2) -> Vector2:
 		var fractionLeft: float = $Area2D/ShapeCastLeft.get_closest_collision_safe_fraction()
 		if fractionLeft > fraction && fractionLeft < 1:
 			fraction = fractionLeft
-			direction = Vector2.RIGHT
+			direction = Vector2.RIGHT * (1 - fraction) * $Area2D/ShapeCastLeft.target_position
 		print("Left found (%s): %s (%s) at %f/%f" % [$Area2D/ShapeCastLeft.is_colliding(), collider.get_parent().get_name(), collider.get_name(), $Area2D/ShapeCastLeft.get_closest_collision_safe_fraction(), $Area2D/ShapeCastLeft.get_closest_collision_unsafe_fraction()])
 	collider = $Area2D/ShapeCastRight.get_collider(0)
 	if collider:
 		var fractionRight: float = $Area2D/ShapeCastRight.get_closest_collision_safe_fraction()
 		if fractionRight > fraction && fractionRight < 1:
 			fraction = fractionRight
-			direction = Vector2.LEFT
+			direction = Vector2.LEFT * (1 - fraction) * $Area2D/ShapeCastRight.target_position
 		print("Right found (%s): %s (%s) at %f/%f" % [$Area2D/ShapeCastRight.is_colliding(), collider.get_parent().get_name(), collider.get_name(), $Area2D/ShapeCastRight.get_closest_collision_safe_fraction(), $Area2D/ShapeCastRight.get_closest_collision_unsafe_fraction()])
 	collider = $Area2D/ShapeCastTop.get_collider(0)
 	if collider:
 		var fractionTop: float = $Area2D/ShapeCastTop.get_closest_collision_safe_fraction()
 		if fractionTop > fraction && fractionTop < 1:
 			fraction = fractionTop
-			direction = Vector2.DOWN
+			direction = Vector2.DOWN * (1 - fraction) * $Area2D/ShapeCastTop.target_position
 		print("Top found (%s): %s (%s) at %f/%f" % [$Area2D/ShapeCastTop.is_colliding(), collider.get_parent().get_name(), collider.get_name(), $Area2D/ShapeCastTop.get_closest_collision_safe_fraction(), $Area2D/ShapeCastTop.get_closest_collision_unsafe_fraction()])
 	collider = $Area2D/ShapeCastBottom.get_collider(0)
 	if collider:
 		var fractionBottom: float = $Area2D/ShapeCastBottom.get_closest_collision_safe_fraction()
 		if fractionBottom > fraction && fractionBottom < 1:
 			fraction = fractionBottom
-			direction = Vector2.UP
+			direction = Vector2.UP * (1 - fraction) * $Area2D/ShapeCastBottom.target_position
 		print("Bottom found (%s): %s (%s) at %f/%f" % [$Area2D/ShapeCastBottom.is_colliding(), collider.get_parent().get_name(), collider.get_name(), $Area2D/ShapeCastBottom.get_closest_collision_safe_fraction(), $Area2D/ShapeCastBottom.get_closest_collision_unsafe_fraction()])
 	if fraction != 0:
-		var change_needed: Vector2 = direction * (1 - fraction) * self.size
-		print("needs change in direction %s with biggest fraction %f = %s" % [direction, fraction, change_needed])
-		change = change_needed
+		print("needs change %s with biggest fraction %f (instead of %s)" % [direction, fraction, change])
+		change += direction
 
 	var newSize: Vector2 = get_size() + change
 	newSize.x = max(newSize.x, 3 * BORDER_SIZE)
@@ -288,10 +292,9 @@ func validate_change(change: Vector2) -> Vector2:
 func set_new_change(change: Vector2):
 	#if inverted:
 	#	change = -change
+	print("%s change %s  \tset: size %s->%s \tpos %s->%s \t" % [self.name, change, self.size, self.size + change, self.position, self.position - change * anchorPoint])
 	set_size(get_size() + change)
 	set_position(get_position() + -change * anchorPoint)
-
-	print("%s change %s  \tset: size %s \tpos %s \t" % [self.name, change, self.size, self.position])
 
 func _on_mouse_mouse_entered():
 	mouse_inside = true

@@ -27,18 +27,19 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	if !pending_change.is_zero_approx():
-		change_size(pending_change)
-		pending_change = Vector2.ZERO
-		update_collider_size()
+		change_size()
 
-func change_size(change: Vector2):
+func change_size():
 	for child: Platform in get_children():
-		change = child.validate_change(change)
-		if change.is_zero_approx(): return
+		pending_change = child.validate_change(pending_change)
+		if pending_change.is_zero_approx(): return
 
 	print("group set size")
 	for child: Platform in get_children():
-		child.set_new_change(change)
+		child.set_new_change(pending_change)
+
+	pending_change = Vector2.ZERO
+	update_collider_size()
 
 func add_change(change: Vector2):
 	pending_change += change
