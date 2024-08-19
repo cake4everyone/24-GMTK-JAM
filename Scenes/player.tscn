@@ -150,6 +150,7 @@ position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_q14mn")
 
 [node name="Left" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
 position = Vector2(-19, 0)
@@ -157,6 +158,7 @@ shape = SubResource("RectangleShape2D_lmu3l")
 debug_color = Color(0, 0.643137, 0.321569, 0.419608)
 
 [node name="Right" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
 position = Vector2(19, 0)
@@ -164,6 +166,7 @@ shape = SubResource("RectangleShape2D_lmu3l")
 debug_color = Color(0, 0.643137, 0.321569, 0.419608)
 
 [node name="Range" type="Area2D" parent="."]
+collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
 shape = SubResource("CircleShape2D_k2uao")
