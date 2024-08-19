@@ -40,7 +40,9 @@ var pending_change: Vector2 = Vector2.ZERO
 const BORDER_SIZE := 10
 
 func _ready():
-	update_configuration_warnings()
+	if Engine.is_editor_hint():
+		update_configuration_warnings()
+		return
 	$StaticBody2D/CollisionShape2D.shape = RectangleShape2D.new()
 	$Area2D/CollisionShape2D.shape = RectangleShape2D.new()
 	$Area2D/ShapeCastLeft.shape = SegmentShape2D.new()
@@ -70,8 +72,9 @@ func _ready():
 	update_area_size()
 
 func update_collider_size():
-	$StaticBody2D/CollisionShape2D.position = get_size() / 2
-	$StaticBody2D/CollisionShape2D.shape.size = get_size()
+	$StaticBody2D/CollisionShape2D.position = self.size / 2
+	$StaticBody2D/CollisionShape2D.shape.size = self.size
+	$Lock.position = self.size * anchorPoint
 func update_area_size(change: Vector2 = Vector2.ZERO):
 	## a vector giving half the size of the new platform
 	var newRadius: Vector2 = (self.size + change) / 2
@@ -100,24 +103,22 @@ func update_area_size(change: Vector2 = Vector2.ZERO):
 	$Area2D/ShapeCastBottom.force_shapecast_update()
 
 func _physics_process(_delta):
-	# dont process physics if no player exist
-	if Player == null: return
+	if locked || !enabled:
+		deactivated = true
+	elif enabled && Player && Player.is_on_floor():
+		deactivated = false
+
+	# dont process physics in editor
+	if Engine.is_editor_hint(): return
 
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
 		add_change(Camera.get_screen_center_position() - camPreviousPos)
 		camPreviousPos = Camera.get_screen_center_position()
 
-	if locked || !enabled:
-		deactivated = true
-	elif enabled && Player.is_on_floor():
-		deactivated = false
-
 	if !pending_change.is_zero_approx():
 		change_size()
 
 func _process(_delta):
-	$Lock.position = get_size() * anchorPoint
-
 	if deactivated:
 		$Sprite.self_modulate = color.darkened(0.75)
 	else:
