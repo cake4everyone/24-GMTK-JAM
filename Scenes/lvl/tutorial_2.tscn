@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://cw47bkwet8p2q"]
+[gd_scene load_steps=14 format=3 uid="uid://cw47bkwet8p2q"]
 
 [ext_resource type="PackedScene" uid="uid://cmnrovymckqxo" path="res://Scenes/player.tscn" id="1_g688x"]
 [ext_resource type="Shader" uid="uid://j2yoof5fi55g" path="res://dissolve.tres" id="2_6psgi"]
 [ext_resource type="Texture2D" uid="uid://bpgx3nr0q0xo4" path="res://Vignette.png" id="3_iwqjn"]
 [ext_resource type="PackedScene" uid="uid://de4k07oqpcyya" path="res://Scenes/pause_layer.tscn" id="4_fylr6"]
 [ext_resource type="PackedScene" uid="uid://d28p4at7l5fhk" path="res://Scenes/options_layer.tscn" id="5_fdc7b"]
+[ext_resource type="AudioStream" uid="uid://crwclnn2n81f5" path="res://Audio/Plains_theme.wav" id="6_3v3om"]
 [ext_resource type="TileSet" uid="uid://degcid11w0g5" path="res://Assets/tileset lvl.tres" id="6_8osai"]
 [ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://Scenes/platform.tscn" id="7_sr6cw"]
 [ext_resource type="PackedScene" uid="uid://b2xhhj8w4t2sk" path="res://Scenes/goal.tscn" id="8_028s1"]
@@ -51,6 +52,10 @@ visible = false
 [node name="Options_Layer" parent="." instance=ExtResource("5_fdc7b")]
 process_mode = 3
 visible = false
+
+[node name="BG-Music" type="AudioStreamPlayer" parent="Options_Layer"]
+stream = ExtResource("6_3v3om")
+autoplay = true
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("6_8osai")

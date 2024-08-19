@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://fpqgj51h4a7i"]
+[gd_scene load_steps=15 format=3 uid="uid://fpqgj51h4a7i"]
 
 [ext_resource type="StyleBox" uid="uid://c2opjcgcmy3pf" path="res://Assets/main_menu.tres" id="1_ewvit"]
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_xrdxv"]
 [ext_resource type="PackedScene" uid="uid://d28p4at7l5fhk" path="res://Scenes/options_layer.tscn" id="2_k5x4v"]
 [ext_resource type="Texture2D" uid="uid://csycpwanh4d47" path="res://Assets/Titlecard.png" id="3_1feiw"]
+[ext_resource type="AudioStream" uid="uid://crwclnn2n81f5" path="res://Audio/Plains_theme.wav" id="5_kk8v6"]
 [ext_resource type="Script" path="res://Scenes/LvlSelect.gd" id="5_rwgqs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_368aq"]
@@ -255,6 +256,10 @@ text = "DONE"
 [node name="OptionsLayer" parent="." instance=ExtResource("2_k5x4v")]
 visible = false
 
+[node name="BG-Music" type="AudioStreamPlayer" parent="OptionsLayer"]
+stream = ExtResource("5_kk8v6")
+autoplay = true
+
 [node name="LvlSelect" type="CanvasLayer" parent="."]
 visible = false
 script = ExtResource("5_rwgqs")
@@ -342,6 +347,7 @@ layout_mode = 2
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Lvls" to="." method="_on_lvls_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Options" to="OptionsLayer" method="_on_options_pressed"]
 [connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CreditsLayer/Done" to="." method="_on_done_credits_pressed"]

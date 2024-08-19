@@ -8,7 +8,8 @@ var LvlArr = []
 
 var currentLvl := ""
 
-var volumeMusic := 50
-var volumeSFX := 50
+var volumeMusic := 0
+var volumeSFX := 0
+var lastSoundValues := [50,50]
 var fullscreen := false
 

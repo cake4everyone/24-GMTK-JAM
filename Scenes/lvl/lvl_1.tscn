@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://by8wmxonytqde"]
+[gd_scene load_steps=14 format=3 uid="uid://by8wmxonytqde"]
 
 [ext_resource type="PackedScene" uid="uid://cmnrovymckqxo" path="res://Scenes/player.tscn" id="1_6pp0c"]
 [ext_resource type="Shader" uid="uid://j2yoof5fi55g" path="res://dissolve.tres" id="2_31cr7"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://de4k07oqpcyya" path="res://Scenes/pause_layer.tscn" id="4_qxuxj"]
 [ext_resource type="PackedScene" uid="uid://d28p4at7l5fhk" path="res://Scenes/options_layer.tscn" id="5_jjmme"]
 [ext_resource type="TileSet" uid="uid://degcid11w0g5" path="res://Assets/tileset lvl.tres" id="6_uqdqm"]
+[ext_resource type="AudioStream" uid="uid://crwclnn2n81f5" path="res://Audio/Plains_theme.wav" id="6_wfqot"]
 [ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://Scenes/platform.tscn" id="7_yqgxk"]
 [ext_resource type="PackedScene" uid="uid://b2xhhj8w4t2sk" path="res://Scenes/goal.tscn" id="8_po0t0"]
 [ext_resource type="PackedScene" uid="uid://h0toid0bu7et" path="res://Assets/Backgrounds/Plains/BG_Plains.tscn" id="9_ple7w"]
@@ -25,10 +26,10 @@ shader_parameter/Noise = SubResource("NoiseTexture2D_qo21l")
 
 [node name="Player" parent="." instance=ExtResource("1_6pp0c")]
 unique_name_in_owner = true
-position = Vector2(161, -188)
+position = Vector2(-2, 103)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
-position = Vector2(0, -110.425)
+position = Vector2(0, -145.505)
 remote_path = NodePath("../../Camera2D")
 
 [node name="Vignette" type="Sprite2D" parent="Player"]
@@ -41,7 +42,7 @@ texture = ExtResource("3_m5a12")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(161, -298.425)
+position = Vector2(-2, -42.505)
 limit_left = -605
 limit_right = 1168
 
@@ -51,6 +52,10 @@ visible = false
 [node name="Options_Layer" parent="." instance=ExtResource("5_jjmme")]
 process_mode = 3
 visible = false
+
+[node name="BG-Music" type="AudioStreamPlayer" parent="Options_Layer"]
+stream = ExtResource("6_wfqot")
+autoplay = true
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("6_uqdqm")
