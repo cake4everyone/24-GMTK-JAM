@@ -47,5 +47,16 @@ func update_collider_size():
 		child.update_collider_size()
 
 func icon_lock(inv: bool, s: bool = true):
+	if !s:
+		for child: Platform in get_children():
+			if !child.mouse_inside: continue
+			inv = child.inverted
+			s = true
+
 	for child: Platform in get_children():
 		child.icon_lock(inv, s)
+
+func is_resizing() -> bool:
+	for child: Platform in get_children():
+		if child.is_resizing(): return true
+	return false

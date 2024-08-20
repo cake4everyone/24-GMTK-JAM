@@ -123,7 +123,7 @@ func _physics_process(_delta):
 	# dont process physics in editor
 	if Engine.is_editor_hint(): return
 
-	if resizeRight || resizeLeft || resizeBottom || resizeTop:
+	if is_resizing():
 		add_change(%Camera2D.get_screen_center_position() - camPreviousPos)
 		camPreviousPos = %Camera2D.get_screen_center_position()
 
@@ -152,17 +152,19 @@ func mouse_button(_event: InputEventMouse):
 		camPreviousPos = %Camera2D.get_screen_center_position()
 
 	if Input.is_action_just_released("LeftMouseDown"):
-		group.icon_lock(mouse_inside)
 		resizeLeft = false
 		resizeRight = false
 		resizeTop = false
 		resizeBottom = false
+		group.icon_lock(inverted, mouse_inside)
+
+func is_resizing() -> bool:
+	return resizeRight || resizeLeft || resizeBottom || resizeTop
 
 func mouse_motion(event: InputEventMouseMotion):
-	if resizeRight || resizeLeft || resizeBottom || resizeTop:
+	if is_resizing():
 		add_change(event.relative)
-		if !$Anchor.is_visible():
-			$Anchor.show()
+		$Anchor.show()
 		if show_inverted:
 			$Inverted.show()
 
@@ -280,10 +282,12 @@ func set_new_change():
 
 func _on_mouse_mouse_entered():
 	mouse_inside = true
-	group.icon_lock(inverted)
+	if !group.is_resizing():
+		group.icon_lock(inverted)
 func _on_mouse_mouse_exited():
 	mouse_inside = false
-	group.icon_lock(inverted, false)
+	if !group.is_resizing():
+		group.icon_lock(inverted, false)
 
 func icon_lock(inv: bool, s: bool = true):
 	if s:
@@ -293,6 +297,8 @@ func icon_lock(inv: bool, s: bool = true):
 			update_collider_size()
 			show_inverted = true
 			$Inverted.show()
+		else:
+			$Inverted.hide()
 		
 	else:
 		$Anchor.hide()
