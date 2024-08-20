@@ -28,7 +28,7 @@ shader_parameter/Noise = SubResource("NoiseTexture2D_othlj")
 
 [node name="Player" parent="." instance=ExtResource("1_krbdm")]
 unique_name_in_owner = true
-position = Vector2(537, -42)
+position = Vector2(34, 312)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="Player"]
 position = Vector2(0, -100.825)
@@ -44,7 +44,7 @@ texture = ExtResource("3_jky1e")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(537, -142.825)
+position = Vector2(34, 211.175)
 limit_left = -220
 limit_right = 1118
 

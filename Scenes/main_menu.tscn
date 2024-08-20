@@ -172,9 +172,9 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_56uwm")
 text = "QUIT"
 
 [node name="LogoPlatform" parent="." instance=ExtResource("3_u2d3a")]
-offset_left = -453.0
+offset_left = -475.0
 offset_top = -154.0
-offset_right = 76.0
+offset_right = 54.0
 offset_bottom = 154.0
 border_size = 50
 

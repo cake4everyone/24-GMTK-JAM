@@ -137,14 +137,12 @@ offset_bottom = 649.0
 
 [node name="Label" type="Label" parent="Success/Panel"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.498
-anchor_right = 0.498
-offset_left = -419.194
-offset_top = 30.0
-offset_right = 420.806
-offset_bottom = 90.0
-text = "LEVEL COMPLETE
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 18.0
+offset_bottom = 141.0
+grow_horizontal = 2
+text = "LEVEL COMPLETED
 WELL DONE!"
 label_settings = SubResource("LabelSettings_e1q4e")
 horizontal_alignment = 1

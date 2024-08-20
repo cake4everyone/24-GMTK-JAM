@@ -34,7 +34,7 @@ func lvl_completed():
 		$Success/Panel/Label.text = "TUTORIAL COMPLETE\nWELL DONE!"
 	if SceneManager.currentLvl == 3 && SceneManager.currentWorld == 3:
 		$Success/Panel/Resume.hide()
-		$Success/Panel/Label.text = "GAME COMPLETE\nTHANKS FOR PLAYING <3"
+		$Success/Panel/Label.text = "GAME COMPLETE\n\nThanks for Playing\n<3"
 
 	$Panel.hide()
 	$Success.show()
