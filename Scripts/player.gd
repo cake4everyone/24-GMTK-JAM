@@ -19,6 +19,11 @@ var doubleJump := true
 func _ready():
 	$ShapeCast2D.shape = $CollisionShape2D.shape
 	$ShapeCast2D.target_position = Vector2(0, $Range/CollisionShape2D.shape.radius)
+	
+	if SceneManager.currentWorld == 3:
+		gravity = 40
+	else:
+		gravity = 80
 
 func _process(_delta):
 	if Input.is_action_pressed("RightMouseDown"):
