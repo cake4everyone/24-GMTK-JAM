@@ -27,6 +27,9 @@ func _process(_delta):
 		$Vignette.hide()
 
 func _physics_process(delta):
+	if Input.is_action_just_pressed("Einfg - Debug"):
+		SceneManager.next_lvl()
+	
 	var input_dir: Vector2 = input()
 
 	if input_dir != Vector2.ZERO:
@@ -89,9 +92,10 @@ func slide(delta):
 		velocity.y = min(velocity.y, WALL_SLIDE_FRICTION)
 
 func slide_cooldown():
-	await get_tree().create_timer(0.05).timeout
-	slidingl = false
-	slidingr = false
+	if get_tree():
+		await get_tree().create_timer(0.05).timeout
+		slidingl = false
+		slidingr = false
 
 func check_for_wall() -> Node2D:
 	for body: Node2D in $Left.get_overlapping_bodies():

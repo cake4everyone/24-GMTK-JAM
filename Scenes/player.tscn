@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_4plat"]
 [ext_resource type="Texture2D" uid="uid://d6iexy2qbmph" path="res://Assets/Player_Anim.png" id="2_jahqq"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_q14mn"]
-size = Vector2(36, 54)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s81fw"]
+radius = 18.0
+height = 54.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lmu3l"]
 size = Vector2(2, 38)
@@ -147,7 +148,7 @@ frame = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
-shape = SubResource("RectangleShape2D_q14mn")
+shape = SubResource("CapsuleShape2D_s81fw")
 
 [node name="Left" type="Area2D" parent="."]
 collision_layer = 0

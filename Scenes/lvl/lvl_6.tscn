@@ -23,7 +23,7 @@ shader = ExtResource("2_ulwpa")
 shader_parameter/DissolveValue = 1.0
 shader_parameter/Noise = SubResource("NoiseTexture2D_othlj")
 
-[node name="lvl_3" type="Node2D"]
+[node name="lvl_6" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_w1i83")]
 unique_name_in_owner = true
