@@ -388,10 +388,8 @@ offset_left = 261.0
 offset_top = 145.0
 offset_right = 891.0
 offset_bottom = 485.0
-current_tab = 1
 
 [node name="Tutorial" type="TabBar" parent="LvlSelect/TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="tutorial1" type="Button" parent="LvlSelect/TabContainer/Tutorial"]
@@ -401,10 +399,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -302.0
-offset_top = -272.0
-offset_right = -151.0
-offset_bottom = -230.0
+offset_left = -235.0
+offset_top = -273.0
+offset_right = -65.0
+offset_bottom = -193.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -421,10 +419,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -302.0
-offset_top = -199.0
-offset_right = -151.0
-offset_bottom = -157.0
+offset_left = 65.0
+offset_top = -273.0
+offset_right = 235.0
+offset_bottom = -193.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -441,10 +439,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -302.0
-offset_top = -132.0
-offset_right = -151.0
-offset_bottom = -90.0
+offset_left = -235.0
+offset_top = -130.0
+offset_right = -65.0
+offset_bottom = -50.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -454,7 +452,29 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_6texb")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_i6i5r")
 text = "Wall Jump"
 
+[node name="tutorial4" type="Button" parent="LvlSelect/TabContainer/Tutorial"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 65.0
+offset_top = -130.0
+offset_right = 235.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_acatn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6texb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i6i5r")
+text = "Button Logic
+"
+
 [node name="World1" type="TabBar" parent="LvlSelect/TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="1" type="Button" parent="LvlSelect/TabContainer/World1"]
@@ -669,9 +689,113 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_i6i5r")
 text = "4
 "
 
+[node name="5" type="Button" parent="LvlSelect/TabContainer/World2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -263.0
+offset_top = -73.0
+offset_right = -112.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_acatn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6texb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i6i5r")
+text = "5
+"
+
+[node name="6" type="Button" parent="LvlSelect/TabContainer/World2"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 76.0
+offset_top = -75.0
+offset_right = 227.0
+offset_bottom = -33.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_acatn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6texb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i6i5r")
+text = "6
+"
+
 [node name="World3" type="TabBar" parent="LvlSelect/TabContainer"]
 visible = false
 layout_mode = 2
+
+[node name="1" type="Button" parent="LvlSelect/TabContainer/World3"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -260.0
+offset_top = -260.0
+offset_right = -109.0
+offset_bottom = -218.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_acatn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6texb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i6i5r")
+text = "1
+"
+
+[node name="2" type="Button" parent="LvlSelect/TabContainer/World3"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 78.0
+offset_top = -257.0
+offset_right = 229.0
+offset_bottom = -215.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_acatn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6texb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i6i5r")
+text = "2"
+
+[node name="3" type="Button" parent="LvlSelect/TabContainer/World3"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -263.0
+offset_top = -163.0
+offset_right = -112.0
+offset_bottom = -121.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_acatn")
+theme_override_styles/hover = SubResource("StyleBoxFlat_6texb")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_i6i5r")
+text = "3
+"
 
 [node name="BgPlains" parent="." instance=ExtResource("7_iqf7y")]
 
@@ -683,16 +807,22 @@ layout_mode = 2
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="CreditsLayer/Done" to="." method="_on_done_credits_pressed"]
 [connection signal="pressed" from="LvlSelect/Panel/Cancel" to="LvlSelect" method="_on_cancel_pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/Tutorial/tutorial1" to="LvlSelect" method="_on_tutorial_1_pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/Tutorial/tutorial2" to="LvlSelect" method="_on_tutorial_2_pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/Tutorial/tutorial3" to="LvlSelect" method="_on_tutorial_3_pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/World1/1" to="LvlSelect" method="_on_1_1_pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/World1/2" to="LvlSelect" method="_on_1_2_pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/World1/3" to="LvlSelect" method="_on__pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/World1/4" to="LvlSelect" method="_on_1_4_pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/World1/5" to="LvlSelect" method="_on_1_5_pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/World1/6" to="LvlSelect" method="_on_1_6_pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/World2/1" to="LvlSelect" method="_on_2_1_pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/World2/2" to="LvlSelect" method="_on_2_2_pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/World2/3" to="LvlSelect" method="_on_2_3_pressed"]
-[connection signal="pressed" from="LvlSelect/TabContainer/World2/4" to="LvlSelect" method="_on_2_4_pressed"]
+[connection signal="pressed" from="LvlSelect/TabContainer/Tutorial/tutorial1" to="LvlSelect" method="on_level_selected" binds= [0, 1]]
+[connection signal="pressed" from="LvlSelect/TabContainer/Tutorial/tutorial2" to="LvlSelect" method="on_level_selected" binds= [0, 2]]
+[connection signal="pressed" from="LvlSelect/TabContainer/Tutorial/tutorial3" to="LvlSelect" method="on_level_selected" binds= [0, 3]]
+[connection signal="pressed" from="LvlSelect/TabContainer/Tutorial/tutorial4" to="LvlSelect" method="on_level_selected" binds= [0, 4]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World1/1" to="LvlSelect" method="on_level_selected" binds= [1, 1]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World1/2" to="LvlSelect" method="on_level_selected" binds= [1, 2]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World1/3" to="LvlSelect" method="on_level_selected" binds= [1, 3]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World1/4" to="LvlSelect" method="on_level_selected" binds= [1, 4]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World1/5" to="LvlSelect" method="on_level_selected" binds= [1, 5]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World1/6" to="LvlSelect" method="on_level_selected" binds= [1, 6]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World2/1" to="LvlSelect" method="on_level_selected" binds= [2, 1]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World2/2" to="LvlSelect" method="on_level_selected" binds= [2, 2]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World2/3" to="LvlSelect" method="on_level_selected" binds= [2, 3]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World2/4" to="LvlSelect" method="on_level_selected" binds= [2, 4]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World2/5" to="LvlSelect" method="on_level_selected" binds= [2, 5]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World2/6" to="LvlSelect" method="on_level_selected" binds= [2, 6]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World3/1" to="LvlSelect" method="on_level_selected" binds= [3, 1]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World3/2" to="LvlSelect" method="on_level_selected" binds= [3, 2]]
+[connection signal="pressed" from="LvlSelect/TabContainer/World3/3" to="LvlSelect" method="on_level_selected" binds= [3, 3]]
