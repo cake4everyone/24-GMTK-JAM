@@ -149,8 +149,14 @@ func mouse_button(_event: InputEventMouse):
 		resizeTop = is_on_top_border()
 		resizeBottom = is_on_bottom_border()
 		camPreviousPos = %Camera2D.get_screen_center_position() if %Camera2D else Vector2.ZERO
+		if is_resizing():
+			# TODO: insert sounds here
+			pass
 
 	if Input.is_action_just_released("LeftMouseDown"):
+		if is_resizing():
+			# TODO: insert sounds here
+			pass
 		resizeLeft = false
 		resizeRight = false
 		resizeTop = false
