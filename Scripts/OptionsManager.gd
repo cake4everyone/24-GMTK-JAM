@@ -16,25 +16,14 @@ func _on_done_pressed():
 
 func _on_music_value_changed(value):
 	$Panel/MusicL/Count.text = str(value)
-	if value == 0:
-		SceneManager.volumeMusic = -80
-	elif value < 50:
-		SceneManager.volumeMusic = -(50 - value) / 2 
-	elif value > 50:
-		SceneManager.volumeMusic = abs((50 - value) / 2)
-			
 	SceneManager.lastSoundValues[0] = value
+	SceneManager.update_music_volume()
 	
 
 func _on_SFX_value_changed(value):
 	$Panel/SFXL/Count.text = str(value)
-	if value == 0:
-		SceneManager.volumeSFX = -80
-	elif value < 50:
-		SceneManager.volumeSFX = -(50 - value) / 2 
-	elif value > 50:
-		SceneManager.volumeSFX = abs((50 - value) / 2)
 	SceneManager.lastSoundValues[1] = value
+	SceneManager.update_music_volume()
 
 func _on_fullscreen_check_toggled(toggled_on):
 	SceneManager.fullscreen = toggled_on

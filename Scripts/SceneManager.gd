@@ -10,9 +10,13 @@ var currentLvl := 0
 
 var volumeMusic := 0
 var volumeSFX := 0
-var lastSoundValues := [50,50]
+var lastSoundValues := [30, 50]
 var fullscreen := false
 var music_pos
+
+func _ready():
+	update_music_volume()
+	update_sfx_volume()
 
 func next_lvl():
 	if(currentLvl == 6):
@@ -25,3 +29,15 @@ func next_lvl():
 
 func load_lvl(world, lvl):
 	get_tree().change_scene_to_file(str("res://Scenes/lvl/"+ LvlArr[world][lvl - 1] + ".tscn"))
+
+func update_music_volume():
+	if lastSoundValues[0] == 0:
+		volumeMusic = -80
+	else:
+		volumeMusic = -(50 - lastSoundValues[0]) / 2
+
+func update_sfx_volume():
+	if lastSoundValues[1] == 0:
+		volumeSFX = -80
+	else:
+		volumeSFX = -(50 - lastSoundValues[1]) / 2
