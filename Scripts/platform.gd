@@ -19,6 +19,7 @@ func _get_configuration_warnings():
 
 @export var inverted: bool
 @export var locked: bool
+@export var border_size: int = 10
 var anchorPoint: Vector2
 var group
 var color: Color = Color.WHITE
@@ -36,8 +37,6 @@ var show_inverted: bool
 
 var pending_change: Vector2 = Vector2.ZERO
 
-const BORDER_SIZE := 10
-
 func _ready():
 	if Engine.is_editor_hint():
 		update_configuration_warnings()
@@ -53,8 +52,8 @@ func _ready():
 	$Area2D/ShapeCastBottom.shape = SegmentShape2D.new()
 	$Area2D/ShapeCastBottom.add_exception($StaticBody2D)
 
-	$Mouse.position = Vector2(-BORDER_SIZE, -BORDER_SIZE)
-	$Mouse.size = get_size() + Vector2(2 * BORDER_SIZE, 2 * BORDER_SIZE)
+	$Mouse.position = Vector2(-border_size, -border_size)
+	$Mouse.size = get_size() + Vector2(2 * border_size, 2 * border_size)
 
 	if locked:
 		$Anchor.frame = 1
@@ -115,17 +114,17 @@ func update_area_size(change: Vector2 = Vector2.ZERO):
 	$Area2D/ShapeCastBottom.force_shapecast_update()
 
 func _physics_process(_delta):
-	if locked || !enabled:
+	if locked || !(enabled || get_parent() is MainMenu):
 		deactivated = true
-	elif enabled && %Player && %Player.is_on_floor():
+	elif enabled && %Player && %Player.is_on_floor() || get_parent() is MainMenu:
 		deactivated = false
 
 	# dont process physics in editor
 	if Engine.is_editor_hint(): return
 
 	if is_resizing():
-		add_change(%Camera2D.get_screen_center_position() - camPreviousPos)
-		camPreviousPos = %Camera2D.get_screen_center_position()
+		add_change((%Camera2D.get_screen_center_position() if %Camera2D else Vector2.ZERO) - camPreviousPos)
+		camPreviousPos = %Camera2D.get_screen_center_position() if %Camera2D else Vector2.ZERO
 
 	if !pending_change.is_zero_approx():
 		change_size()
@@ -149,7 +148,7 @@ func mouse_button(_event: InputEventMouse):
 		resizeRight = is_on_right_border()
 		resizeTop = is_on_top_border()
 		resizeBottom = is_on_bottom_border()
-		camPreviousPos = %Camera2D.get_screen_center_position()
+		camPreviousPos = %Camera2D.get_screen_center_position() if %Camera2D else Vector2.ZERO
 
 	if Input.is_action_just_released("LeftMouseDown"):
 		resizeLeft = false
@@ -185,25 +184,25 @@ func is_on_left_border() -> bool:
 	var rect: Rect2 = get_global_rect()
 	var pos: Vector2 = get_local_mouse_position()
 
-	return pos.x >= -BORDER_SIZE && pos.x <= BORDER_SIZE && pos.y >= -BORDER_SIZE && pos.y <= rect.size.y + BORDER_SIZE
+	return pos.x >= -border_size && pos.x <= border_size && pos.y >= -border_size && pos.y <= rect.size.y + border_size
 
 func is_on_right_border() -> bool:
 	var rect: Rect2 = get_global_rect()
 	var pos: Vector2 = get_local_mouse_position()
 
-	return pos.x >= rect.size.x - BORDER_SIZE && pos.x <= rect.size.x + BORDER_SIZE && pos.y >= -BORDER_SIZE && pos.y <= rect.size.y + BORDER_SIZE
+	return pos.x >= rect.size.x - border_size && pos.x <= rect.size.x + border_size && pos.y >= -border_size && pos.y <= rect.size.y + border_size
 
 func is_on_top_border() -> bool:
 	var rect: Rect2 = get_global_rect()
 	var pos: Vector2 = get_local_mouse_position()
 
-	return pos.x >= -BORDER_SIZE && pos.x <= rect.size.x + BORDER_SIZE && pos.y >= -BORDER_SIZE && pos.y <= BORDER_SIZE
+	return pos.x >= -border_size && pos.x <= rect.size.x + border_size && pos.y >= -border_size && pos.y <= border_size
 
 func is_on_bottom_border() -> bool:
 	var rect: Rect2 = get_global_rect()
 	var pos: Vector2 = get_local_mouse_position()
 
-	return pos.x >= -BORDER_SIZE && pos.x <= rect.size.x + BORDER_SIZE && pos.y >= rect.size.y - BORDER_SIZE && pos.y <= rect.size.y + BORDER_SIZE
+	return pos.x >= -border_size && pos.x <= rect.size.x + border_size && pos.y >= rect.size.y - border_size && pos.y <= rect.size.y + border_size
 
 func add_change(change: Vector2):
 	if deactivated || change == Vector2.ZERO:
@@ -260,8 +259,8 @@ func validate_change() -> bool:
 	change += direction
 
 	var newSize: Vector2 = get_size() + change
-	newSize.x = max(newSize.x, 3 * BORDER_SIZE)
-	newSize.y = max(newSize.y, 3 * BORDER_SIZE)
+	newSize.x = max(newSize.x, 3 * border_size)
+	newSize.y = max(newSize.y, 3 * border_size)
 	change = newSize - get_size()
 
 	if inverted:

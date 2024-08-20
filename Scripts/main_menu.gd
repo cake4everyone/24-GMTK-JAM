@@ -1,4 +1,5 @@
 extends CanvasLayer
+class_name MainMenu
 
 func _ready():
 	$Play.hide()

@@ -1,9 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://fpqgj51h4a7i"]
+[gd_scene load_steps=23 format=3 uid="uid://fpqgj51h4a7i"]
 
 [ext_resource type="StyleBox" uid="uid://c2opjcgcmy3pf" path="res://Assets/main_menu.tres" id="1_ewvit"]
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_xrdxv"]
 [ext_resource type="PackedScene" uid="uid://d28p4at7l5fhk" path="res://Scenes/options_layer.tscn" id="2_k5x4v"]
 [ext_resource type="Texture2D" uid="uid://csycpwanh4d47" path="res://Assets/Titlecard.png" id="3_1feiw"]
+[ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://Scenes/platform.tscn" id="3_u2d3a"]
 [ext_resource type="AudioStream" uid="uid://crwclnn2n81f5" path="res://Audio/Music/Plains_theme.wav" id="5_kk8v6"]
 [ext_resource type="Script" path="res://Scenes/LvlSelect.gd" id="5_rwgqs"]
 [ext_resource type="PackedScene" uid="uid://h0toid0bu7et" path="res://Assets/Backgrounds/Plains/BG_Plains.tscn" id="7_iqf7y"]
@@ -18,6 +19,17 @@ border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_56uwm"]
 bg_color = Color(0.152941, 0.152941, 0.152941, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p83ax"]
+size = Vector2(310.477, 469.048)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0bh50"]
+normal = Vector2(1, 2.08165e-12)
+distance = 30.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qma60"]
+normal = Vector2(2.08165e-12, 1)
+distance = 30.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_356yp"]
 bg_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
@@ -159,12 +171,43 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_368aq")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_56uwm")
 text = "QUIT"
 
-[node name="Sprite" type="TextureRect" parent="."]
-offset_left = 123.0
-offset_top = 170.0
-offset_right = 652.0
-offset_bottom = 478.0
+[node name="LogoPlatform" parent="." instance=ExtResource("3_u2d3a")]
+offset_left = -453.0
+offset_top = -154.0
+offset_right = 76.0
+offset_bottom = 154.0
+border_size = 50
+
+[node name="Marker2D" type="Marker2D" parent="LogoPlatform"]
+position = Vector2(264, 154)
+
+[node name="Sprite2" type="TextureRect" parent="LogoPlatform"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -13.725
+offset_top = -7.7
+offset_right = 12.725
+offset_bottom = 7.69998
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("3_1feiw")
+
+[node name="LogoPlatformBox" type="StaticBody2D" parent="."]
+scale = Vector2(1.05, 1.05)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LogoPlatformBox"]
+position = Vector2(850.477, 311.191)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_p83ax")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="LogoPlatformBox"]
+shape = SubResource("WorldBoundaryShape2D_0bh50")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="LogoPlatformBox"]
+shape = SubResource("WorldBoundaryShape2D_qma60")
 
 [node name="CreditsLayer" type="CanvasLayer" parent="."]
 visible = false
