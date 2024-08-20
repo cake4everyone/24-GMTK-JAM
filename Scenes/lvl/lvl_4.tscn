@@ -74,12 +74,12 @@ position = Vector2(16, 0)
 
 [node name="Control2" parent="." instance=ExtResource("7_j86o1")]
 offset_left = 608.0
-offset_top = -61.0
+offset_top = -65.0
 offset_right = 736.0
 offset_bottom = -33.0
 
 [node name="Marker2D" type="Marker2D" parent="Control2"]
-position = Vector2(0, 28)
+position = Vector2(0, 32)
 
 [node name="Goal" parent="." instance=ExtResource("8_8opwb")]
 position = Vector2(526, -289)
