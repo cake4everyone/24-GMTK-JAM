@@ -10,7 +10,7 @@ var currentLvl := 0
 
 var volumeMusic := 0
 var volumeSFX := 0
-var lastSoundValues := [30, 50]
+var lastSoundValues := [30, 30]
 var fullscreen := false
 var music_pos
 
