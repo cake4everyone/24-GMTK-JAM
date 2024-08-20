@@ -32,6 +32,7 @@ var resizeBottom: bool
 var deactivated := true
 var enabled := false
 var mouse_inside: bool
+var show_inverted: bool
 
 var pending_change: Vector2 = Vector2.ZERO
 
@@ -75,7 +76,12 @@ func _ready():
 func update_collider_size():
 	$StaticBody2D/CollisionShape2D.position = self.size / 2
 	$StaticBody2D/CollisionShape2D.shape.size = self.size
-	$Anchor.position = self.size * anchorPoint
+	if show_inverted:
+		var distance = Vector2($Anchor.texture.get_width() / 2 + $Inverted.texture.get_width(), 0) / 2
+		$Anchor.position = self.size * anchorPoint - distance / 2
+		$Inverted.position = self.size * anchorPoint + distance / 2
+	else:
+		$Anchor.position = self.size * anchorPoint
 func update_area_size(change: Vector2 = Vector2.ZERO):
 	## a vector giving half the size of the new platform
 	var newSize: Vector2 = (self.size + change)
@@ -157,6 +163,8 @@ func mouse_motion(event: InputEventMouseMotion):
 		add_change(event.relative)
 		if !$Anchor.is_visible():
 			$Anchor.show()
+		if show_inverted:
+			$Inverted.show()
 
 	if deactivated:
 		$Mouse.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN # X
@@ -272,13 +280,20 @@ func set_new_change():
 
 func _on_mouse_mouse_entered():
 	mouse_inside = true
-	group.icon_lock()
+	group.icon_lock(inverted)
 func _on_mouse_mouse_exited():
 	mouse_inside = false
-	group.icon_lock(false)
+	group.icon_lock(inverted, false)
 
-func icon_lock(s: bool = true):
+func icon_lock(inv: bool, s: bool = true):
 	if s:
 		$Anchor.show()
+		show_inverted = inv != inverted
+		if show_inverted:
+			update_collider_size()
+			show_inverted = true
+			$Inverted.show()
+		
 	else:
 		$Anchor.hide()
+		$Inverted.hide()

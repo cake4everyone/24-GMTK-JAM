@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cf55qg3v5kp2t"]
+[gd_scene load_steps=7 format=3 uid="uid://cf55qg3v5kp2t"]
 
 [ext_resource type="Script" path="res://Scripts/platform.gd" id="1_xjdv1"]
+[ext_resource type="Texture2D" uid="uid://dotqblb3bnsxl" path="res://Assets/icon/inverted.png" id="4_bruq8"]
 [ext_resource type="Texture2D" uid="uid://ciiu53wtid54j" path="res://Assets/icon/anchor.png" id="4_l88cd"]
 [ext_resource type="Texture2D" uid="uid://dkawu7361s7iy" path="res://Assets/tiles.png" id="4_pjthb"]
 
@@ -13,11 +14,15 @@ data = PackedByteArray(255, 243, 132, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 [node name="Control" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1045.0
-offset_bottom = -580.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -544.0
+offset_bottom = -292.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xjdv1")
@@ -42,7 +47,6 @@ axis_stretch_vertical = 1
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(53.5, 34)
 
 [node name="Mouse" type="Control" parent="."]
 layout_mode = 1
@@ -61,6 +65,10 @@ visible = false
 texture = ExtResource("4_l88cd")
 hframes = 2
 
+[node name="Inverted" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_bruq8")
+
 [node name="Tap" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamWAV_bskgt")
 volume_db = -10.0
@@ -70,7 +78,6 @@ stream = SubResource("AudioStreamMP3_vkhjb")
 volume_db = -15.0
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(53.5, 34)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 
