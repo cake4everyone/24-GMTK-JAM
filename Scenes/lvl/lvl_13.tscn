@@ -104,7 +104,6 @@ scale = Vector2(2.43, 2.43)
 input = NodePath("../Button")
 
 [node name="Button" parent="." instance=ExtResource("12_78ofg")]
-position = Vector2(944, -9)
-rotation = 3.14159
+position = Vector2(40, -40)
 
 [node name="BgSpace" parent="." instance=ExtResource("10_35n2o")]
