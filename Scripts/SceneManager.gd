@@ -1,6 +1,6 @@
 extends Node
 
-var LvlArr = [["tutorial_1", "tutorial_2", "tutorial_3"], 
+var LvlArr = [["tutorial_1", "tutorial_2", "tutorial_3", "tutorial_4"], 
 ["lvl_1", "lvl_2", "lvl_3", "lvl_4", "lvl_5", "lvl_6"],
 ["lvl_7", "lvl_8", "lvl_9", "lvl_10", "lvl_11", "lvl_12"],
 ["lvl_13", "lvl_14", "lvl_15", "lvl_16", "lvl_17", "lvl_18"]]
