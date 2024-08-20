@@ -45,6 +45,7 @@ position = Vector2(-283, -63.92)
 limit_left = -830
 limit_top = -445
 limit_right = 1168
+limit_bottom = 150
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_0yjif")]
 visible = false
@@ -67,3 +68,25 @@ position = Vector2(947, 94.9999)
 scale = Vector2(2.43, 2.43)
 
 [node name="BgPlains" parent="." instance=ExtResource("8_ac0ln")]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 163.0
+offset_top = -197.0
+offset_right = 291.0
+offset_bottom = -143.0
+theme_override_font_sizes/font_size = 12
+text = "You can
+slide on
+walls..."
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 429.0
+offset_top = -18.0
+offset_right = 557.0
+offset_bottom = 39.0
+theme_override_font_sizes/font_size = 12
+text = "... and
+ jump of
+them while
+sliding"

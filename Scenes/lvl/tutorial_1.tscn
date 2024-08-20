@@ -43,7 +43,9 @@ texture = ExtResource("3_8gwlk")
 unique_name_in_owner = true
 position = Vector2(-283, -34.825)
 limit_left = -830
+limit_top = -350
 limit_right = 1168
+limit_bottom = 330
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_cc03f")]
 visible = false
@@ -66,3 +68,30 @@ position = Vector2(651, 98)
 scale = Vector2(2.43, 2.43)
 
 [node name="BgPlains" parent="." instance=ExtResource("8_u7fax")]
+
+[node name="Label" type="Label" parent="."]
+offset_left = -458.0
+offset_top = -56.0
+offset_right = -282.0
+offset_bottom = -2.0
+text = "Use WASD
+to move ..."
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -90.0
+offset_top = 8.0
+offset_right = 134.0
+offset_bottom = 62.0
+text = "... and hit
+Space to jump."
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 327.0
+offset_top = 69.0
+offset_right = 599.0
+offset_bottom = 123.0
+text = "Try a Double Jump
+for larger gaps!"
+horizontal_alignment = 1
