@@ -32,9 +32,6 @@ func _process(_delta):
 		$Vignette.hide()
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("Einfg - Debug"):
-		SceneManager.next_lvl()
-	
 	var input_dir: Vector2 = input()
 
 	if input_dir != Vector2.ZERO:

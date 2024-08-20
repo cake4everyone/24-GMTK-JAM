@@ -19,7 +19,7 @@ texture = ExtResource("1_ba4uk")
 centered = false
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.1, 0)
+motion_scale = Vector2(0.05, 0)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer2"]
@@ -27,7 +27,7 @@ texture = ExtResource("2_4dleq")
 centered = false
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.3, 0)
+motion_scale = Vector2(0.1, 0)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer3"]
@@ -35,7 +35,7 @@ texture = ExtResource("3_nnl8s")
 centered = false
 
 [node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.4, 0)
+motion_scale = Vector2(0.2, 0)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer4"]
@@ -43,7 +43,7 @@ texture = ExtResource("4_vk6q6")
 centered = false
 
 [node name="ParallaxLayer5" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.5, 0)
+motion_scale = Vector2(0.3, 0)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer5"]
@@ -51,7 +51,7 @@ texture = ExtResource("5_aqwkg")
 centered = false
 
 [node name="ParallaxLayer6" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.6, 0)
+motion_scale = Vector2(0.35, 0)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer6"]
@@ -59,7 +59,7 @@ texture = ExtResource("6_f37f7")
 centered = false
 
 [node name="ParallaxLayer7" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.7, 0)
+motion_scale = Vector2(0.4, 0)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer7"]
@@ -67,7 +67,7 @@ texture = ExtResource("7_1gc2e")
 centered = false
 
 [node name="ParallaxLayer8" type="ParallaxLayer" parent="."]
-motion_scale = Vector2(0.8, 0)
+motion_scale = Vector2(0.5, 0)
 motion_mirroring = Vector2(1152, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxLayer8"]
