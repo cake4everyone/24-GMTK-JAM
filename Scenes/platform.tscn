@@ -45,6 +45,8 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 
@@ -78,24 +80,30 @@ stream = SubResource("AudioStreamMP3_vkhjb")
 volume_db = -15.0
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 
 [node name="ShapeCastLeft" type="ShapeCast2D" parent="Area2D"]
 target_position = Vector2(0, 0)
 max_results = 1
+collision_mask = 7
 
 [node name="ShapeCastRight" type="ShapeCast2D" parent="Area2D"]
 target_position = Vector2(0, 0)
 max_results = 1
+collision_mask = 7
 
 [node name="ShapeCastTop" type="ShapeCast2D" parent="Area2D"]
 target_position = Vector2(0, 0)
 max_results = 1
+collision_mask = 7
 
 [node name="ShapeCastBottom" type="ShapeCast2D" parent="Area2D"]
 target_position = Vector2(0, 0)
 max_results = 1
+collision_mask = 7
 
 [connection signal="mouse_entered" from="Mouse" to="." method="_on_mouse_mouse_entered"]
 [connection signal="mouse_exited" from="Mouse" to="." method="_on_mouse_mouse_exited"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c8phpkyb2pabb"]
+[gd_scene load_steps=14 format=3 uid="uid://c8phpkyb2pabb"]
 
 [ext_resource type="PackedScene" uid="uid://cmnrovymckqxo" path="res://Scenes/player.tscn" id="1_w1i83"]
 [ext_resource type="Shader" uid="uid://j2yoof5fi55g" path="res://dissolve.tres" id="2_ulwpa"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://cf55qg3v5kp2t" path="res://Scenes/platform.tscn" id="7_t8a4i"]
 [ext_resource type="PackedScene" uid="uid://b2xhhj8w4t2sk" path="res://Scenes/goal.tscn" id="8_cyxrm"]
 [ext_resource type="PackedScene" uid="uid://h0toid0bu7et" path="res://Assets/Backgrounds/Plains/BG_Plains.tscn" id="9_go7d2"]
-[ext_resource type="PackedScene" uid="uid://d1tyjpqq4xwja" path="res://Scenes/button.tscn" id="10_qlplk"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_o8ll0"]
 frequency = 0.0053
@@ -78,8 +77,3 @@ position = Vector2(927, -272)
 scale = Vector2(2.43, 2.43)
 
 [node name="BgPlains" parent="." instance=ExtResource("9_go7d2")]
-
-[node name="Button" parent="." instance=ExtResource("10_qlplk")]
-position = Vector2(673, 111)
-rotation = -1.56115
-scale = Vector2(2.025, 2.025)

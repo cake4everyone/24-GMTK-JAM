@@ -77,6 +77,12 @@ RightMouseDown={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Map"
+2d_physics/layer_2="Resizeable Platforms"
+2d_physics/layer_3="Objects"
+
 [physics]
 
 2d/default_gravity=80.0
