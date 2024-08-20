@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://cmnrovymckqxo"]
+[gd_scene load_steps=15 format=3 uid="uid://cmnrovymckqxo"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_4plat"]
 [ext_resource type="Texture2D" uid="uid://d6iexy2qbmph" path="res://Assets/Player_Anim.png" id="2_jahqq"]
+[ext_resource type="AudioStream" uid="uid://b81mhptoxwve1" path="res://Audio/SFX/jump.wav" id="3_rnk4n"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_s81fw"]
 radius = 18.0
@@ -186,6 +187,9 @@ collision_mask = 2
 libraries = {
 "": SubResource("AnimationLibrary_lrkrx")
 }
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_rnk4n")
 
 [connection signal="body_exited" from="Left" to="." method="_on_left_body_exited"]
 [connection signal="body_exited" from="Range" to="." method="_on_range_body_exited"]

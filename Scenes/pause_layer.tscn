@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://de4k07oqpcyya"]
+[gd_scene load_steps=8 format=3 uid="uid://de4k07oqpcyya"]
 
 [ext_resource type="Script" path="res://Scenes/pause_layer.gd" id="1_0ejoe"]
+[ext_resource type="AudioStream" uid="uid://bcqanoj8ifqnl" path="res://Audio/SFX/Fanfare.wav" id="3_3m0si"]
 [ext_resource type="StyleBox" uid="uid://c2opjcgcmy3pf" path="res://Assets/main_menu.tres" id="3_t510q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_avy57"]
@@ -24,6 +25,7 @@ bg_color = Color(0.152941, 0.152941, 0.152941, 1)
 
 [node name="PauseLayer" type="CanvasLayer"]
 process_mode = 3
+visible = false
 script = ExtResource("1_0ejoe")
 
 [node name="Panel" type="Panel" parent="."]
@@ -46,7 +48,8 @@ offset_bottom = 95.0
 text = "PAUSE"
 label_settings = SubResource("LabelSettings_e1q4e")
 
-[node name="Resume" type="Button" parent="."]
+[node name="Resume" type="Button" parent="Panel"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -65,7 +68,8 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_da3xd")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_m87bc")
 text = "RESUME"
 
-[node name="Options" type="Button" parent="."]
+[node name="Options" type="Button" parent="Panel"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -84,7 +88,8 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_da3xd")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_m87bc")
 text = "OPTIONS"
 
-[node name="Restart Level" type="Button" parent="."]
+[node name="Restart Level" type="Button" parent="Panel"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -103,7 +108,8 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_da3xd")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_m87bc")
 text = "RESTART LEVEL"
 
-[node name="Quit" type="Button" parent="."]
+[node name="Quit" type="Button" parent="Panel"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -120,9 +126,75 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = ExtResource("3_t510q")
 theme_override_styles/hover = SubResource("StyleBoxFlat_da3xd")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_m87bc")
-text = "QUIT"
+text = "MAIN MENU"
 
-[connection signal="pressed" from="Resume" to="." method="_on_resume_pressed"]
-[connection signal="pressed" from="Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="Restart Level" to="." method="_on_restart_level_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[node name="Success" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="Panel" type="Panel" parent="Success"]
+offset_right = 1153.0
+offset_bottom = 649.0
+
+[node name="Label" type="Label" parent="Success/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.498
+anchor_right = 0.498
+offset_left = -419.194
+offset_top = 30.0
+offset_right = 420.806
+offset_bottom = 90.0
+text = "LEVEL COMPLETE
+WELL DONE!"
+label_settings = SubResource("LabelSettings_e1q4e")
+horizontal_alignment = 1
+
+[node name="Resume" type="Button" parent="Success/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 211.5
+offset_top = 180.5
+offset_right = 525.5
+offset_bottom = 282.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("3_t510q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_da3xd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m87bc")
+text = "NEXT LEVEL"
+
+[node name="main menu" type="Button" parent="Success/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -525.5
+offset_top = 177.5
+offset_right = -217.5
+offset_bottom = 279.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("3_t510q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_da3xd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_m87bc")
+text = "MAIN MENU"
+
+[node name="Fanfare" type="AudioStreamPlayer" parent="Success"]
+stream = ExtResource("3_3m0si")
+
+[connection signal="pressed" from="Panel/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="Panel/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="Panel/Restart Level" to="." method="_on_restart_level_pressed"]
+[connection signal="pressed" from="Panel/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Success/Panel/Resume" to="." method="_on_next_lvl_pressed"]
+[connection signal="pressed" from="Success/Panel/main menu" to="." method="_on_quit_pressed"]

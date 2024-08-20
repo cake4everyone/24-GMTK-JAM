@@ -23,7 +23,7 @@ func _on_music_value_changed(value):
 func _on_SFX_value_changed(value):
 	$Panel/SFXL/Count.text = str(value)
 	SceneManager.lastSoundValues[1] = value
-	SceneManager.update_music_volume()
+	SceneManager.update_sfx_volume()
 
 func _on_fullscreen_check_toggled(toggled_on):
 	SceneManager.fullscreen = toggled_on

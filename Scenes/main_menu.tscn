@@ -200,7 +200,6 @@ scale = Vector2(1.05, 1.05)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LogoPlatformBox"]
 position = Vector2(850.477, 311.191)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_p83ax")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="LogoPlatformBox"]
@@ -281,17 +280,20 @@ Cloud Tileset: \"Retro Cloud Tileset\"
 - ohnoponogames
 
 Overworld & Cave Backgrounds:
-\"Parallax Backgrounds\" - Admurin
+\"Parallax Backgrounds\" - -Admurin
 
 Space Background: \"Space Backgrounds\"
 -Ansimuz
 
-Overworld & Cave 
-Theme: \"RPG Music Pack\"
+Overworld, Cave 
+Theme & Fanfare: \"RPG Music Pack\"
 - shononoki
 
 Space Theme: \"To the Space\"
 -alkakrab
+
+Player Sound Effects: 
+\"Platformer Bundle\" -Brackeys
 
 This Game was made during the 
 GMTK Game Jam 2024"

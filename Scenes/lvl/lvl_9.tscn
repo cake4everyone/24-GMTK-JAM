@@ -50,7 +50,7 @@ limit_right = 1053
 limit_bottom = 230
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_xmudc")]
-visible = false
+unique_name_in_owner = true
 
 [node name="Options_Layer" parent="." instance=ExtResource("5_aft16")]
 process_mode = 3

@@ -27,9 +27,9 @@ func _process(_delta):
 	$BgPlains.scroll_offset.x -= 1
 
 func _on_play_pressed():
-	get_tree().change_scene_to_file("res://Scenes/lvl/lvl_1.tscn")
+	get_tree().change_scene_to_file("res://Scenes/lvl/tutorial_1.tscn")
 	SceneManager.currentLvl = 1
-	SceneManager.currentWorld = 1
+	SceneManager.currentWorld = 0
 
 func _on_lvls_pressed():
 	$LvlSelect.show()

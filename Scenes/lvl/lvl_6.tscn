@@ -49,7 +49,7 @@ limit_right = 1168
 limit_bottom = 160
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_0fjsi")]
-visible = false
+unique_name_in_owner = true
 
 [node name="Options_Layer" parent="." instance=ExtResource("5_fq0kl")]
 process_mode = 3

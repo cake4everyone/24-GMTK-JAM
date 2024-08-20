@@ -126,7 +126,7 @@ theme_override_styles/slider = SubResource("StyleBoxFlat_u2jom")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_aopqb")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_njnwt")
 step = 5.0
-value = 50.0
+value = 30.0
 
 [node name="Count" type="Label" parent="Panel/MusicL"]
 layout_mode = 1
@@ -139,7 +139,7 @@ offset_left = -98.2
 offset_top = -6.0
 offset_right = -63.2
 offset_bottom = 10.0
-text = "50"
+text = "30"
 label_settings = SubResource("LabelSettings_rm745")
 
 [node name="SFXL" type="Label" parent="Panel"]
@@ -164,7 +164,7 @@ theme_override_styles/slider = SubResource("StyleBoxFlat_u2jom")
 theme_override_styles/grabber_area = SubResource("StyleBoxFlat_aopqb")
 theme_override_styles/grabber_area_highlight = SubResource("StyleBoxFlat_njnwt")
 step = 5.0
-value = 50.0
+value = 30.0
 
 [node name="Count" type="Label" parent="Panel/SFXL"]
 layout_mode = 1
@@ -177,7 +177,7 @@ offset_left = -98.2
 offset_top = -6.0
 offset_right = -63.2
 offset_bottom = 10.0
-text = "50"
+text = "30"
 label_settings = SubResource("LabelSettings_rm745")
 
 [node name="FullscreenL" type="Label" parent="Panel"]

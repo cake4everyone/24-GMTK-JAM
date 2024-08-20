@@ -42,14 +42,14 @@ texture = ExtResource("3_8l3ju")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(167, 161)
+position = Vector2(154, 2.175)
 limit_left = -125
 limit_top = -580
 limit_right = 1168
 limit_bottom = 170
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_vf25q")]
-visible = false
+unique_name_in_owner = true
 
 [node name="Options_Layer" parent="." instance=ExtResource("5_f5kkw")]
 process_mode = 3

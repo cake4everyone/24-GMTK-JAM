@@ -26,6 +26,7 @@ func _ready():
 		gravity = 80
 
 func _process(_delta):
+	$Jump.volume_db = SceneManager.volumeSFX
 	if Input.is_action_pressed("RightMouseDown"):
 		$Vignette.show()
 	else:
@@ -69,15 +70,19 @@ func input():
 func jump():
 	if is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		$Jump.play()
 	elif doubleJump && !slidingr && !slidingl:
 		velocity.y = JUMP_VELOCITY * 0.8
+		$Jump.play()
 		doubleJump = false
 
 	if slidingl:
+		$Jump.play()
 		velocity.y = JUMP_VELOCITY * 0.7
 		velocity.x = WALL_JUMP_PUSHBACK
 
 	if slidingr:
+		$Jump.play()
 		velocity.y = JUMP_VELOCITY * 0.7
 		velocity.x = -WALL_JUMP_PUSHBACK
 
