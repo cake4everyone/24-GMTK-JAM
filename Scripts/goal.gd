@@ -18,8 +18,8 @@ func _process(_delta):
 		$Flag.frame = 0
 
 func _physics_process(_delta):
-	if %Player in $Area2D.get_overlapping_bodies():
-		pass
+	if enabled && %Player in $Area2D.get_overlapping_bodies():
+		SceneManager.next_lvl()
 
 func on_input_activate():
 	enabled = true
