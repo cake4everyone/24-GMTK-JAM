@@ -130,6 +130,9 @@ func _physics_process(_delta):
 		change_size()
 
 func _process(_delta):
+	# dont process physics in editor
+	if Engine.is_editor_hint(): return
+
 	$up.volume_db = SceneManager.volumeSFX
 	$down.volume_db = SceneManager.volumeSFX
 	if deactivated:
