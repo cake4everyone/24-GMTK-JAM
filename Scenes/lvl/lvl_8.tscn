@@ -74,19 +74,19 @@ scale = Vector2(2.43, 2.43)
 color = Color(0, 0.0941176, 0.407843, 1)
 
 [node name="Control2" parent="PlatformGroup" instance=ExtResource("8_txj3k")]
-offset_left = 457.0
-offset_top = -81.0
-offset_right = -631.0
-offset_bottom = -473.0
+offset_left = -117.0
+offset_top = -405.0
+offset_right = -87.0
+offset_bottom = -149.0
 
 [node name="Marker2D" type="Marker2D" parent="PlatformGroup/Control2"]
-position = Vector2(32, 0)
+position = Vector2(15, 0)
 
 [node name="Control" parent="PlatformGroup" instance=ExtResource("8_txj3k")]
-offset_left = 591.0
-offset_top = -81.0
-offset_right = -497.0
-offset_bottom = -473.0
+offset_left = 3.0
+offset_top = -405.0
+offset_right = 33.0
+offset_bottom = -149.0
 
 [node name="Marker2D" type="Marker2D" parent="PlatformGroup/Control"]
-position = Vector2(32, 255)
+position = Vector2(15, 256)

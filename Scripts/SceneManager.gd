@@ -22,3 +22,6 @@ func next_lvl():
 	else:
 		currentLvl += 1
 		get_tree().change_scene_to_file(str("res://Scenes/lvl/"+ LvlArr[currentWorld][currentLvl - 1] + ".tscn"))
+
+func load_lvl(world, lvl):
+	get_tree().change_scene_to_file(str("res://Scenes/lvl/"+ LvlArr[world][lvl - 1] + ".tscn"))

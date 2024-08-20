@@ -44,4 +44,3 @@ func _on_quit_pressed():
 
 func _on_done_credits_pressed():
 	$CreditsLayer.hide()
-
