@@ -55,6 +55,9 @@ func _ready():
 	$Mouse.position = Vector2(-BORDER_SIZE, -BORDER_SIZE)
 	$Mouse.size = get_size() + Vector2(2 * BORDER_SIZE, 2 * BORDER_SIZE)
 
+	if locked:
+		$Anchor.frame = 1
+
 	for child in get_children():
 		if !(child is Marker2D):
 			continue
@@ -72,7 +75,7 @@ func _ready():
 func update_collider_size():
 	$StaticBody2D/CollisionShape2D.position = self.size / 2
 	$StaticBody2D/CollisionShape2D.shape.size = self.size
-	$Lock.position = self.size * anchorPoint
+	$Anchor.position = self.size * anchorPoint
 func update_area_size(change: Vector2 = Vector2.ZERO):
 	## a vector giving half the size of the new platform
 	var newSize: Vector2 = (self.size + change)
@@ -152,8 +155,8 @@ func mouse_button(_event: InputEventMouse):
 func mouse_motion(event: InputEventMouseMotion):
 	if resizeRight || resizeLeft || resizeBottom || resizeTop:
 		add_change(event.relative)
-		if !$Lock.is_visible():
-			$Lock.show()
+		if !$Anchor.is_visible():
+			$Anchor.show()
 
 	if deactivated:
 		$Mouse.mouse_default_cursor_shape = Control.CURSOR_FORBIDDEN # X
@@ -276,6 +279,6 @@ func _on_mouse_mouse_exited():
 
 func icon_lock(s: bool = true):
 	if s:
-		$Lock.show()
+		$Anchor.show()
 	else:
-		$Lock.hide()
+		$Anchor.hide()

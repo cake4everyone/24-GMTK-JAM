@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbniex53q1ftj"
-path="res://.godot/imported/Inverted Arrow.png-97dcab5cdcced5685e7f62c415401b10.ctex"
+uid="uid://dotqblb3bnsxl"
+path="res://.godot/imported/inverted.png-6e8e3503ba2fabe2815be1920eb9a564.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Inverted Arrow.png"
-dest_files=["res://.godot/imported/Inverted Arrow.png-97dcab5cdcced5685e7f62c415401b10.ctex"]
+source_file="res://Assets/icon/inverted.png"
+dest_files=["res://.godot/imported/inverted.png-6e8e3503ba2fabe2815be1920eb9a564.ctex"]
 
 [params]
 

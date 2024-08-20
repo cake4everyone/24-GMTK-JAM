@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgckwdrjfycei"
-path="res://.godot/imported/Lock.png-4c445a351e26b576dd1e59e929a22169.ctex"
+uid="uid://ciiu53wtid54j"
+path="res://.godot/imported/anchor.png-44608c62279908b0460a6c3bfb186dbc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Lock.png"
-dest_files=["res://.godot/imported/Lock.png-4c445a351e26b576dd1e59e929a22169.ctex"]
+source_file="res://Assets/icon/anchor.png"
+dest_files=["res://.godot/imported/anchor.png-44608c62279908b0460a6c3bfb186dbc.ctex"]
 
 [params]
 
