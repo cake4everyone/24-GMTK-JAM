@@ -95,17 +95,6 @@ offset_bottom = 128.0
 [node name="Marker2D" type="Marker2D" parent="Control"]
 position = Vector2(0, 32)
 
-[node name="Label" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = -36.0
-offset_top = -343.0
-offset_right = 188.0
-offset_bottom = -289.0
-text = "You can extend
-cubes to push
-a button"
-horizontal_alignment = 1
-
 [node name="Label" type="Label" parent="."]
 offset_left = 414.0
 offset_top = -96.0
@@ -116,3 +105,13 @@ unlocked by
 pushing⠀
 a button "
 horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 935.0
+offset_top = -247.0
+offset_right = 1159.0
+offset_bottom = -193.0
+text = "You can extend
+cubes to push
+a button"
+horizontal_alignment = 1
