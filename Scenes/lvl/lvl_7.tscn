@@ -44,7 +44,9 @@ texture = ExtResource("3_qfaw1")
 unique_name_in_owner = true
 position = Vector2(245, 188.415)
 limit_left = -100
+limit_top = -328
 limit_right = 1163
+limit_bottom = 320
 
 [node name="PauseLayer" parent="." instance=ExtResource("4_37h3b")]
 visible = false
