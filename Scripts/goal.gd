@@ -3,6 +3,7 @@ class_name Goal
 
 signal LvlComplete
 
+@export var gate: LogicGate
 @export var input: LogicInput
 
 var enabled: bool = true
@@ -23,7 +24,6 @@ func _physics_process(_delta):
 	if enabled && %Player in $Area2D.get_overlapping_bodies():
 		%PauseLayer.lvl_completed()
 		
-
 func on_input_activate():
 	enabled = true
 func on_input_deactivate():
