@@ -4,15 +4,17 @@ class_name Goal
 signal LvlComplete
 
 @export var gate: LogicGate
-@export var input: LogicInput
 
-var enabled: bool = true
+var enabled: bool
 
 func _ready():
-	if input:
-		enabled = false
-		input.activate.connect(on_input_activate)
-		input.deactivate.connect(on_input_deactivate)
+	if gate:
+		enabled = gate.default_state()
+		gate.activate.connect(on_input_activate)
+		gate.deactivate.connect(on_input_deactivate)
+		gate.parse_node(self)
+	else:
+		enabled = true
 
 func _process(_delta):
 	if enabled:

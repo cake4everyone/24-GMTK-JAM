@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dywblg5tusufh"]
+[gd_scene load_steps=18 format=3 uid="uid://dywblg5tusufh"]
 
 [ext_resource type="PackedScene" uid="uid://cmnrovymckqxo" path="res://Scenes/player.tscn" id="1_krbdm"]
 [ext_resource type="Shader" uid="uid://j2yoof5fi55g" path="res://dissolve.tres" id="2_2pmwy"]
@@ -10,6 +10,7 @@
 [ext_resource type="TileSet" uid="uid://degcid11w0g5" path="res://Assets/tileset lvl.tres" id="8_xbfdi"]
 [ext_resource type="PackedScene" uid="uid://b2xhhj8w4t2sk" path="res://Scenes/goal.tscn" id="9_r5cyk"]
 [ext_resource type="PackedScene" uid="uid://d1tyjpqq4xwja" path="res://Scenes/button.tscn" id="10_5ixj3"]
+[ext_resource type="Script" path="res://Scripts/resource/node_buffer.gd" id="10_20dwy"]
 [ext_resource type="PackedScene" uid="uid://bfjg6vh8i3nh7" path="res://Assets/Backgrounds/Space/BG_Space.tscn" id="11_d1t1g"]
 [ext_resource type="PackedScene" uid="uid://bmttrlcv3iv7j" path="res://Scenes/door.tscn" id="12_33dbp"]
 
@@ -23,6 +24,10 @@ noise = SubResource("FastNoiseLite_o8ll0")
 shader = ExtResource("2_2pmwy")
 shader_parameter/DissolveValue = 1.0
 shader_parameter/Noise = SubResource("NoiseTexture2D_othlj")
+
+[sub_resource type="Resource" id="Resource_i4n02"]
+script = ExtResource("10_20dwy")
+input = NodePath("../Button")
 
 [node name="lvl_14" type="Node2D"]
 
@@ -228,6 +233,7 @@ layer_0/tile_data = PackedInt32Array(1376257, 458752, 3, 1376258, 458752, 3, 137
 [node name="Goal" parent="." instance=ExtResource("9_r5cyk")]
 position = Vector2(1042, -61)
 scale = Vector2(2.43, 2.43)
+gate = SubResource("Resource_i4n02")
 
 [node name="Button" parent="." instance=ExtResource("10_5ixj3")]
 position = Vector2(569, 105)
@@ -235,7 +241,6 @@ rotation = 1.5708
 
 [node name="BgSpace" parent="." instance=ExtResource("11_d1t1g")]
 
-[node name="Door" parent="." node_paths=PackedStringArray("input") instance=ExtResource("12_33dbp")]
+[node name="Door" parent="." instance=ExtResource("12_33dbp")]
 position = Vector2(914, -72)
 scale = Vector2(1.25, 1.25)
-input = NodePath("../Button")
