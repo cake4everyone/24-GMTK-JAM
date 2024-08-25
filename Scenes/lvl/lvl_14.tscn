@@ -233,7 +233,6 @@ layer_0/tile_data = PackedInt32Array(1376257, 458752, 3, 1376258, 458752, 3, 137
 [node name="Goal" parent="." instance=ExtResource("9_r5cyk")]
 position = Vector2(1042, -61)
 scale = Vector2(2.43, 2.43)
-gate = SubResource("Resource_i4n02")
 
 [node name="Button" parent="." instance=ExtResource("10_5ixj3")]
 position = Vector2(569, 105)
@@ -244,3 +243,4 @@ rotation = 1.5708
 [node name="Door" parent="." instance=ExtResource("12_33dbp")]
 position = Vector2(914, -72)
 scale = Vector2(1.25, 1.25)
+gate = SubResource("Resource_i4n02")
