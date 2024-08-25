@@ -42,7 +42,7 @@ texture = ExtResource("3_iwqjn")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(1172, -348)
+position = Vector2(-283, -34.825)
 limit_left = -830
 limit_top = -350
 limit_right = 1168

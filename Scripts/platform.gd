@@ -17,8 +17,8 @@ func _get_configuration_warnings():
 		warnings.append("Node of type 'Marker2D' as anchor is missing.")
 	return warnings
 
-@export var inverted: bool
-@export var locked: bool
+@export var inverted: bool = false
+@export var locked: bool = false
 @export var border_size: int = 10
 var anchorPoint: Vector2
 var group

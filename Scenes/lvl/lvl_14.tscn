@@ -78,7 +78,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="Marker2D" type="Marker2D" parent="Control"]
-position = Vector2(163, 129)
+position = Vector2(163, 124)
 
 [node name="Control6" parent="." instance=ExtResource("7_drkdk")]
 anchors_preset = 0
